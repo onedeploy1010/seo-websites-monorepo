@@ -13,6 +13,10 @@ const navigation = [
   { name: 'Spider Pool', href: '/spider', icon: '🕷️' },
 ]
 
+const adminOnlyNavigation = [
+  { name: 'Settings', href: '/settings', icon: '⚙️' },
+]
+
 export function Sidebar() {
   const pathname = usePathname()
   const { data: session } = useSession()
@@ -46,6 +50,33 @@ export function Sidebar() {
             </Link>
           )
         })}
+
+        {/* Admin Only Navigation */}
+        {session?.user?.role === 'ADMIN' && (
+          <>
+            <div className="my-2 border-t border-gray-700" />
+            {adminOnlyNavigation.map((item) => {
+              const isActive = pathname.startsWith(item.href)
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className={`
+                    group flex items-center px-2 py-2 text-sm font-medium rounded-md
+                    ${
+                      isActive
+                        ? 'bg-gray-800 text-white'
+                        : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+                    }
+                  `}
+                >
+                  <span className="mr-3 text-xl">{item.icon}</span>
+                  {item.name}
+                </Link>
+              )
+            })}
+          </>
+        )}
       </nav>
 
       {/* User info */}

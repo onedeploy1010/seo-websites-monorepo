@@ -2,8 +2,9 @@ import { NextRequest, NextResponse } from 'next/server'
 import { openai } from '@ai-sdk/openai'
 import { generateText } from 'ai'
 import { prisma } from '@repo/database'
+import { getOpenAIConfig } from '@/lib/openai-config'
 
-export const runtime = 'edge'
+export const runtime = 'nodejs' // 使用 Node.js runtime 以支持 Prisma
 export const maxDuration = 300 // 5 minutes for batch processing
 
 interface BatchOptimizeRequest {
@@ -41,12 +42,8 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    if (!process.env.OPENAI_API_KEY) {
-      return NextResponse.json(
-        { error: 'OpenAI API key not configured' },
-        { status: 500 }
-      )
-    }
+    // 获取 OpenAI 配置（优先数据库，fallback 到环境变量）
+    const { apiKey, model } = await getOpenAIConfig()
 
     const results: OptimizationResult[] = []
 
@@ -92,7 +89,7 @@ Generate optimized SEO metadata in JSON format:
 Return ONLY valid JSON.`
 
         const { text } = await generateText({
-          model: openai('gpt-4-turbo'),
+          model: openai(model, { apiKey }),
           prompt,
           temperature: 0.7,
           maxTokens: 800,

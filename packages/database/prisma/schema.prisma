@@ -269,3 +269,27 @@ enum TaskStatus {
   FAILED
   CANCELLED
 }
+
+// 系统设置
+model SystemSetting {
+  id          String   @id @default(cuid())
+  key         String   @unique
+  value       String   @db.Text
+  description String?
+  category    SettingCategory @default(GENERAL)
+  isEncrypted Boolean  @default(false) // 是否为敏感信息（API Key等）
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([category])
+  @@map("system_settings")
+}
+
+enum SettingCategory {
+  GENERAL      // 通用设置
+  API          // API 配置
+  SEO          // SEO 设置
+  ANALYTICS    // 分析工具
+  NOTIFICATION // 通知设置
+}

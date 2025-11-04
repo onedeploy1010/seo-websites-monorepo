@@ -1,8 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { openai } from '@ai-sdk/openai'
 import { generateText } from 'ai'
+import { getOpenAIConfig } from '@/lib/openai-config'
 
-export const runtime = 'edge'
+// 改为 Node.js runtime 以支持数据库访问
+export const runtime = 'nodejs'
+export const maxDuration = 300 // 5 分钟超时
 
 interface OptimizeSEORequest {
   title: string
@@ -23,13 +26,8 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    // Check for API key
-    if (!process.env.OPENAI_API_KEY) {
-      return NextResponse.json(
-        { error: 'OpenAI API key not configured' },
-        { status: 500 }
-      )
-    }
+    // 获取 OpenAI 配置（优先数据库，fallback 到环境变量）
+    const { apiKey, model } = await getOpenAIConfig()
 
     // Prepare the prompt for SEO optimization
     const keywordsStr = keywords.length > 0 ? keywords.join(', ') : 'none provided'
@@ -59,9 +57,9 @@ Return ONLY valid JSON in this exact format:
   "suggestions": ["suggestion1", "suggestion2", ...]
 }`
 
-    // Generate AI response
+    // Generate AI response（使用配置的模型和 API Key）
     const { text } = await generateText({
-      model: openai('gpt-4-turbo'),
+      model: openai(model, { apiKey }),
       prompt,
       temperature: 0.7,
       maxTokens: 1000,
