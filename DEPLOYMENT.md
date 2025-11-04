@@ -1,5 +1,20 @@
 # Vercel 部署指南
 
+## ⚠️ 重要：Turborepo 环境变量配置
+
+**此项目使用 Turborepo**，环境变量必须在 `turbo.json` 中声明才能在构建时使用。
+
+已配置的环境变量列表在 `turbo.json` 的 `globalEnv` 字段中。
+
+**如果你添加新的环境变量：**
+1. 在 Vercel 添加环境变量
+2. 在 `turbo.json` 的 `globalEnv` 数组中添加变量名
+3. 提交并推送更改
+
+详细说明请查看：[TURBOREPO-ENV-VARS.md](./TURBOREPO-ENV-VARS.md)
+
+---
+
 ## 📋 部署前准备
 
 ### 1. 准备数据库
