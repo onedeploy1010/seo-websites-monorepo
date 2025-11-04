@@ -1,6 +1,4 @@
 {
-  "buildCommand": "cd ../.. && npm run build -- --filter=website-1",
-  "installCommand": "cd ../.. && npm install",
   "framework": "nextjs",
   "regions": ["hnd1"]
 }
