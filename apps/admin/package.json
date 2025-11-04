@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ai-sdk/openai": "^1.0.14",
     "@repo/database": "*",
     "@repo/seo-tools": "*",
     "@tanstack/react-query": "^5.13.0",

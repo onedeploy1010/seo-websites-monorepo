@@ -620,18 +620,11 @@ pm2 status
 
 ## 📄 许可证
 
-MIT License - Copyright (c) 2025 SEO Websites Monorepo
+MIT License - Copyright (c) 2025 
 
 ---
 
-## 📞 联系方式
-
-- 📧 Email: support@example.com
-- 🐛 Issues: [GitHub Issues](https://github.com/your-username/seo-websites-monorepo/issues)
-
----
-
-## 🙏 致谢
+## 🙏 
 
 感谢以下开源项目：
 
@@ -654,14 +647,14 @@ MIT License - Copyright (c) 2025 SEO Websites Monorepo
 - [x] 关键词跟踪
 - [x] Sitemap 管理
 
-### v1.1 🚧 规划中
+### v1.1 🚧 
 - [ ] 批量文章导入/导出
 - [ ] 高级内容编辑器
 - [ ] 图片 CDN 集成
 - [ ] 多语言 i18n 支持
 - [ ] 邮件通知系统
 
-### v2.0 💡 未来
+### v2.0 💡 
 - [ ] 竞争对手分析
 - [ ] 自动内容生成
 - [ ] 社交媒体集成
@@ -672,9 +665,7 @@ MIT License - Copyright (c) 2025 SEO Websites Monorepo
 
 <div align="center">
 
-**⭐ 如果这个项目对您有帮助，请给我们一个星标！**
-
-Made with ❤️ by SEO Websites Team
+Made with ❤️ by  Onelong
 
 **开发状态**: ✅ 100% 完成 | **文档**: ✅ 完整 | **AI功能**: 🆕 已集成
 
