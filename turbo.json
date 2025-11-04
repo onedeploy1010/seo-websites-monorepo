@@ -1,6 +1,27 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": ["**/.env.*local"],
+  "globalEnv": [
+    "DATABASE_URL",
+    "NEXTAUTH_SECRET",
+    "NEXTAUTH_URL",
+    "OPENAI_API_KEY",
+    "SETTINGS_ENCRYPTION_KEY",
+    "NEXT_PUBLIC_SITE_NAME",
+    "NEXT_PUBLIC_SITE_URL",
+    "NEXT_PUBLIC_GA_MEASUREMENT_ID",
+    "NEXT_PUBLIC_GOOGLE_VERIFICATION",
+    "NEXT_PUBLIC_BING_VERIFICATION",
+    "NEXT_PUBLIC_YANDEX_VERIFICATION",
+    "POSTGRES_URL",
+    "POSTGRES_PRISMA_URL",
+    "POSTGRES_URL_NO_SSL",
+    "POSTGRES_URL_NON_POOLING",
+    "POSTGRES_USER",
+    "POSTGRES_HOST",
+    "POSTGRES_PASSWORD",
+    "POSTGRES_DATABASE"
+  ],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
