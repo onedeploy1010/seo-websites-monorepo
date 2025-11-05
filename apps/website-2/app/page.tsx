@@ -5,32 +5,40 @@ import Hero from '@/components/Hero'
 import Services from '@/components/Services'
 import Footer from '@/components/Footer'
 
+// Force dynamic rendering to avoid build-time database queries
+export const dynamic = 'force-dynamic'
+
 async function getRecentPosts() {
-  const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'Telegram中文官网'
+  try {
+    const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'Telegram中文官网'
 
-  const website = await prisma.website.findFirst({
-    where: {
-      OR: [
-        { name: { contains: siteName } },
-        { domain: { contains: 'localhost:3002' } }
-      ]
-    },
-  })
+    const website = await prisma.website.findFirst({
+      where: {
+        OR: [
+          { name: { contains: siteName } },
+          { domain: { contains: 'localhost:3002' } }
+        ]
+      },
+    })
 
-  if (!website) return []
+    if (!website) return []
 
-  const posts = await prisma.post.findMany({
-    where: {
-      websiteId: website.id,
-      status: 'PUBLISHED',
-    },
-    orderBy: {
-      createdAt: 'desc',
-    },
-    take: 6,
-  })
+    const posts = await prisma.post.findMany({
+      where: {
+        websiteId: website.id,
+        status: 'PUBLISHED',
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+      take: 6,
+    })
 
-  return posts
+    return posts
+  } catch (error) {
+    console.error('Database error:', error)
+    return []
+  }
 }
 
 export default async function Home() {

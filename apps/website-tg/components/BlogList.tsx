@@ -14,30 +14,35 @@ interface BlogPost {
 }
 
 async function getPosts() {
-  const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'TG中文纸飞机'
+  try {
+    const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'TG中文纸飞机'
 
-  const website = await prisma.website.findFirst({
-    where: {
-      OR: [
-        { name: { contains: siteName } },
-        { domain: { contains: 'localhost:3003' } }
-      ]
-    },
-  })
+    const website = await prisma.website.findFirst({
+      where: {
+        OR: [
+          { name: { contains: siteName } },
+          { domain: { contains: 'localhost:3003' } }
+        ]
+      },
+    })
 
-  if (!website) return []
+    if (!website) return []
 
-  const dbPosts = await prisma.post.findMany({
-    where: {
-      websiteId: website.id,
-      status: 'PUBLISHED',
-    },
-    orderBy: {
-      createdAt: 'desc',
-    },
-  })
+    const dbPosts = await prisma.post.findMany({
+      where: {
+        websiteId: website.id,
+        status: 'PUBLISHED',
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    })
 
-  return dbPosts
+    return dbPosts
+  } catch (error) {
+    console.error('Database error:', error)
+    return []
+  }
 }
 
 export default async function BlogList() {

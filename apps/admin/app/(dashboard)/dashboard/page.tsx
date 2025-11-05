@@ -2,6 +2,7 @@
 
 import { useSession } from 'next-auth/react'
 import { useQuery } from '@tanstack/react-query'
+import { useTranslations } from '@/components/I18nProvider'
 
 interface Stats {
   totalWebsites: number
@@ -18,6 +19,7 @@ async function fetchStats(): Promise<Stats> {
 
 export default function DashboardPage() {
   const { data: session } = useSession()
+  const t = useTranslations()
   const { data: stats, isLoading } = useQuery({
     queryKey: ['stats'],
     queryFn: fetchStats,
@@ -25,25 +27,25 @@ export default function DashboardPage() {
 
   const statCards = [
     {
-      name: 'Total Websites',
+      name: t('dashboard.totalWebsites'),
       value: stats?.totalWebsites ?? 0,
       icon: '🌐',
       color: 'bg-blue-500',
     },
     {
-      name: 'Total Posts',
+      name: t('dashboard.totalPosts'),
       value: stats?.totalPosts ?? 0,
       icon: '📝',
       color: 'bg-green-500',
     },
     {
-      name: 'Keywords Tracked',
+      name: t('dashboard.keywordsTracked'),
       value: stats?.totalKeywords ?? 0,
       icon: '🔑',
       color: 'bg-purple-500',
     },
     {
-      name: 'Spider Visits (24h)',
+      name: t('dashboard.spiderVisits'),
       value: stats?.recentSpiderVisits ?? 0,
       icon: '🕷️',
       color: 'bg-orange-500',
@@ -54,10 +56,10 @@ export default function DashboardPage() {
     <div>
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900">
-          Welcome back, {session?.user?.name}!
+          {t('dashboard.welcome', { name: session?.user?.name || '' })}
         </h1>
         <p className="mt-2 text-gray-600">
-          Here&apos;s an overview of your SEO management system
+          {t('dashboard.overview')}
         </p>
       </div>
 
@@ -92,24 +94,24 @@ export default function DashboardPage() {
       {/* Quick Actions */}
       <div className="mt-8">
         <h2 className="text-xl font-semibold text-gray-900 mb-4">
-          Quick Actions
+          {t('dashboard.quickActions')}
         </h2>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <QuickActionCard
-            title="Add New Website"
-            description="Configure a new website for management"
+            title={t('dashboard.addWebsite')}
+            description={t('dashboard.addWebsiteDesc')}
             icon="➕"
             href="/websites/new"
           />
           <QuickActionCard
-            title="Create Post"
-            description="Write and publish new blog content"
+            title={t('dashboard.createPost')}
+            description={t('dashboard.createPostDesc')}
             icon="✍️"
             href="/posts/create"
           />
           <QuickActionCard
-            title="Check Rankings"
-            description="Monitor keyword rankings"
+            title={t('dashboard.checkRankings')}
+            description={t('dashboard.checkRankingsDesc')}
             icon="📈"
             href="/keywords"
           />

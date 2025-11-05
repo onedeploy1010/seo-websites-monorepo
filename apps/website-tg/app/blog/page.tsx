@@ -3,6 +3,9 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import BlogList from '@/components/BlogList'
 
+// Force dynamic rendering to avoid build-time database queries
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: '博客文章',
   description: 'Telegram 营销技巧、行业资讯、成功案例分享 - 帮助您更好地运营 Telegram 频道',

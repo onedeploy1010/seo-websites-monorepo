@@ -3,6 +3,7 @@
 import { useQuery } from '@tanstack/react-query'
 import Link from 'next/link'
 import { format } from 'date-fns'
+import { useTranslations } from '@/components/I18nProvider'
 
 interface Website {
   id: string
@@ -24,6 +25,7 @@ async function fetchWebsites(): Promise<Website[]> {
 }
 
 export default function WebsitesPage() {
+  const t = useTranslations()
   const { data: websites, isLoading } = useQuery({
     queryKey: ['websites'],
     queryFn: fetchWebsites,
@@ -33,21 +35,21 @@ export default function WebsitesPage() {
     <div>
       <div className="mb-8 flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Websites</h1>
-          <p className="mt-2 text-gray-600">Manage your SEO websites</p>
+          <h1 className="text-3xl font-bold text-gray-900">{t('websites.title')}</h1>
+          <p className="mt-2 text-gray-600">{t('websites.subtitle')}</p>
         </div>
         <Link
           href="/websites/new"
           className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-500"
         >
-          Add Website
+          {t('websites.add')}
         </Link>
       </div>
 
       {isLoading ? (
         <div className="text-center py-12">
           <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent"></div>
-          <p className="mt-2 text-gray-600">Loading websites...</p>
+          <p className="mt-2 text-gray-600">{t('common.loading')}</p>
         </div>
       ) : websites && websites.length > 0 ? (
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -59,17 +61,17 @@ export default function WebsitesPage() {
         <div className="text-center py-12 bg-white rounded-lg border border-gray-200">
           <span className="text-6xl">🌐</span>
           <h3 className="mt-2 text-sm font-semibold text-gray-900">
-            No websites
+            {t('websites.noWebsites')}
           </h3>
           <p className="mt-1 text-sm text-gray-500">
-            Get started by creating a new website.
+            {t('websites.noWebsitesDesc')}
           </p>
           <div className="mt-6">
             <Link
               href="/websites/new"
               className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500"
             >
-              Add your first website
+              {t('websites.addFirst')}
             </Link>
           </div>
         </div>
@@ -79,6 +81,7 @@ export default function WebsitesPage() {
 }
 
 function WebsiteCard({ website }: { website: Website }) {
+  const t = useTranslations()
   const statusColor = {
     ACTIVE: 'bg-green-100 text-green-800',
     INACTIVE: 'bg-gray-100 text-gray-800',
@@ -113,16 +116,16 @@ function WebsiteCard({ website }: { website: Website }) {
       <div className="mt-4 flex items-center space-x-4 text-sm text-gray-500">
         <div className="flex items-center">
           <span className="mr-1">📝</span>
-          {website._count.posts} posts
+          {t('websites.postsCount', { count: website._count.posts })}
         </div>
         <div className="flex items-center">
           <span className="mr-1">🔑</span>
-          {website._count.keywords} keywords
+          {t('websites.keywordsCount', { count: website._count.keywords })}
         </div>
       </div>
 
       <div className="mt-3 text-xs text-gray-400">
-        Created {format(new Date(website.createdAt), 'MMM d, yyyy')}
+        {t('websites.created', { date: format(new Date(website.createdAt), 'MMM d, yyyy') })}
       </div>
     </Link>
   )

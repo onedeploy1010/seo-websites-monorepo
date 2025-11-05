@@ -1,9 +1,27 @@
 import { prisma } from '@repo/database'
+
+// Force dynamic rendering to avoid build-time database queries
+export const dynamic = 'force-dynamic'
 import Link from 'next/link'
+
+// Force dynamic rendering to avoid build-time database queries
+export const dynamic = 'force-dynamic'
 import Header from '@/components/Header'
+
+// Force dynamic rendering to avoid build-time database queries
+export const dynamic = 'force-dynamic'
 import Hero from '@/components/Hero'
+
+// Force dynamic rendering to avoid build-time database queries
+export const dynamic = 'force-dynamic'
 import Services from '@/components/Services'
+
+// Force dynamic rendering to avoid build-time database queries
+export const dynamic = 'force-dynamic'
 import Footer from '@/components/Footer'
+
+// Force dynamic rendering to avoid build-time database queries
+export const dynamic = 'force-dynamic'
 
 async function getRecentPosts() {
   const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'Demo Website 1'

@@ -3,6 +3,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { format } from 'date-fns'
 import { useState } from 'react'
+import { useTranslations } from '@/components/I18nProvider'
 
 interface SpiderLog {
   id: string
@@ -33,6 +34,7 @@ async function fetchSpiderStats(timeRange: string = '24h'): Promise<SpiderStats>
 }
 
 export default function SpiderPage() {
+  const t = useTranslations()
   const [timeRange, setTimeRange] = useState('24h')
 
   const { data: stats, isLoading } = useQuery({
@@ -53,9 +55,9 @@ export default function SpiderPage() {
     <div>
       <div className="mb-8 flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Spider Pool Monitor</h1>
+          <h1 className="text-3xl font-bold text-gray-900">{t('spider.title')}</h1>
           <p className="mt-2 text-gray-600">
-            Track search engine crawler activity across your websites
+            {t('spider.subtitle')}
           </p>
         </div>
         <select
@@ -63,17 +65,17 @@ export default function SpiderPage() {
           onChange={(e) => setTimeRange(e.target.value)}
           className="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-3 py-2 border"
         >
-          <option value="1h">Last Hour</option>
-          <option value="24h">Last 24 Hours</option>
-          <option value="7d">Last 7 Days</option>
-          <option value="30d">Last 30 Days</option>
+          <option value="1h">{t('spider.lastHour')}</option>
+          <option value="24h">{t('spider.last24Hours')}</option>
+          <option value="7d">{t('spider.last7Days')}</option>
+          <option value="30d">{t('spider.last30Days')}</option>
         </select>
       </div>
 
       {isLoading ? (
         <div className="text-center py-12">
           <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent"></div>
-          <p className="mt-2 text-gray-600">Loading spider data...</p>
+          <p className="mt-2 text-gray-600">{t('common.loading')}</p>
         </div>
       ) : (
         <>
@@ -88,7 +90,7 @@ export default function SpiderPage() {
                   <div className="ml-5 w-0 flex-1">
                     <dl>
                       <dt className="text-sm font-medium text-gray-500 truncate">
-                        Total Visits
+                        {t('spider.totalVisits')}
                       </dt>
                       <dd className="text-3xl font-semibold text-gray-900">
                         {stats?.totalVisits ?? 0}
@@ -108,7 +110,7 @@ export default function SpiderPage() {
                   <div className="ml-5 w-0 flex-1">
                     <dl>
                       <dt className="text-sm font-medium text-gray-500 truncate">
-                        Unique Bots
+                        {t('spider.uniqueBots')}
                       </dt>
                       <dd className="text-3xl font-semibold text-gray-900">
                         {stats?.uniqueBots ?? 0}
@@ -125,7 +127,7 @@ export default function SpiderPage() {
                   <span className="text-2xl">📊</span>
                 </div>
                 <dl className="mt-2">
-                  <dt className="text-sm font-medium text-gray-500">Top Bot</dt>
+                  <dt className="text-sm font-medium text-gray-500">{t('spider.topBot')}</dt>
                   <dd className="text-lg font-semibold text-gray-900">
                     {stats?.topBots[0] ? (
                       <span className="flex items-center">
@@ -135,7 +137,7 @@ export default function SpiderPage() {
                         {stats.topBots[0].bot} ({stats.topBots[0].count})
                       </span>
                     ) : (
-                      'N/A'
+                      t('common.notAvailable')
                     )}
                   </dd>
                 </dl>
@@ -147,7 +149,7 @@ export default function SpiderPage() {
             {/* Top Bots */}
             <div className="bg-white shadow rounded-lg p-6">
               <h2 className="text-lg font-medium text-gray-900 mb-4">
-                Top Search Engine Crawlers
+                {t('spider.topCrawlers')}
               </h2>
               {stats?.topBots && stats.topBots.length > 0 ? (
                 <div className="space-y-3">
@@ -162,7 +164,7 @@ export default function SpiderPage() {
                             {bot.bot}
                           </span>
                           <span className="text-sm text-gray-500">
-                            {bot.count} visits
+                            {t('spider.visitsCount', { count: bot.count })}
                           </span>
                         </div>
                         <div className="w-full bg-gray-200 rounded-full h-2">
@@ -179,7 +181,7 @@ export default function SpiderPage() {
                 </div>
               ) : (
                 <p className="text-sm text-gray-500 text-center py-4">
-                  No crawler visits recorded
+                  {t('spider.noVisits')}
                 </p>
               )}
             </div>
@@ -187,7 +189,7 @@ export default function SpiderPage() {
             {/* Recent Visits */}
             <div className="bg-white shadow rounded-lg p-6">
               <h2 className="text-lg font-medium text-gray-900 mb-4">
-                Recent Crawler Visits
+                {t('spider.recentVisits')}
               </h2>
               {stats?.recentVisits && stats.recentVisits.length > 0 ? (
                 <div className="space-y-3 max-h-96 overflow-y-auto">
@@ -199,7 +201,7 @@ export default function SpiderPage() {
                       <div className="flex items-center justify-between mb-1">
                         <span className="font-medium text-gray-900">
                           {botIcons[visit.bot?.toLowerCase() || ''] || '🤖'}{' '}
-                          {visit.bot || 'Unknown'}
+                          {visit.bot || t('common.unknown')}
                         </span>
                         <span className="text-xs text-gray-500">
                           {format(new Date(visit.createdAt), 'MMM d, HH:mm')}
@@ -217,7 +219,7 @@ export default function SpiderPage() {
                 </div>
               ) : (
                 <p className="text-sm text-gray-500 text-center py-4">
-                  No recent visits
+                  {t('spider.noRecentVisits')}
                 </p>
               )}
             </div>

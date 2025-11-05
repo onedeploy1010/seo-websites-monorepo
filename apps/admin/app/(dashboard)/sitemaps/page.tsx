@@ -2,6 +2,7 @@
 
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { format } from 'date-fns'
+import { useTranslations } from '@/components/I18nProvider'
 
 interface Sitemap {
   id: string
@@ -42,6 +43,7 @@ async function submitSitemap(sitemapId: string, engines: string[]) {
 }
 
 export default function SitemapsPage() {
+  const t = useTranslations()
   const queryClient = useQueryClient()
 
   const { data: sitemaps, isLoading } = useQuery({
@@ -67,16 +69,16 @@ export default function SitemapsPage() {
   return (
     <div>
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Sitemaps</h1>
+        <h1 className="text-3xl font-bold text-gray-900">{t('sitemaps.title')}</h1>
         <p className="mt-2 text-gray-600">
-          Generate and submit sitemaps to search engines
+          {t('sitemaps.subtitle')}
         </p>
       </div>
 
       {isLoading ? (
         <div className="text-center py-12">
           <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent"></div>
-          <p className="mt-2 text-gray-600">Loading sitemaps...</p>
+          <p className="mt-2 text-gray-600">{t('common.loading')}</p>
         </div>
       ) : sitemaps && sitemaps.length > 0 ? (
         <div className="bg-white shadow-sm rounded-lg overflow-hidden">
@@ -84,19 +86,19 @@ export default function SitemapsPage() {
             <thead className="bg-gray-50">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Website
+                  {t('sitemaps.table.website')}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Sitemap URL
+                  {t('sitemaps.table.url')}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Last Generated
+                  {t('sitemaps.table.lastGenerated')}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Last Submitted
+                  {t('sitemaps.table.lastSubmitted')}
                 </th>
                 <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Actions
+                  {t('sitemaps.table.actions')}
                 </th>
               </tr>
             </thead>
@@ -126,12 +128,12 @@ export default function SitemapsPage() {
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     {sitemap.updatedAt
                       ? format(new Date(sitemap.updatedAt), 'MMM d, yyyy HH:mm')
-                      : 'Never'}
+                      : t('common.never')}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     {sitemap.submittedAt
                       ? format(new Date(sitemap.submittedAt), 'MMM d, yyyy HH:mm')
-                      : 'Never'}
+                      : t('common.never')}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
                     <button
@@ -139,7 +141,7 @@ export default function SitemapsPage() {
                       disabled={generateMutation.isPending}
                       className="text-indigo-600 hover:text-indigo-900 disabled:text-gray-400"
                     >
-                      Generate
+                      {t('sitemaps.generate')}
                     </button>
                     <button
                       onClick={() =>
@@ -151,7 +153,7 @@ export default function SitemapsPage() {
                       disabled={submitMutation.isPending}
                       className="text-green-600 hover:text-green-900 disabled:text-gray-400"
                     >
-                      Submit All
+                      {t('sitemaps.submitAll')}
                     </button>
                   </td>
                 </tr>
@@ -163,10 +165,10 @@ export default function SitemapsPage() {
         <div className="text-center py-12 bg-white rounded-lg border border-gray-200">
           <span className="text-6xl">🗺️</span>
           <h3 className="mt-2 text-sm font-semibold text-gray-900">
-            No sitemaps configured
+            {t('sitemaps.noSitemaps')}
           </h3>
           <p className="mt-1 text-sm text-gray-500">
-            Sitemaps will be created automatically when you add websites.
+            {t('sitemaps.noSitemapsDesc')}
           </p>
         </div>
       )}

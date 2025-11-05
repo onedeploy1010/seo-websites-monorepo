@@ -1,6 +1,15 @@
 import { prisma } from '@repo/database'
+
+// Force dynamic rendering to avoid build-time database queries
+export const dynamic = 'force-dynamic'
 import Link from 'next/link'
+
+// Force dynamic rendering to avoid build-time database queries
+export const dynamic = 'force-dynamic'
 import { format } from 'date-fns'
+
+// Force dynamic rendering to avoid build-time database queries
+export const dynamic = 'force-dynamic'
 
 async function getAllPosts() {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || ''

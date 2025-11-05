@@ -3,29 +3,32 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { signOut, useSession } from 'next-auth/react'
-
-const navigation = [
-  { name: 'Dashboard', href: '/dashboard', icon: '📊' },
-  { name: 'Websites', href: '/websites', icon: '🌐' },
-  { name: 'Posts', href: '/posts', icon: '📝' },
-  { name: 'Keywords', href: '/keywords', icon: '🔑' },
-  { name: 'Sitemaps', href: '/sitemaps', icon: '🗺️' },
-  { name: 'Spider Pool', href: '/spider', icon: '🕷️' },
-]
-
-const adminOnlyNavigation = [
-  { name: 'Settings', href: '/settings', icon: '⚙️' },
-]
+import { useTranslations } from './I18nProvider'
+import LanguageSwitcher from './LanguageSwitcher'
 
 export function Sidebar() {
   const pathname = usePathname()
   const { data: session } = useSession()
+  const t = useTranslations()
+
+  const navigation = [
+    { key: 'dashboard', href: '/dashboard', icon: '📊' },
+    { key: 'websites', href: '/websites', icon: '🌐' },
+    { key: 'posts', href: '/posts', icon: '📝' },
+    { key: 'keywords', href: '/keywords', icon: '🔑' },
+    { key: 'sitemaps', href: '/sitemaps', icon: '🗺️' },
+    { key: 'spider', href: '/spider', icon: '🕷️' },
+  ]
+
+  const adminOnlyNavigation = [
+    { key: 'settings', href: '/settings', icon: '⚙️' },
+  ]
 
   return (
     <div className="flex h-screen w-64 flex-col bg-gray-900">
       {/* Logo */}
       <div className="flex h-16 items-center justify-center border-b border-gray-800">
-        <h1 className="text-xl font-bold text-white">SEO Manager</h1>
+        <h1 className="text-xl font-bold text-white">{t('common.appName')}</h1>
       </div>
 
       {/* Navigation */}
@@ -34,7 +37,7 @@ export function Sidebar() {
           const isActive = pathname.startsWith(item.href)
           return (
             <Link
-              key={item.name}
+              key={item.key}
               href={item.href}
               className={`
                 group flex items-center px-2 py-2 text-sm font-medium rounded-md
@@ -46,7 +49,7 @@ export function Sidebar() {
               `}
             >
               <span className="mr-3 text-xl">{item.icon}</span>
-              {item.name}
+              {t(`nav.${item.key}`)}
             </Link>
           )
         })}
@@ -59,7 +62,7 @@ export function Sidebar() {
               const isActive = pathname.startsWith(item.href)
               return (
                 <Link
-                  key={item.name}
+                  key={item.key}
                   href={item.href}
                   className={`
                     group flex items-center px-2 py-2 text-sm font-medium rounded-md
@@ -71,13 +74,19 @@ export function Sidebar() {
                   `}
                 >
                   <span className="mr-3 text-xl">{item.icon}</span>
-                  {item.name}
+                  {t(`nav.${item.key}`)}
                 </Link>
               )
             })}
           </>
         )}
       </nav>
+
+      {/* Language Switcher */}
+      <div className="border-t border-gray-800 px-4 py-3">
+        <div className="text-xs text-gray-400 mb-2">{t('common.language')}</div>
+        <LanguageSwitcher />
+      </div>
 
       {/* User info */}
       <div className="border-t border-gray-800 p-4">
@@ -96,7 +105,7 @@ export function Sidebar() {
           onClick={() => signOut({ callbackUrl: '/login' })}
           className="mt-3 w-full rounded-md bg-gray-800 px-3 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white"
         >
-          Sign out
+          {t('auth.signOut')}
         </button>
       </div>
     </div>

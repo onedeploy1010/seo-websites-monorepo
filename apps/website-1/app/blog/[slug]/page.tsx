@@ -1,7 +1,19 @@
 import { prisma } from '@repo/database'
+
+// Force dynamic rendering to avoid build-time database queries
+export const dynamic = 'force-dynamic'
 import { notFound } from 'next/navigation'
+
+// Force dynamic rendering to avoid build-time database queries
+export const dynamic = 'force-dynamic'
 import { format } from 'date-fns'
+
+// Force dynamic rendering to avoid build-time database queries
+export const dynamic = 'force-dynamic'
 import type { Metadata } from 'next'
+
+// Force dynamic rendering to avoid build-time database queries
+export const dynamic = 'force-dynamic'
 
 interface Props {
   params: { slug: string }

@@ -2,6 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query'
 import Link from 'next/link'
+import { useTranslations } from '@/components/I18nProvider'
 
 interface Keyword {
   id: string
@@ -24,6 +25,7 @@ async function fetchKeywords(): Promise<Keyword[]> {
 }
 
 export default function KeywordsPage() {
+  const t = useTranslations()
   const { data: keywords, isLoading } = useQuery({
     queryKey: ['keywords'],
     queryFn: fetchKeywords,
@@ -38,23 +40,23 @@ export default function KeywordsPage() {
     <div>
       <div className="mb-8 flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Keywords</h1>
+          <h1 className="text-3xl font-bold text-gray-900">{t('keywords.title')}</h1>
           <p className="mt-2 text-gray-600">
-            Track keyword rankings across search engines
+            {t('keywords.subtitle')}
           </p>
         </div>
         <Link
           href="/keywords/new"
           className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-500"
         >
-          Add Keyword
+          {t('keywords.add')}
         </Link>
       </div>
 
       {isLoading ? (
         <div className="text-center py-12">
           <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent"></div>
-          <p className="mt-2 text-gray-600">Loading keywords...</p>
+          <p className="mt-2 text-gray-600">{t('common.loading')}</p>
         </div>
       ) : keywords && keywords.length > 0 ? (
         <div className="bg-white shadow-sm rounded-lg overflow-hidden">
@@ -62,19 +64,19 @@ export default function KeywordsPage() {
             <thead className="bg-gray-50">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Keyword
+                  {t('keywords.table.keyword')}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Website
+                  {t('keywords.table.website')}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Search Engine
+                  {t('keywords.table.searchEngine')}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Current Ranking
+                  {t('keywords.table.ranking')}
                 </th>
                 <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Actions
+                  {t('keywords.table.actions')}
                 </th>
               </tr>
             </thead>
@@ -104,7 +106,7 @@ export default function KeywordsPage() {
                           #{latestRanking}
                         </span>
                       ) : (
-                        <span className="text-sm text-gray-500">Not ranked</span>
+                        <span className="text-sm text-gray-500">{t('keywords.notRanked')}</span>
                       )}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
@@ -112,7 +114,7 @@ export default function KeywordsPage() {
                         href={`/keywords/${keyword.id}`}
                         className="text-indigo-600 hover:text-indigo-900"
                       >
-                        View Details
+                        {t('keywords.viewDetails')}
                       </Link>
                     </td>
                   </tr>
@@ -125,17 +127,17 @@ export default function KeywordsPage() {
         <div className="text-center py-12 bg-white rounded-lg border border-gray-200">
           <span className="text-6xl">🔑</span>
           <h3 className="mt-2 text-sm font-semibold text-gray-900">
-            No keywords tracked
+            {t('keywords.noKeywords')}
           </h3>
           <p className="mt-1 text-sm text-gray-500">
-            Start tracking keywords to monitor your SEO performance.
+            {t('keywords.noKeywordsDesc')}
           </p>
           <div className="mt-6">
             <Link
               href="/keywords/new"
               className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500"
             >
-              Add your first keyword
+              {t('keywords.addFirst')}
             </Link>
           </div>
         </div>

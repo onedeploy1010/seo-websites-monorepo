@@ -2,30 +2,38 @@ import { prisma } from '@repo/database'
 import Link from 'next/link'
 import { format } from 'date-fns'
 
+// Force dynamic rendering to avoid build-time database queries
+export const dynamic = 'force-dynamic'
+
 async function getAllPosts() {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || ''
+  try {
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || ''
 
-  const website = await prisma.website.findFirst({
-    where: {
-      domain: {
-        contains: siteUrl.replace('http://', '').replace('https://', ''),
+    const website = await prisma.website.findFirst({
+      where: {
+        domain: {
+          contains: siteUrl.replace('http://', '').replace('https://', ''),
+        },
       },
-    },
-  })
+    })
 
-  if (!website) return []
+    if (!website) return []
 
-  const posts = await prisma.post.findMany({
-    where: {
-      websiteId: website.id,
-      status: 'PUBLISHED',
-    },
-    orderBy: {
-      createdAt: 'desc',
-    },
-  })
+    const posts = await prisma.post.findMany({
+      where: {
+        websiteId: website.id,
+        status: 'PUBLISHED',
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    })
 
-  return posts
+    return posts
+  } catch (error) {
+    console.error('Database error:', error)
+    return []
+  }
 }
 
 export default async function BlogPage() {

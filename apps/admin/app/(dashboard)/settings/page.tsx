@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
+import { useTranslations } from '@/components/I18nProvider'
 
 type Setting = {
   id: string
@@ -77,6 +78,7 @@ const SETTING_TEMPLATES: SettingInput[] = [
 ]
 
 export default function SettingsPage() {
+  const t = useTranslations()
   const { data: session, status } = useSession()
   const router = useRouter()
   const [settings, setSettings] = useState<Setting[]>([])

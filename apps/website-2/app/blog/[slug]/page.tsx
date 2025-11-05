@@ -3,32 +3,40 @@ import { notFound } from 'next/navigation'
 import { format } from 'date-fns'
 import type { Metadata } from 'next'
 
+// Force dynamic rendering to avoid build-time database queries
+export const dynamic = 'force-dynamic'
+
 interface Props {
   params: { slug: string }
 }
 
 async function getPost(slug: string) {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || ''
+  try {
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || ''
 
-  const website = await prisma.website.findFirst({
-    where: {
-      domain: {
-        contains: siteUrl.replace('http://', '').replace('https://', ''),
+    const website = await prisma.website.findFirst({
+      where: {
+        domain: {
+          contains: siteUrl.replace('http://', '').replace('https://', ''),
+        },
       },
-    },
-  })
+    })
 
-  if (!website) return null
+    if (!website) return null
 
-  const post = await prisma.post.findFirst({
-    where: {
-      slug,
-      websiteId: website.id,
-      status: 'PUBLISHED',
-    },
-  })
+    const post = await prisma.post.findFirst({
+      where: {
+        slug,
+        websiteId: website.id,
+        status: 'PUBLISHED',
+      },
+    })
 
-  return post
+    return post
+  } catch (error) {
+    console.error('Database error:', error)
+    return null
+  }
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

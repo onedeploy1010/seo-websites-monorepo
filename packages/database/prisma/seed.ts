@@ -49,16 +49,23 @@ async function main() {
 
   const website2 = await prisma.website.upsert({
     where: { domain: 'localhost:3002' },
-    update: {},
-    create: {
-      name: 'Demo Website 2',
-      domain: 'localhost:3002',
-      description: 'Second demo website for testing',
-      status: 'ACTIVE',
-      seoTitle: 'Demo Website 2 - Content Syndication',
+    update: {
+      name: 'Telegram中文官网',
+      description: 'Telegram中文官网 - 即时通讯，高效安全，强悍的聊天交友工具',
+      seoTitle: 'Telegram中文官网 - TG中文版下载 | 纸飞机中文版',
       seoDescription:
-        'Second demonstration website for content syndication testing',
-      seoKeywords: ['content', 'syndication', 'blog', 'nextjs'],
+        'Telegram中文官网提供TG中文版、纸飞机中文版下载。支持iOS、Android、Windows、Mac全平台，安全加密的即时通讯工具。',
+      seoKeywords: ['telegram', 'tg', '纸飞机', 'telegram中文', '电报', 'telegram下载'],
+    },
+    create: {
+      name: 'Telegram中文官网',
+      domain: 'localhost:3002',
+      description: 'Telegram中文官网 - 即时通讯，高效安全，强悍的聊天交友工具',
+      status: 'ACTIVE',
+      seoTitle: 'Telegram中文官网 - TG中文版下载 | 纸飞机中文版',
+      seoDescription:
+        'Telegram中文官网提供TG中文版、纸飞机中文版下载。支持iOS、Android、Windows、Mac全平台，安全加密的即时通讯工具。',
+      seoKeywords: ['telegram', 'tg', '纸飞机', 'telegram中文', '电报', 'telegram下载'],
     },
   })
   console.log('✅ Created/Updated website:', website2.name)
@@ -204,6 +211,148 @@ Start syndicating your content today and watch your reach grow!`,
     },
   })
   console.log('✅ Created/Updated post:', post3.title)
+
+  // Create posts for website2 (Telegram官网)
+  const postW2_1 = await prisma.post.upsert({
+    where: {
+      websiteId_slug: {
+        websiteId: website2.id,
+        slug: 'telegram-introduction',
+      },
+    },
+    update: {},
+    create: {
+      title: 'Telegram中文版完整介绍 - 功能、特点与优势',
+      slug: 'telegram-introduction',
+      content: `Telegram是一款全球领先的即时通讯应用，以其强大的功能、极致的安全性和卓越的用户体验而闻名。
+
+## 核心特点
+
+**1. 安全加密**
+- 采用MTProto加密协议
+- 支持端到端加密的秘密聊天
+- 消息可设置自毁功能
+
+**2. 云端同步**
+- 消息存储在云端
+- 支持多设备同时登录
+- 跨平台无缝切换
+
+**3. 功能强大**
+- 支持最大2GB的文件传输
+- 群组成员可达20万人
+- 频道支持无限订阅者`,
+      metaTitle: 'Telegram中文版完整介绍 - TG功能特点与优势',
+      metaDescription:
+        'Telegram中文版详细介绍，了解TG的核心功能、安全特性和使用优势，包括端到端加密、云同步、大文件传输等特点。',
+      metaKeywords: ['telegram', 'telegram中文', 'tg介绍', 'telegram功能'],
+      status: 'PUBLISHED',
+      websiteId: website2.id,
+      authorId: admin.id,
+    },
+  })
+  console.log('✅ Created/Updated website2 post:', postW2_1.title)
+
+  const postW2_2 = await prisma.post.upsert({
+    where: {
+      websiteId_slug: {
+        websiteId: website2.id,
+        slug: 'telegram-download-all-platforms',
+      },
+    },
+    update: {},
+    create: {
+      title: 'Telegram全平台下载指南 - Windows/Mac/iOS/Android',
+      slug: 'telegram-download-all-platforms',
+      content: `本指南将帮助您在各种设备上下载和安装 Telegram。
+
+## Windows 电脑版下载
+
+1. 访问官方网站
+2. 点击"下载 Windows 版"
+3. 运行安装程序
+4. 完成安装向导
+
+## Mac 电脑版下载
+
+1. 访问官方网站或App Store
+2. 下载Mac版本
+3. 拖拽到应用程序文件夹
+4. 打开并登录
+
+## Android 手机下载
+
+1. 打开 Google Play 商店
+2. 搜索"Telegram"
+3. 点击安装
+4. 等待下载完成
+
+## iOS iPhone/iPad 下载
+
+1. 打开 App Store
+2. 搜索"Telegram"
+3. 点击获取
+4. 输入 Apple ID 密码确认`,
+      metaTitle: 'Telegram下载 - TG全平台下载安装指南',
+      metaDescription:
+        'Telegram官方下载指南，支持Windows、Mac、iOS、Android全平台，提供详细的下载和安装步骤。',
+      metaKeywords: ['telegram下载', 'tg下载', 'telegram安装', '纸飞机下载'],
+      status: 'PUBLISHED',
+      websiteId: website2.id,
+      authorId: admin.id,
+    },
+  })
+  console.log('✅ Created/Updated website2 post:', postW2_2.title)
+
+  const postW2_3 = await prisma.post.upsert({
+    where: {
+      websiteId_slug: {
+        websiteId: website2.id,
+        slug: 'telegram-vs-wechat',
+      },
+    },
+    update: {},
+    create: {
+      title: 'Telegram vs 微信：哪个更适合你？',
+      slug: 'telegram-vs-wechat',
+      content: `Telegram和微信都是流行的即时通讯应用，但它们在功能、隐私保护和使用场景上有很大差异。
+
+## 隐私和安全
+
+**Telegram优势：**
+- 端到端加密的秘密聊天
+- 无需实名制
+- 可设置消息自毁
+- 开源代码可审计
+
+**微信特点：**
+- 国内主流社交工具
+- 集成支付功能
+- 小程序生态丰富
+
+## 功能对比
+
+**Telegram：**
+- 大文件传输（2GB）
+- 超大群组（20万人）
+- 机器人和API支持
+- 跨平台同步
+
+**微信：**
+- 朋友圈社交
+- 微信支付
+- 公众号和小程序
+- 本地化服务`,
+      metaTitle: 'Telegram vs 微信对比 - 选择最适合你的通讯工具',
+      metaDescription:
+        '详细对比Telegram和微信的功能、隐私、安全性等方面，帮助你选择最适合的即时通讯应用。',
+      metaKeywords: ['telegram', '微信', 'telegram对比', 'tg vs wechat'],
+      status: 'PUBLISHED',
+      websiteId: website2.id,
+      authorId: admin.id,
+    },
+  })
+  console.log('✅ Created/Updated website2 post:', postW2_3.title)
 
   // Create posts for TG website
   const postTG1 = await prisma.post.upsert({
@@ -372,6 +521,61 @@ Telegram是一款全球领先的即时通讯应用，以其强大的功能、极
     },
   })
   console.log('✅ Created/Updated keyword:', keyword2.keyword)
+
+  // Website2 (Telegram) keywords
+  const keywordW2_1 = await prisma.keyword.upsert({
+    where: {
+      websiteId_keyword: {
+        websiteId: website2.id,
+        keyword: 'telegram中文',
+      },
+    },
+    update: {},
+    create: {
+      keyword: 'telegram中文',
+      volume: 5000,
+      difficulty: 58,
+      cpc: 0.8,
+      websiteId: website2.id,
+    },
+  })
+  console.log('✅ Created/Updated website2 keyword:', keywordW2_1.keyword)
+
+  const keywordW2_2 = await prisma.keyword.upsert({
+    where: {
+      websiteId_keyword: {
+        websiteId: website2.id,
+        keyword: 'telegram下载',
+      },
+    },
+    update: {},
+    create: {
+      keyword: 'telegram下载',
+      volume: 8000,
+      difficulty: 62,
+      cpc: 1.2,
+      websiteId: website2.id,
+    },
+  })
+  console.log('✅ Created/Updated website2 keyword:', keywordW2_2.keyword)
+
+  const keywordW2_3 = await prisma.keyword.upsert({
+    where: {
+      websiteId_keyword: {
+        websiteId: website2.id,
+        keyword: 'tg中文版',
+      },
+    },
+    update: {},
+    create: {
+      keyword: 'tg中文版',
+      volume: 3500,
+      difficulty: 52,
+      cpc: 0.9,
+      websiteId: website2.id,
+    },
+  })
+  console.log('✅ Created/Updated website2 keyword:', keywordW2_3.keyword)
 
   // TG website keywords
   const keywordTG1 = await prisma.keyword.upsert({
