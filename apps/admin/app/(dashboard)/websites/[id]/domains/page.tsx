@@ -18,6 +18,12 @@ interface DomainAlias {
   createdAt: string
 }
 
+interface DomainStats {
+  totalVisits: number
+  uniqueBots: number
+  topBots: Array<{ bot: string; count: number }>
+}
+
 async function fetchDomains(websiteId: string): Promise<DomainAlias[]> {
   const response = await fetch(`/api/websites/${websiteId}/domains`)
   if (!response.ok) throw new Error('Failed to fetch domains')
@@ -72,9 +78,22 @@ export default function DomainsPage() {
     isPrimary: false,
   })
 
+  const [selectedDomainForStats, setSelectedDomainForStats] = useState<string | null>(null)
+
   const { data: domains, isLoading } = useQuery({
     queryKey: ['domains', websiteId],
     queryFn: () => fetchDomains(websiteId),
+  })
+
+  const { data: domainStats } = useQuery({
+    queryKey: ['domain-stats', selectedDomainForStats],
+    queryFn: async () => {
+      if (!selectedDomainForStats) return null
+      const response = await fetch(`/api/domains/${selectedDomainForStats}/stats?range=7d`)
+      if (!response.ok) return null
+      return response.json()
+    },
+    enabled: !!selectedDomainForStats,
   })
 
   const createMutation = useMutation({
@@ -358,6 +377,12 @@ export default function DomainsPage() {
                   </div>
                   <div className="flex items-center gap-2">
                     <button
+                      onClick={() => setSelectedDomainForStats(domain.id)}
+                      className="text-xs text-blue-600 hover:text-blue-900"
+                    >
+                      统计
+                    </button>
+                    <button
                       onClick={() => handleEdit(domain)}
                       className="text-xs text-indigo-600 hover:text-indigo-900"
                     >
@@ -449,6 +474,12 @@ export default function DomainsPage() {
                     {domain.visits.toLocaleString()}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                    <button
+                      onClick={() => setSelectedDomainForStats(domain.id)}
+                      className="text-blue-600 hover:text-blue-900 mr-3"
+                    >
+                      统计
+                    </button>
                     <button
                       onClick={() => handleEdit(domain)}
                       className="text-indigo-600 hover:text-indigo-900 mr-3"

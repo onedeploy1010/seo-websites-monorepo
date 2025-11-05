@@ -76,6 +76,10 @@ model DomainAlias {
   websiteId String
   website   Website @relation(fields: [websiteId], references: [id], onDelete: Cascade)
 
+  // 反向关联
+  sitemaps   Sitemap[]
+  spiderLogs SpiderLog[]
+
   @@index([websiteId, status])
   @@index([domain])
   @@map("domain_aliases")
@@ -191,6 +195,11 @@ model Sitemap {
   websiteId String
   website   Website @relation(fields: [websiteId], references: [id], onDelete: Cascade)
 
+  // 域名别名关联（可选，为null表示主域名）
+  domainAliasId String?
+  domainAlias   DomainAlias? @relation(fields: [domainAliasId], references: [id], onDelete: SetNull)
+
+  @@index([websiteId, domainAliasId])
   @@map("sitemaps")
 }
 
@@ -220,7 +229,12 @@ model SpiderLog {
   websiteId String
   website   Website @relation(fields: [websiteId], references: [id], onDelete: Cascade)
 
+  // 域名别名关联（追踪访问的具体域名）
+  domainAliasId String?
+  domainAlias   DomainAlias? @relation(fields: [domainAliasId], references: [id], onDelete: SetNull)
+
   @@index([websiteId, bot, createdAt])
+  @@index([domainAliasId, bot, createdAt])
   @@map("spider_logs")
 }
 
