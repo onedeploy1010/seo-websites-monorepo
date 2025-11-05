@@ -8,6 +8,8 @@ import { createOpenAI } from '@ai-sdk/openai'
 export async function getOpenAIConfig(): Promise<{
   apiKey: string
   model: string
+  useGateway: boolean
+  gatewayKey?: string
 }> {
   // 尝试从数据库获取
   const dbApiKey = await getSetting(SETTING_KEYS.OPENAI_API_KEY)
@@ -17,28 +19,43 @@ export async function getOpenAIConfig(): Promise<{
   const apiKey = dbApiKey || process.env.OPENAI_API_KEY || ''
   const model = dbModel || process.env.OPENAI_MODEL || 'gpt-4-turbo'
 
-  if (!apiKey) {
+  // Vercel AI Gateway 配置
+  const gatewayKey = process.env.VERCEL_AI_GATEWAY_KEY || ''
+  const useGateway = !!gatewayKey
+
+  if (!apiKey && !useGateway) {
     throw new Error(
-      'OpenAI API Key 未配置。请在"系统设置"页面配置，或设置 OPENAI_API_KEY 环境变量'
+      'AI API 未配置。请设置 OPENAI_API_KEY 或 VERCEL_AI_GATEWAY_KEY 环境变量'
     )
   }
 
-  return { apiKey, model }
+  return { apiKey, model, useGateway, gatewayKey }
 }
 
 /**
  * 获取配置好的 OpenAI 模型实例
- * 优先级：数据库 > 环境变量
+ * 支持 Vercel AI Gateway
+ * 优先级：Vercel Gateway > OpenAI Direct
  */
 export async function getOpenAIModel() {
-  const { apiKey, model } = await getOpenAIConfig()
+  const { apiKey, model, useGateway, gatewayKey } = await getOpenAIConfig()
 
-  // 创建配置好的 OpenAI provider
+  // 如果使用 Vercel AI Gateway
+  if (useGateway && gatewayKey) {
+    console.log('Using Vercel AI Gateway')
+    const openai = createOpenAI({
+      apiKey: gatewayKey, // 使用 Vercel Gateway Key
+      baseURL: 'https://gateway.vercel.com/v1/openai',
+    })
+    return openai(model)
+  }
+
+  // 直接使用 OpenAI API
+  console.log('Using OpenAI API directly')
   const openai = createOpenAI({
     apiKey,
   })
 
-  // 返回模型实例
   return openai(model)
 }
 

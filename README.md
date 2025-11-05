@@ -684,7 +684,6 @@ NEXT_PUBLIC_SITE_NAME="网站名称"
 - [ ] 批量文章导入/导出（CSV/JSON）
 - [ ] 高级 Markdown 编辑器
 - [ ] 图片 CDN 集成（Cloudinary/AWS S3）
-- [ ] 多语言 i18n 支持
 - [ ] 邮件通知系统
 - [ ] 数据备份和恢复
 
