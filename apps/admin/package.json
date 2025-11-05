@@ -14,6 +14,7 @@
     "@repo/seo-tools": "*",
     "@tanstack/react-query": "^5.13.0",
     "@types/js-cookie": "^3.0.6",
+    "@vercel/sdk": "^1.16.1",
     "ai": "^5.0.87",
     "bcryptjs": "^2.4.3",
     "date-fns": "^3.0.0",
