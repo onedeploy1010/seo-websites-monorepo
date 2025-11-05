@@ -1,12 +1,12 @@
 import { cookies } from 'next/headers'
+import { Locale, defaultLocale, locales, createTranslator } from './i18n-shared'
 
-export type Locale = 'en' | 'zh'
-
-export const defaultLocale: Locale = 'zh'
-export const locales: Locale[] = ['en', 'zh']
+// 重新导出类型和共享函数
+export type { Locale }
+export { defaultLocale, locales, createTranslator }
 
 /**
- * 从 Cookie 获取当前语言
+ * 从 Cookie 获取当前语言（仅服务端）
  */
 export function getLocale(): Locale {
   const cookieStore = cookies()
@@ -17,7 +17,7 @@ export function getLocale(): Locale {
 }
 
 /**
- * 加载翻译文件
+ * 加载翻译文件（仅服务端）
  */
 export async function getTranslations(locale: Locale = 'zh') {
   try {
@@ -27,36 +27,5 @@ export async function getTranslations(locale: Locale = 'zh') {
     console.error(`Failed to load messages for locale: ${locale}`, error)
     const fallbackMessages = await import(`@/messages/${defaultLocale}.json`)
     return fallbackMessages.default
-  }
-}
-
-/**
- * 获取翻译函数
- */
-export function createTranslator(messages: any) {
-  return function t(key: string, params?: Record<string, string | number>): string {
-    const keys = key.split('.')
-    let value: any = messages
-
-    for (const k of keys) {
-      if (value && typeof value === 'object') {
-        value = value[k]
-      } else {
-        return key // 返回 key 作为降级
-      }
-    }
-
-    if (typeof value !== 'string') {
-      return key
-    }
-
-    // 替换参数
-    if (params) {
-      return value.replace(/\{(\w+)\}/g, (match, paramKey) => {
-        return params[paramKey]?.toString() || match
-      })
-    }
-
-    return value
   }
 }

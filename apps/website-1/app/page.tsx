@@ -1,54 +1,44 @@
 import { prisma } from '@repo/database'
-
-// Force dynamic rendering to avoid build-time database queries
-export const dynamic = 'force-dynamic'
 import Link from 'next/link'
-
-// Force dynamic rendering to avoid build-time database queries
-export const dynamic = 'force-dynamic'
 import Header from '@/components/Header'
-
-// Force dynamic rendering to avoid build-time database queries
-export const dynamic = 'force-dynamic'
 import Hero from '@/components/Hero'
-
-// Force dynamic rendering to avoid build-time database queries
-export const dynamic = 'force-dynamic'
 import Services from '@/components/Services'
-
-// Force dynamic rendering to avoid build-time database queries
-export const dynamic = 'force-dynamic'
 import Footer from '@/components/Footer'
 
 // Force dynamic rendering to avoid build-time database queries
 export const dynamic = 'force-dynamic'
 
 async function getRecentPosts() {
-  const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'Demo Website 1'
+  try {
+    const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'Demo Website 1'
 
-  const website = await prisma.website.findFirst({
-    where: {
-      OR: [
-        { name: { contains: siteName } },
-        { domain: { contains: 'localhost:3001' } }
-      ]
-    },
-  })
+    const website = await prisma.website.findFirst({
+      where: {
+        OR: [
+          { name: { contains: siteName } },
+          { domain: { contains: 'localhost:3001' } }
+        ]
+      },
+    })
 
-  if (!website) return []
+    if (!website) return []
 
-  const posts = await prisma.post.findMany({
-    where: {
-      websiteId: website.id,
-      status: 'PUBLISHED',
-    },
-    orderBy: {
-      createdAt: 'desc',
-    },
-    take: 6,
-  })
+    const posts = await prisma.post.findMany({
+      where: {
+        websiteId: website.id,
+        status: 'PUBLISHED',
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+      take: 6,
+    })
 
-  return posts
+    return posts
+  } catch (error) {
+    console.error('Database error:', error)
+    return []
+  }
 }
 
 export default async function Home() {

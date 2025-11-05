@@ -1,7 +1,7 @@
 'use client'
 
 import { createContext, useContext } from 'react'
-import { createTranslator } from '@/lib/i18n-utils'
+import { createTranslator } from '@/lib/i18n-shared'
 
 type Messages = any
 type TranslatorFunc = (key: string, params?: Record<string, string | number>) => string

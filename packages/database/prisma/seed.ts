@@ -354,6 +354,271 @@ Start syndicating your content today and watch your reach grow!`,
   })
   console.log('✅ Created/Updated website2 post:', postW2_3.title)
 
+  // 添加从 HTML 提取的更多 website2 博文
+  const postW2_4 = await prisma.post.upsert({
+    where: {
+      websiteId_slug: {
+        websiteId: website2.id,
+        slug: 'telegram-mute-notifications',
+      },
+    },
+    update: {},
+    create: {
+      title: '电报（Telegram）怎么设置免打扰？',
+      slug: 'telegram-mute-notifications',
+      content: `在Telegram中设置免打扰，打开目标聊天或群组，点击右上角联系人/群组名称，进入设置页面。
+
+## 设置免打扰的步骤
+
+1. 打开目标聊天
+2. 点击右上角的联系人/群组名称
+3. 找到"通知"选项
+4. 选择静音时长（1小时、8小时、2天或永久）
+
+## 自定义通知设置
+
+您还可以：
+- 为特定联系人或群组设置自定义通知音
+- 关闭消息预览
+- 设置智能通知（仅在被@时通知）
+
+免打扰功能帮助您在需要专注时避免被打扰，同时不会错过重要消息。`,
+      metaTitle: '电报（Telegram）怎么设置免打扰 - 完整教程',
+      metaDescription:
+        '在Telegram中设置免打扰，打开目标聊天或群组，点击右上角联系人/群组名称，进入通知设置选择静音时长。',
+      metaKeywords: ['telegram免打扰', 'telegram静音', 'telegram通知设置', 'tg免打扰'],
+      status: 'PUBLISHED',
+      websiteId: website2.id,
+      authorId: admin.id,
+    },
+  })
+  console.log('✅ Created/Updated website2 post:', postW2_4.title)
+
+  const postW2_5 = await prisma.post.upsert({
+    where: {
+      websiteId_slug: {
+        websiteId: website2.id,
+        slug: 'telegram-pip-mode',
+      },
+    },
+    update: {},
+    create: {
+      title: 'Telegram移动端如何开启画中画模式？',
+      slug: 'telegram-pip-mode',
+      content: `在Telegram移动端，您可以通过播放视频→点击画中画图标或在系统设置中为Telegram启用画中画权限来使用这个功能。
+
+## Android 设备开启画中画
+
+1. 播放视频时，点击画中画图标
+2. 或在系统设置中为 Telegram 启用画中画权限
+3. 视频将以小窗口形式显示在屏幕上
+
+## iOS 设备开启画中画
+
+1. 播放视频
+2. 按下Home键或上滑
+3. 视频会自动缩小到画中画模式
+
+画中画模式让您可以在使用其他应用时继续观看视频，提高多任务处理效率。`,
+      metaTitle: 'Telegram画中画模式设置 - 移动端教程',
+      metaDescription:
+        'Telegram移动端画中画模式开启方法：播放视频→点击画中画图标或在系统设置中启用权限。',
+      metaKeywords: ['telegram画中画', 'telegram pip', 'telegram视频', 'tg画中画模式'],
+      status: 'PUBLISHED',
+      websiteId: website2.id,
+      authorId: admin.id,
+    },
+  })
+  console.log('✅ Created/Updated website2 post:', postW2_5.title)
+
+  const postW2_6 = await prisma.post.upsert({
+    where: {
+      websiteId_slug: {
+        websiteId: website2.id,
+        slug: 'telegram-favorites',
+      },
+    },
+    update: {},
+    create: {
+      title: '电报（Telegram）如何使用收藏夹？',
+      slug: 'telegram-favorites',
+      content: `在Telegram中使用收藏夹功能：长按任意消息，选择"添加到收藏夹"，即可保存重要信息供日后查看。
+
+## 使用收藏夹的方法
+
+1. **保存消息**：长按任意消息
+2. **选择收藏**：点击"添加到收藏夹"
+3. **查看收藏**：在主界面左上角菜单找到"收藏夹"
+
+## 收藏夹的优势
+
+- 快速保存重要信息
+- 跨设备同步
+- 支持各种类型的消息（文本、图片、文件）
+- 方便整理和搜索
+
+收藏夹是Telegram中最实用的功能之一，帮助您更好地管理重要信息。`,
+      metaTitle: '电报（Telegram）收藏夹使用指南',
+      metaDescription:
+        '在Telegram中使用收藏夹功能：长按任意消息，选择"添加到收藏夹"，即可保存重要信息供日后查看。',
+      metaKeywords: ['telegram收藏夹', 'telegram保存消息', 'tg收藏', 'telegram书签'],
+      status: 'PUBLISHED',
+      websiteId: website2.id,
+      authorId: admin.id,
+    },
+  })
+  console.log('✅ Created/Updated website2 post:', postW2_6.title)
+
+  const postW2_7 = await prisma.post.upsert({
+    where: {
+      websiteId_slug: {
+        websiteId: website2.id,
+        slug: 'telegram-themes',
+      },
+    },
+    update: {},
+    create: {
+      title: '电报（Telegram）怎么使用主题？',
+      slug: 'telegram-themes',
+      content: `在Telegram中，您可通过设置→外观（Settings→Chat Settings→Appearance）来选择和自定义主题，让您的Telegram界面更加个性化。
+
+## 更换主题的步骤
+
+1. 打开设置（Settings）
+2. 选择"外观"（Chat Settings → Appearance）
+3. 从预设主题中选择
+4. 或创建自定义主题
+
+## 主题类型
+
+- **内置主题**：Telegram提供多种预设主题
+- **第三方主题**：从主题商店下载
+- **自定义主题**：完全自定义颜色和样式
+
+## 高级功能
+
+- 日夜模式自动切换
+- 为不同聊天设置不同主题
+- 分享您的主题给其他人
+
+主题功能让Telegram的使用体验更加舒适和个性化。`,
+      metaTitle: '电报（Telegram）主题设置完整教程',
+      metaDescription:
+        'Telegram主题设置方法：进入设置→外观，可选择预设主题或创建自定义主题，让界面更个性化。',
+      metaKeywords: ['telegram主题', 'telegram外观', 'tg主题', 'telegram个性化'],
+      status: 'PUBLISHED',
+      websiteId: website2.id,
+      authorId: admin.id,
+    },
+  })
+  console.log('✅ Created/Updated website2 post:', postW2_7.title)
+
+  const postW2_8 = await prisma.post.upsert({
+    where: {
+      websiteId_slug: {
+        websiteId: website2.id,
+        slug: 'telegram-login-without-phone',
+      },
+    },
+    update: {},
+    create: {
+      title: 'Telegram手机号不用了如何登陆？',
+      slug: 'telegram-login-without-phone',
+      content: `当您的原手机号已停用时，可通过输入两步验证密码或向邮箱接收的验证码来跳过短信验证步骤，从而成功登录账号。
+
+## 解决方案
+
+### 方法一：使用两步验证密码
+
+如果您之前设置了两步验证：
+1. 尝试登录
+2. 跳过短信验证
+3. 输入两步验证密码即可登录
+
+### 方法二：通过邮箱验证
+
+1. 选择"通过邮箱恢复"
+2. 查收邮箱中的验证码
+3. 输入验证码完成登录
+
+### 方法三：联系客服
+
+如果上述方法都不可行：
+1. 通过官方渠道联系Telegram客服
+2. 提供账号相关信息
+3. 等待人工审核恢复
+
+## 预防措施
+
+- 设置两步验证密码
+- 绑定邮箱
+- 定期更新联系方式
+
+提前设置安全选项可以避免因手机号失效而无法登录的问题。`,
+      metaTitle: 'Telegram手机号停用后如何登录 - 完整解决方案',
+      metaDescription:
+        '原手机号停用后登录Telegram的方法：使用两步验证密码或通过邮箱验证码跳过短信验证步骤成功登录。',
+      metaKeywords: ['telegram手机号', 'telegram登录', 'tg手机号停用', 'telegram恢复账号'],
+      status: 'PUBLISHED',
+      websiteId: website2.id,
+      authorId: admin.id,
+    },
+  })
+  console.log('✅ Created/Updated website2 post:', postW2_8.title)
+
+  const postW2_9 = await prisma.post.upsert({
+    where: {
+      websiteId_slug: {
+        websiteId: website2.id,
+        slug: 'what-is-telegram-chinese',
+      },
+    },
+    update: {},
+    create: {
+      title: '什么是电报（Telegram）中文版？',
+      slug: 'what-is-telegram-chinese',
+      content: `Telegram中文版是指支持中文界面和功能的Telegram应用版本，允许用户使用中文进行操作和沟通。
+
+## Telegram 简介
+
+Telegram是一款全球领先的即时通讯应用，以其强大的功能、极致的安全性和卓越的用户体验而闻名。
+
+### 核心特点
+
+**1. 安全加密**
+- 采用MTProto加密协议
+- 支持端到端加密的秘密聊天
+- 消息可设置自毁功能
+
+**2. 云端同步**
+- 消息存储在云端
+- 支持多设备同时登录
+- 跨平台无缝切换
+
+**3. 功能强大**
+- 支持最大2GB的文件传输
+- 群组成员可达20万人
+- 频道支持无限订阅者
+
+## 中文版优势
+
+- 完整的中文界面
+- 中文输入法优化
+- 本地化的使用习惯
+- 中文客服支持
+
+Telegram中文版保留了所有原版功能，同时提供更适合中文用户的体验。`,
+      metaTitle: '什么是Telegram中文版 - 完整介绍',
+      metaDescription:
+        'Telegram中文版是支持中文界面的Telegram应用，提供端到端加密、云同步、大文件传输等强大功能。',
+      metaKeywords: ['telegram中文版', 'telegram是什么', 'tg中文', '电报中文'],
+      status: 'PUBLISHED',
+      websiteId: website2.id,
+      authorId: admin.id,
+    },
+  })
+  console.log('✅ Created/Updated website2 post:', postW2_9.title)
+
   // Create posts for TG website
   const postTG1 = await prisma.post.upsert({
     where: {
