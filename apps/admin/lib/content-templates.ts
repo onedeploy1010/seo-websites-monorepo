@@ -540,11 +540,9 @@ Telegram 自研的加密协议：
 
 ### Telegram API
 
-```
-Bot API - 创建机器人
-TDLib - 构建客户端
-MTProto - 协议层
-```
+- **Bot API** - 创建机器人
+- **TDLib** - 构建客户端
+- **MTProto** - 协议层
 
 ### 开发者支持
 - 完整文档
