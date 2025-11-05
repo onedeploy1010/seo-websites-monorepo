@@ -75,6 +75,12 @@ export default function WebsiteDetailPage() {
           </div>
           <div className="flex space-x-3">
             <Link
+              href={`/websites/${id}/domains`}
+              className="rounded-md border border-indigo-300 bg-indigo-50 px-4 py-2 text-sm font-medium text-indigo-700 hover:bg-indigo-100"
+            >
+              域名管理
+            </Link>
+            <Link
               href={`/websites/${id}/edit`}
               className="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
             >

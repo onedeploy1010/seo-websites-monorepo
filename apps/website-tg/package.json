@@ -15,7 +15,8 @@
     "next-seo": "^6.5.0",
     "@repo/database": "*",
     "@repo/seo-tools": "*",
-    "@repo/ui-components": "*"
+    "@repo/ui-components": "*",
+    "@repo/shared": "*"
   },
   "devDependencies": {
     "@types/node": "^20",

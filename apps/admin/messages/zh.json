@@ -31,7 +31,9 @@
     "export": "导出",
     "import": "导入",
     "settings": "设置",
-    "language": "语言"
+    "language": "语言",
+    "notAvailable": "暂无",
+    "unknown": "未知"
   },
   "nav": {
     "dashboard": "仪表板",
@@ -106,6 +108,7 @@
   },
   "websites": {
     "title": "网站管理",
+    "subtitle": "管理你的SEO网站和内容",
     "list": "网站列表",
     "create": "创建网站",
     "edit": "编辑网站",
@@ -122,7 +125,14 @@
     "lastUpdated": "最后更新",
     "viewWebsite": "查看网站",
     "manageContent": "管理内容",
-    "generateSitemap": "生成网站地图"
+    "generateSitemap": "生成网站地图",
+    "add": "添加网站",
+    "noWebsites": "暂无网站",
+    "noWebsitesDesc": "开始创建你的第一个网站",
+    "addFirst": "添加第一个网站",
+    "postsCount": "{count} 篇文章",
+    "keywordsCount": "{count} 个关键词",
+    "created": "创建于 {date}"
   },
   "websiteNew": {
     "title": "添加新网站",
@@ -211,6 +221,7 @@
   },
   "keywords": {
     "title": "关键词管理",
+    "subtitle": "追踪和优化你的SEO关键词",
     "list": "关键词列表",
     "create": "添加关键词",
     "edit": "编辑关键词",
@@ -226,7 +237,20 @@
     "trackRanking": "追踪排名",
     "generateKeywords": "生成关键词",
     "importKeywords": "导入关键词",
-    "exportKeywords": "导出关键词"
+    "exportKeywords": "导出关键词",
+    "add": "添加关键词",
+    "noKeywords": "暂无关键词",
+    "noKeywordsDesc": "开始添加关键词以追踪排名",
+    "addFirst": "添加第一个关键词",
+    "notRanked": "未排名",
+    "viewDetails": "查看详情",
+    "table": {
+      "keyword": "关键词",
+      "website": "网站",
+      "searchEngine": "搜索引擎",
+      "ranking": "排名",
+      "actions": "操作"
+    }
   },
   "sitemaps": {
     "title": "网站地图",
@@ -245,9 +269,11 @@
   },
   "spider": {
     "title": "蜘蛛池监控",
+    "subtitle": "监控搜索引擎爬虫访问",
     "overview": "蜘蛛概览",
     "totalVisits": "总访问量",
     "uniqueSpiders": "独立蜘蛛数",
+    "uniqueBots": "独立爬虫",
     "recentVisits": "最近访问",
     "spiderName": "蜘蛛名称",
     "visitCount": "访问次数",
@@ -258,7 +284,15 @@
     "googlebot": "Google 蜘蛛",
     "bingbot": "Bing 蜘蛛",
     "baiduspider": "百度蜘蛛",
-    "yandexbot": "Yandex 蜘蛛"
+    "yandexbot": "Yandex 蜘蛛",
+    "lastHour": "最近1小时",
+    "last24Hours": "最近24小时",
+    "last7Days": "最近7天",
+    "last30Days": "最近30天",
+    "topBot": "最活跃爬虫",
+    "topCrawlers": "热门爬虫",
+    "visitsCount": "{count} 次访问",
+    "noVisits": "暂无爬虫访问记录"
   },
   "settings": {
     "title": "系统设置",

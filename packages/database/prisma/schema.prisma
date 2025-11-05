@@ -11,9 +11,9 @@ datasource db {
 
 // 网站配置
 model Website {
-  id          String   @id @default(cuid())
+  id          String        @id @default(cuid())
   name        String
-  domain      String   @unique
+  domain      String        @unique
   description String?
   logo        String?
   favicon     String?
@@ -25,18 +25,19 @@ model Website {
   seoKeywords    String[]
 
   // 技术配置
-  gaId           String?  // Google Analytics ID
-  gscId          String?  // Google Search Console ID
-  baiduTongjiId  String?  // 百度统计ID
+  gaId          String? // Google Analytics ID
+  gscId         String? // Google Search Console ID
+  baiduTongjiId String? // 百度统计ID
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   // 关联
-  posts       Post[]
-  keywords    Keyword[]
-  sitemaps    Sitemap[]
-  spiderLogs  SpiderLog[]
+  posts         Post[]
+  keywords      Keyword[]
+  sitemaps      Sitemap[]
+  spiderLogs    SpiderLog[]
+  domainAliases DomainAlias[]
 
   @@map("websites")
 }
@@ -47,14 +48,53 @@ enum WebsiteStatus {
   MAINTENANCE
 }
 
+// 域名别名管理（蜘蛛池多域名）
+model DomainAlias {
+  id     String @id @default(cuid())
+  domain String @unique // 域名，如 tg-download-cn.com
+
+  // SEO配置
+  siteName        String // 站点名称
+  siteDescription String // 站点描述
+
+  // 标签配置（用于文章过滤）
+  primaryTags   String[] // 主要关注的标签，权重高
+  secondaryTags String[] // 次要标签，权重低
+
+  // 状态
+  status    DomainStatus @default(ACTIVE)
+  isPrimary Boolean      @default(false) // 是否为主域名
+
+  // 流量统计
+  visits    Int       @default(0) // 访问次数
+  lastVisit DateTime? // 最后访问时间
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // 关联
+  websiteId String
+  website   Website @relation(fields: [websiteId], references: [id], onDelete: Cascade)
+
+  @@index([websiteId, status])
+  @@index([domain])
+  @@map("domain_aliases")
+}
+
+enum DomainStatus {
+  ACTIVE // 激活
+  INACTIVE // 停用
+  PENDING // 待配置DNS
+}
+
 // 博文管理
 model Post {
-  id          String   @id @default(cuid())
-  title       String
-  slug        String
-  content     String   @db.Text
-  excerpt     String?
-  coverImage  String?
+  id         String  @id @default(cuid())
+  title      String
+  slug       String
+  content    String  @db.Text
+  excerpt    String?
+  coverImage String?
 
   // SEO
   metaTitle       String?
@@ -66,20 +106,20 @@ model Post {
   publishedAt DateTime?
 
   // 分类和标签
-  category    String?
-  tags        String[]
+  category String?
+  tags     String[]
 
   // 同步状态
   syncedWebsites String[] // 已同步的网站ID列表
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   // 关联
-  websiteId   String
-  website     Website  @relation(fields: [websiteId], references: [id], onDelete: Cascade)
-  authorId    String
-  author      User     @relation(fields: [authorId], references: [id])
+  websiteId String
+  website   Website @relation(fields: [websiteId], references: [id], onDelete: Cascade)
+  authorId  String
+  author    User    @relation(fields: [authorId], references: [id])
 
   @@unique([websiteId, slug])
   @@index([status, publishedAt])
@@ -95,21 +135,21 @@ enum PostStatus {
 
 // 关键词管理
 model Keyword {
-  id          String   @id @default(cuid())
-  keyword     String
-  volume      Int?     // 搜索量
-  difficulty  Int?     // 难度评分 0-100
-  cpc         Float?   // 每次点击费用
+  id         String @id @default(cuid())
+  keyword    String
+  volume     Int? // 搜索量
+  difficulty Int? // 难度评分 0-100
+  cpc        Float? // 每次点击费用
 
   // 排名追踪
-  rankings    KeywordRanking[]
+  rankings KeywordRanking[]
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   // 关联
-  websiteId   String
-  website     Website  @relation(fields: [websiteId], references: [id], onDelete: Cascade)
+  websiteId String
+  website   Website @relation(fields: [websiteId], references: [id], onDelete: Cascade)
 
   @@unique([websiteId, keyword])
   @@map("keywords")
@@ -117,16 +157,16 @@ model Keyword {
 
 // 关键词排名历史
 model KeywordRanking {
-  id          String   @id @default(cuid())
-  position    Int      // 排名位置
-  url         String   // 排名URL
-  searchEngine String  @default("google") // google, baidu, bing
+  id           String @id @default(cuid())
+  position     Int // 排名位置
+  url          String // 排名URL
+  searchEngine String @default("google") // google, baidu, bing
 
-  createdAt   DateTime @default(now())
+  createdAt DateTime @default(now())
 
   // 关联
-  keywordId   String
-  keyword     Keyword  @relation(fields: [keywordId], references: [id], onDelete: Cascade)
+  keywordId String
+  keyword   Keyword @relation(fields: [keywordId], references: [id], onDelete: Cascade)
 
   @@index([keywordId, createdAt])
   @@map("keyword_rankings")
@@ -134,22 +174,22 @@ model KeywordRanking {
 
 // Sitemap管理
 model Sitemap {
-  id          String   @id @default(cuid())
-  url         String
-  type        SitemapType @default(POSTS)
-  urls        Int      @default(0) // URL数量
+  id   String      @id @default(cuid())
+  url  String
+  type SitemapType @default(POSTS)
+  urls Int         @default(0) // URL数量
 
   // 提交状态
-  submitted   Boolean  @default(false)
-  submittedAt DateTime?
-  lastModified DateTime @default(now())
+  submitted    Boolean   @default(false)
+  submittedAt  DateTime?
+  lastModified DateTime  @default(now())
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   // 关联
-  websiteId   String
-  website     Website  @relation(fields: [websiteId], references: [id], onDelete: Cascade)
+  websiteId String
+  website   Website @relation(fields: [websiteId], references: [id], onDelete: Cascade)
 
   @@map("sitemaps")
 }
@@ -163,22 +203,22 @@ enum SitemapType {
 
 // 蜘蛛池日志
 model SpiderLog {
-  id          String   @id @default(cuid())
-  ip          String
-  userAgent   String
-  url         String
-  method      String   @default("GET")
-  statusCode  Int
-  referer     String?
+  id         String  @id @default(cuid())
+  ip         String
+  userAgent  String
+  url        String
+  method     String  @default("GET")
+  statusCode Int
+  referer    String?
 
   // 搜索引擎识别
-  bot         String?  // googlebot, bingbot, baiduspider
+  bot String? // googlebot, bingbot, baiduspider
 
-  createdAt   DateTime @default(now())
+  createdAt DateTime @default(now())
 
   // 关联
-  websiteId   String
-  website     Website  @relation(fields: [websiteId], references: [id], onDelete: Cascade)
+  websiteId String
+  website   Website @relation(fields: [websiteId], references: [id], onDelete: Cascade)
 
   @@index([websiteId, bot, createdAt])
   @@map("spider_logs")
@@ -186,19 +226,19 @@ model SpiderLog {
 
 // 外链管理
 model Backlink {
-  id          String   @id @default(cuid())
-  sourceUrl   String   // 外链来源URL
-  targetUrl   String   // 目标URL
-  anchorText  String?  // 锚文本
-  doFollow    Boolean  @default(true)
+  id         String  @id @default(cuid())
+  sourceUrl  String // 外链来源URL
+  targetUrl  String // 目标URL
+  anchorText String? // 锚文本
+  doFollow   Boolean @default(true)
 
   // 状态
   status      BacklinkStatus @default(PENDING)
-  indexed     Boolean  @default(false) // 是否被搜索引擎收录
+  indexed     Boolean        @default(false) // 是否被搜索引擎收录
   lastChecked DateTime?
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([status, indexed])
   @@map("backlinks")
@@ -213,14 +253,14 @@ enum BacklinkStatus {
 
 // 用户管理
 model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  name      String?
-  password  String
-  role      UserRole @default(EDITOR)
+  id       String   @id @default(cuid())
+  email    String   @unique
+  name     String?
+  password String
+  role     UserRole @default(EDITOR)
 
   // 关联
-  posts     Post[]
+  posts Post[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -236,18 +276,18 @@ enum UserRole {
 
 // SEO任务调度
 model SeoTask {
-  id          String   @id @default(cuid())
-  type        TaskType
-  status      TaskStatus @default(PENDING)
-  payload     Json     // 任务参数
-  result      Json?    // 任务结果
+  id      String     @id @default(cuid())
+  type    TaskType
+  status  TaskStatus @default(PENDING)
+  payload Json // 任务参数
+  result  Json? // 任务结果
 
   scheduledAt DateTime?
   startedAt   DateTime?
   completedAt DateTime?
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([status, scheduledAt])
   @@map("seo_tasks")
@@ -272,24 +312,24 @@ enum TaskStatus {
 
 // 系统设置
 model SystemSetting {
-  id          String   @id @default(cuid())
-  key         String   @unique
-  value       String   @db.Text
+  id          String          @id @default(cuid())
+  key         String          @unique
+  value       String          @db.Text
   description String?
   category    SettingCategory @default(GENERAL)
-  isEncrypted Boolean  @default(false) // 是否为敏感信息（API Key等）
+  isEncrypted Boolean         @default(false) // 是否为敏感信息（API Key等）
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([category])
   @@map("system_settings")
 }
 
 enum SettingCategory {
-  GENERAL      // 通用设置
-  API          // API 配置
-  SEO          // SEO 设置
-  ANALYTICS    // 分析工具
+  GENERAL // 通用设置
+  API // API 配置
+  SEO // SEO 设置
+  ANALYTICS // 分析工具
   NOTIFICATION // 通知设置
 }

@@ -4,12 +4,18 @@ import Header from '@/components/Header'
 import Hero from '@/components/Hero'
 import Services from '@/components/Services'
 import Footer from '@/components/Footer'
+import { headers } from 'next/headers'
+import { getDomainConfigFromList, calculateTagMatchScoreFromDB } from '@repo/shared'
 
 // Force dynamic rendering to avoid build-time database queries
 export const dynamic = 'force-dynamic'
 
 async function getRecentPosts() {
   try {
+    // 获取当前域名
+    const headersList = headers()
+    const hostname = headersList.get('host') || 'localhost:3002'
+
     const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'Telegram中文官网'
 
     const website = await prisma.website.findFirst({
@@ -19,11 +25,21 @@ async function getRecentPosts() {
           { domain: { contains: 'localhost:3002' } }
         ]
       },
+      include: {
+        domainAliases: {
+          where: {
+            status: 'ACTIVE'
+          }
+        }
+      }
     })
 
     if (!website) return []
 
-    const posts = await prisma.post.findMany({
+    // 获取当前域名的配置
+    const domainConfig = getDomainConfigFromList(hostname, website.domainAliases)
+
+    const allPosts = await prisma.post.findMany({
       where: {
         websiteId: website.id,
         status: 'PUBLISHED',
@@ -31,10 +47,28 @@ async function getRecentPosts() {
       orderBy: {
         createdAt: 'desc',
       },
-      take: 6,
     })
 
-    return posts
+    // 如果有域名配置，根据标签过滤和排序
+    if (domainConfig) {
+      const currentDomain = website.domainAliases.find(d => d.domain === domainConfig.domain)
+      if (currentDomain) {
+        // 计算每篇文章的匹配分数
+        const postsWithScores = allPosts.map(post => ({
+          post,
+          score: calculateTagMatchScoreFromDB(post.metaKeywords, currentDomain),
+        }))
+
+        // 按分数降序排序
+        postsWithScores.sort((a, b) => b.score - a.score)
+
+        // 返回前6篇
+        return postsWithScores.map(item => item.post).slice(0, 6)
+      }
+    }
+
+    // 如果没有域名配置，返回最新的6篇
+    return allPosts.slice(0, 6)
   } catch (error) {
     console.error('Database error:', error)
     return []

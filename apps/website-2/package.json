@@ -14,7 +14,9 @@
     "react-dom": "^18",
     "@repo/database": "*",
     "@repo/seo-tools": "*",
-    "@repo/ui-components": "*"
+    "@repo/ui-components": "*",
+    "@repo/shared": "*",
+    "date-fns": "^3.0.0"
   },
   "devDependencies": {
     "typescript": "^5",

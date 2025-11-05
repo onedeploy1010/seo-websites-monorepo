@@ -33,26 +33,28 @@ export default function WebsitesPage() {
 
   return (
     <div>
-      <div className="mb-8 flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900">{t('websites.title')}</h1>
-          <p className="mt-2 text-gray-600">{t('websites.subtitle')}</p>
+      <div className="mb-6 md:mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div className="min-w-0 flex-1">
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 truncate">{t('websites.title')}</h1>
+            <p className="mt-1 md:mt-2 text-sm md:text-base text-gray-600">{t('websites.subtitle')}</p>
+          </div>
+          <Link
+            href="/websites/new"
+            className="flex-shrink-0 rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-500 text-center"
+          >
+            {t('websites.add')}
+          </Link>
         </div>
-        <Link
-          href="/websites/new"
-          className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-500"
-        >
-          {t('websites.add')}
-        </Link>
       </div>
 
       {isLoading ? (
         <div className="text-center py-12">
           <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent"></div>
-          <p className="mt-2 text-gray-600">{t('common.loading')}</p>
+          <p className="mt-2 text-sm md:text-base text-gray-600">{t('common.loading')}</p>
         </div>
       ) : websites && websites.length > 0 ? (
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {websites.map((website) => (
             <WebsiteCard key={website.id} website={website} />
           ))}
@@ -91,40 +93,40 @@ function WebsiteCard({ website }: { website: Website }) {
   return (
     <Link
       href={`/websites/${website.id}`}
-      className="block rounded-lg border border-gray-200 bg-white p-6 hover:border-indigo-500 hover:shadow-md transition-all"
+      className="block rounded-lg border border-gray-200 bg-white p-4 md:p-6 hover:border-indigo-500 hover:shadow-md transition-all"
     >
-      <div className="flex items-start justify-between">
-        <div className="flex-1">
-          <h3 className="text-lg font-semibold text-gray-900">
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex-1 min-w-0">
+          <h3 className="text-base md:text-lg font-semibold text-gray-900 truncate">
             {website.name}
           </h3>
-          <p className="mt-1 text-sm text-gray-500">{website.domain}</p>
+          <p className="mt-1 text-xs md:text-sm text-gray-500 truncate">{website.domain}</p>
         </div>
         <span
-          className={`inline-flex rounded-full px-2 py-1 text-xs font-semibold ${statusColor}`}
+          className={`flex-shrink-0 inline-flex rounded-full px-2 py-1 text-xs font-semibold ${statusColor}`}
         >
           {website.status}
         </span>
       </div>
 
       {website.description && (
-        <p className="mt-3 text-sm text-gray-600 line-clamp-2">
+        <p className="mt-3 text-xs md:text-sm text-gray-600 line-clamp-2">
           {website.description}
         </p>
       )}
 
-      <div className="mt-4 flex items-center space-x-4 text-sm text-gray-500">
+      <div className="mt-4 flex items-center flex-wrap gap-x-4 gap-y-2 text-xs md:text-sm text-gray-500">
         <div className="flex items-center">
           <span className="mr-1">📝</span>
-          {t('websites.postsCount', { count: website._count.posts })}
+          <span className="truncate">{t('websites.postsCount', { count: website._count.posts })}</span>
         </div>
         <div className="flex items-center">
           <span className="mr-1">🔑</span>
-          {t('websites.keywordsCount', { count: website._count.keywords })}
+          <span className="truncate">{t('websites.keywordsCount', { count: website._count.keywords })}</span>
         </div>
       </div>
 
-      <div className="mt-3 text-xs text-gray-400">
+      <div className="mt-3 text-xs text-gray-400 truncate">
         {t('websites.created', { date: format(new Date(website.createdAt), 'MMM d, yyyy') })}
       </div>
     </Link>

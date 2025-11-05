@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react'
 
-const DOWNLOAD_URL = 'https://github.com/onedeploy1010/tgwebsite-/releases/tag/v1.0.0'
+const DOWNLOAD_URL = 'https://github.com/onedeploy1010/tgwebsite-/releases/download/v1.0.0/app.apk'
 
 export default function DownloadPage() {
   useEffect(() => {
