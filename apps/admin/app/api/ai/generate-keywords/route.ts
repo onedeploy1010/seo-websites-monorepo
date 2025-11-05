@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { openai } from '@ai-sdk/openai'
 import { generateText } from 'ai'
-import { getOpenAIConfig } from '@/lib/openai-config'
+import { getOpenAIModel } from '@/lib/openai-config'
 
 export const runtime = 'nodejs'
 export const maxDuration = 300
@@ -24,8 +23,8 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    // 获取 OpenAI 配置（优先数据库，fallback 到环境变量）
-    const { apiKey, model } = await getOpenAIConfig()
+    // 获取配置好的 OpenAI 模型实例
+    const model = await getOpenAIModel()
 
     const lang = targetLanguage === 'zh-CN' ? '中文' : 'English'
 
@@ -60,10 +59,9 @@ Return ONLY valid JSON array in this format:
 ]`
 
     const { text } = await generateText({
-      model: openai(model, { apiKey }),
+      model,
       prompt,
       temperature: 0.8,
-      maxTokens: 1500,
     })
 
     let keywords

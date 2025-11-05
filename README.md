@@ -747,7 +747,6 @@ MIT License © 2025
 
 ## 📞 支持和反馈
 
-- 📧 **Email**: support@example.com
 - 🐛 **Issues**: [GitHub Issues](https://github.com/onedeploy1010/seo-websites-monorepo/issues)
 - 💬 **Discussions**: [GitHub Discussions](https://github.com/onedeploy1010/seo-websites-monorepo/discussions)
 
@@ -755,7 +754,7 @@ MIT License © 2025
 
 <div align="center">
 
-### 🌟 如果这个项目对你有帮助，请给个 Star！
+### 🌟
 
 Made with ❤️ by Onelong
 

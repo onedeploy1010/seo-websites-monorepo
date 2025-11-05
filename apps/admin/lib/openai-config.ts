@@ -1,4 +1,5 @@
 import { getSetting, SETTING_KEYS } from '@repo/database/lib/settings'
+import { createOpenAI } from '@ai-sdk/openai'
 
 /**
  * 获取 OpenAI 配置
@@ -23,6 +24,22 @@ export async function getOpenAIConfig(): Promise<{
   }
 
   return { apiKey, model }
+}
+
+/**
+ * 获取配置好的 OpenAI 模型实例
+ * 优先级：数据库 > 环境变量
+ */
+export async function getOpenAIModel() {
+  const { apiKey, model } = await getOpenAIConfig()
+
+  // 创建配置好的 OpenAI provider
+  const openai = createOpenAI({
+    apiKey,
+  })
+
+  // 返回模型实例
+  return openai(model)
 }
 
 /**

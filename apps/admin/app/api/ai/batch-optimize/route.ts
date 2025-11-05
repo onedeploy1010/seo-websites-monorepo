@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { openai } from '@ai-sdk/openai'
 import { generateText } from 'ai'
 import { prisma } from '@repo/database'
-import { getOpenAIConfig } from '@/lib/openai-config'
+import { getOpenAIModel } from '@/lib/openai-config'
 
 export const runtime = 'nodejs' // 使用 Node.js runtime 以支持 Prisma
 export const maxDuration = 300 // 5 minutes for batch processing
@@ -42,8 +41,8 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    // 获取 OpenAI 配置（优先数据库，fallback 到环境变量）
-    const { apiKey, model } = await getOpenAIConfig()
+    // 获取配置好的 OpenAI 模型实例
+    const model = await getOpenAIModel()
 
     const results: OptimizationResult[] = []
 
@@ -89,10 +88,9 @@ Generate optimized SEO metadata in JSON format:
 Return ONLY valid JSON.`
 
         const { text } = await generateText({
-          model: openai(model, { apiKey }),
+          model,
           prompt,
           temperature: 0.7,
-          maxTokens: 800,
         })
 
         // Parse AI response
