@@ -75,7 +75,7 @@ export async function getSettings(keys: string[]): Promise<Record<string, string
   })
 
   const result: Record<string, string> = {}
-  settings.forEach((setting) => {
+  settings.forEach((setting: { key: string; value: string; isEncrypted: boolean }) => {
     result[setting.key] = setting.isEncrypted
       ? decrypt(setting.value)
       : setting.value
@@ -93,7 +93,7 @@ export async function getSettingsByCategory(category: string): Promise<Record<st
     orderBy: { key: 'asc' },
   })
 
-  return settings.map((setting) => ({
+  return settings.map((setting: any) => ({
     id: setting.id,
     key: setting.key,
     value: setting.isEncrypted ? '••••••••' : setting.value, // 敏感信息不返回实际值
@@ -152,7 +152,7 @@ export async function setSettings(
   }>
 ): Promise<void> {
   await Promise.all(
-    settings.map((setting) =>
+    settings.map((setting: any) =>
       setSetting(setting.key, setting.value, {
         description: setting.description,
         category: setting.category,
@@ -182,7 +182,7 @@ export async function getAllSettings(): Promise<Record<string, any>[]> {
     ],
   })
 
-  return settings.map((setting) => ({
+  return settings.map((setting: any) => ({
     id: setting.id,
     key: setting.key,
     value: setting.isEncrypted ? '••••••••' : setting.value,
