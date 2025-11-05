@@ -5,7 +5,7 @@ export async function GET() {
 
   const robotsTxt = generateRobotsTxt({
     sitemapUrl: `${siteUrl}/sitemap.xml`,
-    disallow: ['/api/*', '/admin/*'],
+    disallowPaths: ['/api/*', '/admin/*'],
   })
 
   return new Response(robotsTxt, {
