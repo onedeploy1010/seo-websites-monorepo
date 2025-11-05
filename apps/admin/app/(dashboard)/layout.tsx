@@ -2,6 +2,8 @@ import { Sidebar } from '@/components/Sidebar'
 import { I18nProvider } from '@/components/I18nProvider'
 import { getLocale, getTranslations } from '@/lib/i18n-utils'
 
+export const dynamic = 'force-dynamic'
+
 export default async function DashboardLayout({
   children,
 }: {
