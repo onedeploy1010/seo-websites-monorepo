@@ -31,7 +31,9 @@
     "export": "Export",
     "import": "Import",
     "settings": "Settings",
-    "language": "Language"
+    "language": "Language",
+    "notAvailable": "N/A",
+    "unknown": "Unknown"
   },
   "nav": {
     "dashboard": "Dashboard",
@@ -106,6 +108,7 @@
   },
   "websites": {
     "title": "Websites Management",
+    "subtitle": "Manage your SEO websites and content",
     "list": "Websites List",
     "create": "Create Website",
     "edit": "Edit Website",
@@ -122,7 +125,14 @@
     "lastUpdated": "Last Updated",
     "viewWebsite": "View Website",
     "manageContent": "Manage Content",
-    "generateSitemap": "Generate Sitemap"
+    "generateSitemap": "Generate Sitemap",
+    "add": "Add Website",
+    "noWebsites": "No websites",
+    "noWebsitesDesc": "Get started by creating your first website",
+    "addFirst": "Add Your First Website",
+    "postsCount": "{count} posts",
+    "keywordsCount": "{count} keywords",
+    "created": "Created on {date}"
   },
   "websiteNew": {
     "title": "Add New Website",
@@ -211,6 +221,7 @@
   },
   "keywords": {
     "title": "Keywords Management",
+    "subtitle": "Track and optimize your SEO keywords",
     "list": "Keywords List",
     "create": "Add Keyword",
     "edit": "Edit Keyword",
@@ -226,7 +237,20 @@
     "trackRanking": "Track Ranking",
     "generateKeywords": "Generate Keywords",
     "importKeywords": "Import Keywords",
-    "exportKeywords": "Export Keywords"
+    "exportKeywords": "Export Keywords",
+    "add": "Add Keyword",
+    "noKeywords": "No keywords",
+    "noKeywordsDesc": "Start adding keywords to track rankings",
+    "addFirst": "Add Your First Keyword",
+    "notRanked": "Not Ranked",
+    "viewDetails": "View Details",
+    "table": {
+      "keyword": "Keyword",
+      "website": "Website",
+      "searchEngine": "Search Engine",
+      "ranking": "Ranking",
+      "actions": "Actions"
+    }
   },
   "sitemaps": {
     "title": "Sitemaps",
@@ -245,9 +269,11 @@
   },
   "spider": {
     "title": "Spider Monitoring",
+    "subtitle": "Monitor search engine crawler visits",
     "overview": "Spider Overview",
     "totalVisits": "Total Visits",
     "uniqueSpiders": "Unique Spiders",
+    "uniqueBots": "Unique Bots",
     "recentVisits": "Recent Visits",
     "spiderName": "Spider Name",
     "visitCount": "Visit Count",
@@ -258,7 +284,15 @@
     "googlebot": "Googlebot",
     "bingbot": "Bingbot",
     "baiduspider": "Baiduspider",
-    "yandexbot": "Yandexbot"
+    "yandexbot": "Yandexbot",
+    "lastHour": "Last Hour",
+    "last24Hours": "Last 24 Hours",
+    "last7Days": "Last 7 Days",
+    "last30Days": "Last 30 Days",
+    "topBot": "Top Bot",
+    "topCrawlers": "Top Crawlers",
+    "visitsCount": "{count} visits",
+    "noVisits": "No crawler visits recorded"
   },
   "settings": {
     "title": "System Settings",
@@ -322,5 +356,82 @@
     "results": "results",
     "page": "Page",
     "totalPages": "of"
+  },
+  "settingsPage": {
+    "subtitle": "Configure API Keys and system parameters without modifying environment variables and redeploying",
+    "noChanges": "No changes to save",
+    "saveSuccess": "Settings saved successfully!",
+    "saveError": "Failed to save settings, please try again",
+    "saving": "Saving...",
+    "openaiApiKeyDesc": "OpenAI API Key (for AI SEO optimization)",
+    "openaiModelDesc": "OpenAI Model (gpt-4-turbo, gpt-3.5-turbo)",
+    "googleAnalyticsDesc": "Google Analytics Measurement ID (G-XXXXXXXXXX)",
+    "googleSearchConsoleDesc": "Google Search Console Verification Code",
+    "bingWebmasterDesc": "Bing Webmaster API Key",
+    "baiduTongjiDesc": "Baidu Tongji ID",
+    "leaveEmpty": "Leave empty to keep unchanged",
+    "enterValue": "Enter value...",
+    "keyLabel": "Key",
+    "lastUpdated": "Last updated",
+    "tipsTitle": "Tips",
+    "tip1": "Encrypted fields (like API Keys) are stored securely",
+    "tip2": "Changes take effect immediately without service restart",
+    "tip3": "Priority: Database config > Environment variables",
+    "securityTitle": "Security Notice",
+    "security1": "Do not share API Keys with others",
+    "security2": "Rotate sensitive keys regularly",
+    "security3": "Only ADMIN role can access this page",
+    "security4": "Database backups will include encrypted settings (requires SETTINGS_ENCRYPTION_KEY to decrypt)"
+  },
+  "domainsPage": {
+    "title": "Domain Management",
+    "subtitle": "Manage multiple domain aliases for spider pool SEO optimization",
+    "addDomain": "Add Domain",
+    "editDomain": "Edit Domain",
+    "addNewDomain": "Add New Domain",
+    "deleteConfirm": "Are you sure you want to delete this domain?",
+    "domainLabel": "Domain",
+    "domainPlaceholder": "tg-download-cn.com",
+    "siteNameLabel": "Site Name",
+    "siteNamePlaceholder": "TG Download Center",
+    "siteDescLabel": "Site Description",
+    "siteDescPlaceholder": "Official Telegram Chinese Version Download",
+    "primaryTagsLabel": "Primary Tags (comma-separated, high weight)",
+    "primaryTagsPlaceholder": "telegram download, tg download, paper plane download",
+    "secondaryTagsLabel": "Secondary Tags (comma-separated, low weight)",
+    "secondaryTagsPlaceholder": "telegram installation, telegram chinese",
+    "statusActive": "Active",
+    "statusInactive": "Inactive",
+    "statusPending": "Pending DNS Configuration",
+    "statusPendingShort": "Pending",
+    "setPrimary": "Set as Primary Domain",
+    "saving": "Saving...",
+    "stats": "Stats",
+    "cannotDelete": "Cannot Delete",
+    "primaryDomain": "Primary Domain",
+    "visits": "visits",
+    "domain": "Domain",
+    "siteName": "Site Name",
+    "primaryTags": "Primary Tags",
+    "visitsCount": "Visits",
+    "noDomains": "No domain aliases",
+    "noDomainsDesc": "Start adding domains to build your spider pool SEO network"
+  },
+  "websiteDetail": {
+    "domainsManagement": "Domain Management"
+  },
+  "websiteEdit": {
+    "title": "Edit Website",
+    "subtitle": "Update website configuration and SEO settings",
+    "nameLabel": "Name",
+    "domainLabel": "Domain",
+    "descriptionLabel": "Description",
+    "statusActive": "Active",
+    "statusInactive": "Inactive",
+    "statusMaintenance": "Maintenance",
+    "seoKeywordsLabel": "SEO Keywords (comma-separated)",
+    "saving": "Saving...",
+    "saveChanges": "Save Changes",
+    "saveError": "Failed to update website. Please try again."
   }
 }

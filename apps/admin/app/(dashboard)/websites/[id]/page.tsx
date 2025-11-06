@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useParams } from 'next/navigation'
 import Link from 'next/link'
 import { format } from 'date-fns'
+import { useTranslations } from '@/components/I18nProvider'
 
 interface WebsiteDetail {
   id: string
@@ -41,6 +42,7 @@ async function fetchWebsite(id: string): Promise<WebsiteDetail> {
 export default function WebsiteDetailPage() {
   const params = useParams()
   const id = params.id as string
+  const t = useTranslations()
 
   const { data: website, isLoading } = useQuery({
     queryKey: ['website', id],
@@ -51,7 +53,7 @@ export default function WebsiteDetailPage() {
     return (
       <div className="text-center py-12">
         <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent"></div>
-        <p className="mt-2 text-gray-600">Loading website...</p>
+        <p className="mt-2 text-gray-600">{t('websiteDetail.loadingWebsite')}</p>
       </div>
     )
   }
@@ -59,7 +61,7 @@ export default function WebsiteDetailPage() {
   if (!website) {
     return (
       <div className="text-center py-12">
-        <p className="text-gray-600">Website not found</p>
+        <p className="text-gray-600">{t('websiteDetail.websiteNotFound')}</p>
       </div>
     )
   }
@@ -78,13 +80,13 @@ export default function WebsiteDetailPage() {
               href={`/websites/${id}/domains`}
               className="rounded-md border border-indigo-300 bg-indigo-50 px-4 py-2 text-sm font-medium text-indigo-700 hover:bg-indigo-100"
             >
-              域名管理
+              {t('websiteDetail.domainsManagement')}
             </Link>
             <Link
               href={`/websites/${id}/edit`}
               className="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
             >
-              Edit
+              {t('websiteDetail.edit')}
             </Link>
             <span
               className={`inline-flex items-center rounded-full px-3 py-1 text-sm font-semibold ${
@@ -105,25 +107,25 @@ export default function WebsiteDetailPage() {
           {/* SEO Information */}
           <div className="bg-white shadow rounded-lg p-6">
             <h2 className="text-lg font-medium text-gray-900 mb-4">
-              SEO Configuration
+              {t('websiteDetail.seoConfig')}
             </h2>
             <dl className="space-y-3">
               <div>
-                <dt className="text-sm font-medium text-gray-500">SEO Title</dt>
+                <dt className="text-sm font-medium text-gray-500">{t('websiteDetail.seoTitle')}</dt>
                 <dd className="mt-1 text-sm text-gray-900">
                   {website.seoTitle || '-'}
                 </dd>
               </div>
               <div>
                 <dt className="text-sm font-medium text-gray-500">
-                  SEO Description
+                  {t('websiteDetail.seoDescription')}
                 </dt>
                 <dd className="mt-1 text-sm text-gray-900">
                   {website.seoDescription || '-'}
                 </dd>
               </div>
               <div>
-                <dt className="text-sm font-medium text-gray-500">Keywords</dt>
+                <dt className="text-sm font-medium text-gray-500">{t('websiteDetail.keywords')}</dt>
                 <dd className="mt-1">
                   {website.seoKeywords.length > 0 ? (
                     <div className="flex flex-wrap gap-2">
@@ -148,13 +150,13 @@ export default function WebsiteDetailPage() {
           <div className="bg-white shadow rounded-lg p-6">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-medium text-gray-900">
-                Recent Posts ({website.posts.length})
+                {t('websiteDetail.recentPosts')} ({website.posts.length})
               </h2>
               <Link
                 href={`/posts?website=${id}`}
                 className="text-sm text-indigo-600 hover:text-indigo-500"
               >
-                View all
+                {t('websiteDetail.viewAll')}
               </Link>
             </div>
             {website.posts.length > 0 ? (
@@ -188,7 +190,7 @@ export default function WebsiteDetailPage() {
               </ul>
             ) : (
               <p className="text-sm text-gray-500 text-center py-4">
-                No posts yet
+                {t('websiteDetail.noPosts')}
               </p>
             )}
           </div>
@@ -198,11 +200,11 @@ export default function WebsiteDetailPage() {
         <div className="space-y-6">
           {/* Analytics */}
           <div className="bg-white shadow rounded-lg p-6">
-            <h2 className="text-lg font-medium text-gray-900 mb-4">Analytics</h2>
+            <h2 className="text-lg font-medium text-gray-900 mb-4">{t('websiteDetail.analytics')}</h2>
             <dl className="space-y-3">
               <div>
                 <dt className="text-sm font-medium text-gray-500">
-                  Google Analytics ID
+                  {t('websiteDetail.gaId')}
                 </dt>
                 <dd className="mt-1 text-sm text-gray-900">
                   {website.gaId || '-'}
@@ -210,7 +212,7 @@ export default function WebsiteDetailPage() {
               </div>
               <div>
                 <dt className="text-sm font-medium text-gray-500">
-                  Google Search Console ID
+                  {t('websiteDetail.gscId')}
                 </dt>
                 <dd className="mt-1 text-sm text-gray-900">
                   {website.gscId || '-'}
@@ -218,7 +220,7 @@ export default function WebsiteDetailPage() {
               </div>
               <div>
                 <dt className="text-sm font-medium text-gray-500">
-                  Baidu Tongji ID
+                  {t('websiteDetail.baiduTongjiId')}
                 </dt>
                 <dd className="mt-1 text-sm text-gray-900">
                   {website.baiduTongjiId || '-'}
@@ -231,13 +233,13 @@ export default function WebsiteDetailPage() {
           <div className="bg-white shadow rounded-lg p-6">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-medium text-gray-900">
-                Tracked Keywords ({website.keywords.length})
+                {t('websiteDetail.trackedKeywords')} ({website.keywords.length})
               </h2>
               <Link
                 href={`/keywords?website=${id}`}
                 className="text-sm text-indigo-600 hover:text-indigo-500"
               >
-                View all
+                {t('websiteDetail.viewAll')}
               </Link>
             </div>
             {website.keywords.length > 0 ? (
@@ -253,7 +255,7 @@ export default function WebsiteDetailPage() {
               </ul>
             ) : (
               <p className="text-sm text-gray-500 text-center py-4">
-                No keywords tracked
+                {t('websiteDetail.noKeywords')}
               </p>
             )}
           </div>

@@ -3,6 +3,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useParams } from 'next/navigation'
 import { useState } from 'react'
+import { useTranslations } from '@/components/I18nProvider'
 
 interface DomainAlias {
   id: string
@@ -65,6 +66,7 @@ export default function DomainsPage() {
   const params = useParams()
   const queryClient = useQueryClient()
   const websiteId = params.id as string
+  const t = useTranslations()
 
   const [showForm, setShowForm] = useState(false)
   const [editingDomain, setEditingDomain] = useState<DomainAlias | null>(null)
@@ -169,7 +171,7 @@ export default function DomainsPage() {
   }
 
   const handleDelete = (domainId: string) => {
-    if (confirm('确定要删除这个域名吗？')) {
+    if (confirm(t('domainsPage.deleteConfirm'))) {
       deleteMutation.mutate(domainId)
     }
   }
@@ -179,100 +181,100 @@ export default function DomainsPage() {
       <div className="mb-6 md:mb-8">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div className="min-w-0 flex-1">
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-900">域名管理</h1>
-            <p className="mt-1 md:mt-2 text-sm md:text-base text-gray-600">管理多个域名别名，实现蜘蛛池SEO优化</p>
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900">{t('domainsPage.title')}</h1>
+            <p className="mt-1 md:mt-2 text-sm md:text-base text-gray-600">{t('domainsPage.subtitle')}</p>
           </div>
           <button
             onClick={() => setShowForm(!showForm)}
             className="flex-shrink-0 rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-500"
           >
-            {showForm ? '取消' : '添加域名'}
+            {showForm ? t('common.cancel') : t('domainsPage.addDomain')}
           </button>
         </div>
       </div>
 
-      {/* 添加/编辑表单 */}
+      {/* Add/Edit form */}
       {showForm && (
         <div className="mb-8 bg-white shadow rounded-lg p-6">
           <h2 className="text-lg font-medium text-gray-900 mb-4">
-            {editingDomain ? '编辑域名' : '添加新域名'}
+            {editingDomain ? t('domainsPage.editDomain') : t('domainsPage.addNewDomain')}
           </h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700">域名 *</label>
+                <label className="block text-sm font-medium text-gray-700">{t('domainsPage.domainLabel')} *</label>
                 <input
                   type="text"
                   required
                   value={formData.domain}
                   onChange={(e) => setFormData({ ...formData, domain: e.target.value })}
-                  placeholder="tg-download-cn.com"
+                  placeholder={t('domainsPage.domainPlaceholder')}
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">站点名称 *</label>
+                <label className="block text-sm font-medium text-gray-700">{t('domainsPage.siteNameLabel')} *</label>
                 <input
                   type="text"
                   required
                   value={formData.siteName}
                   onChange={(e) => setFormData({ ...formData, siteName: e.target.value })}
-                  placeholder="TG下载中心"
+                  placeholder={t('domainsPage.siteNamePlaceholder')}
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">站点描述 *</label>
+              <label className="block text-sm font-medium text-gray-700">{t('domainsPage.siteDescLabel')} *</label>
               <input
                 type="text"
                 required
                 value={formData.siteDescription}
                 onChange={(e) => setFormData({ ...formData, siteDescription: e.target.value })}
-                placeholder="Telegram中文版官方下载"
+                placeholder={t('domainsPage.siteDescPlaceholder')}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
               />
             </div>
 
             <div>
               <label className="block text-sm font-medium text-gray-700">
-                主要标签（逗号分隔，权重高）
+                {t('domainsPage.primaryTagsLabel')}
               </label>
               <input
                 type="text"
                 value={formData.primaryTags}
                 onChange={(e) => setFormData({ ...formData, primaryTags: e.target.value })}
-                placeholder="telegram下载, tg下载, 纸飞机下载"
+                placeholder={t('domainsPage.primaryTagsPlaceholder')}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
               />
             </div>
 
             <div>
               <label className="block text-sm font-medium text-gray-700">
-                次要标签（逗号分隔，权重低）
+                {t('domainsPage.secondaryTagsLabel')}
               </label>
               <input
                 type="text"
                 value={formData.secondaryTags}
                 onChange={(e) => setFormData({ ...formData, secondaryTags: e.target.value })}
-                placeholder="telegram安装, telegram中文"
+                placeholder={t('domainsPage.secondaryTagsPlaceholder')}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
               />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700">状态</label>
+                <label className="block text-sm font-medium text-gray-700">{t('common.status')}</label>
                 <select
                   value={formData.status}
                   onChange={(e) => setFormData({ ...formData, status: e.target.value })}
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                 >
-                  <option value="ACTIVE">激活</option>
-                  <option value="INACTIVE">停用</option>
-                  <option value="PENDING">待配置DNS</option>
+                  <option value="ACTIVE">{t('domainsPage.statusActive')}</option>
+                  <option value="INACTIVE">{t('domainsPage.statusInactive')}</option>
+                  <option value="PENDING">{t('domainsPage.statusPending')}</option>
                 </select>
               </div>
 
@@ -283,7 +285,7 @@ export default function DomainsPage() {
                   onChange={(e) => setFormData({ ...formData, isPrimary: e.target.checked })}
                   className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
                 />
-                <label className="ml-2 text-sm text-gray-700">设为主域名</label>
+                <label className="ml-2 text-sm text-gray-700">{t('domainsPage.setPrimary')}</label>
               </div>
             </div>
 
@@ -293,14 +295,14 @@ export default function DomainsPage() {
                 onClick={resetForm}
                 className="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
               >
-                取消
+                {t('common.cancel')}
               </button>
               <button
                 type="submit"
                 disabled={createMutation.isPending || updateMutation.isPending}
                 className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-500 disabled:opacity-50"
               >
-                {createMutation.isPending || updateMutation.isPending ? '保存中...' : '保存'}
+                {createMutation.isPending || updateMutation.isPending ? t('domainsPage.saving') : t('common.save')}
               </button>
             </div>
 
@@ -315,11 +317,11 @@ export default function DomainsPage() {
         </div>
       )}
 
-      {/* 域名列表 */}
+      {/* Domain list */}
       {isLoading ? (
         <div className="text-center py-12">
           <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent"></div>
-          <p className="mt-2 text-sm md:text-base text-gray-600">加载中...</p>
+          <p className="mt-2 text-sm md:text-base text-gray-600">{t('common.loading')}</p>
         </div>
       ) : domains && domains.length > 0 ? (
         <div className="bg-white shadow rounded-lg overflow-hidden">
@@ -333,7 +335,7 @@ export default function DomainsPage() {
                       <h3 className="text-sm font-medium text-gray-900 truncate">{domain.domain}</h3>
                       {domain.isPrimary && (
                         <span className="flex-shrink-0 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800">
-                          主域名
+                          {t('domainsPage.primaryDomain')}
                         </span>
                       )}
                     </div>
@@ -369,10 +371,10 @@ export default function DomainsPage() {
                           : 'bg-gray-100 text-gray-800'
                       }`}
                     >
-                      {domain.status === 'ACTIVE' ? '激活' : domain.status === 'PENDING' ? '待配置' : '停用'}
+                      {domain.status === 'ACTIVE' ? t('domainsPage.statusActive') : domain.status === 'PENDING' ? t('domainsPage.statusPendingShort') : t('domainsPage.statusInactive')}
                     </span>
                     <span className="text-xs text-gray-500">
-                      {domain.visits.toLocaleString()} 访问
+                      {domain.visits.toLocaleString()} {t('domainsPage.visits')}
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
@@ -380,20 +382,20 @@ export default function DomainsPage() {
                       onClick={() => setSelectedDomainForStats(domain.id)}
                       className="text-xs text-blue-600 hover:text-blue-900"
                     >
-                      统计
+                      {t('domainsPage.stats')}
                     </button>
                     <button
                       onClick={() => handleEdit(domain)}
                       className="text-xs text-indigo-600 hover:text-indigo-900"
                     >
-                      编辑
+                      {t('common.edit')}
                     </button>
                     <button
                       onClick={() => handleDelete(domain.id)}
                       className="text-xs text-red-600 hover:text-red-900"
                       disabled={domain.isPrimary}
                     >
-                      {domain.isPrimary ? '不可删除' : '删除'}
+                      {domain.isPrimary ? t('domainsPage.cannotDelete') : t('common.delete')}
                     </button>
                   </div>
                 </div>
@@ -401,27 +403,27 @@ export default function DomainsPage() {
             ))}
           </div>
 
-          {/* 桌面端表格视图 */}
+          {/* Desktop table view */}
           <table className="hidden md:table min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  域名
+                  {t('domainsPage.domain')}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  站点名称
+                  {t('domainsPage.siteName')}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  主要标签
+                  {t('domainsPage.primaryTags')}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  状态
+                  {t('common.status')}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  访问量
+                  {t('domainsPage.visitsCount')}
                 </th>
                 <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  操作
+                  {t('common.actions')}
                 </th>
               </tr>
             </thead>
@@ -433,7 +435,7 @@ export default function DomainsPage() {
                       <div className="text-sm font-medium text-gray-900">{domain.domain}</div>
                       {domain.isPrimary && (
                         <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800">
-                          主域名
+                          {t('domainsPage.primaryDomain')}
                         </span>
                       )}
                     </div>
@@ -467,7 +469,7 @@ export default function DomainsPage() {
                           : 'bg-gray-100 text-gray-800'
                       }`}
                     >
-                      {domain.status === 'ACTIVE' ? '激活' : domain.status === 'PENDING' ? '待配置' : '停用'}
+                      {domain.status === 'ACTIVE' ? t('domainsPage.statusActive') : domain.status === 'PENDING' ? t('domainsPage.statusPendingShort') : t('domainsPage.statusInactive')}
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -478,20 +480,20 @@ export default function DomainsPage() {
                       onClick={() => setSelectedDomainForStats(domain.id)}
                       className="text-blue-600 hover:text-blue-900 mr-3"
                     >
-                      统计
+                      {t('domainsPage.stats')}
                     </button>
                     <button
                       onClick={() => handleEdit(domain)}
                       className="text-indigo-600 hover:text-indigo-900 mr-3"
                     >
-                      编辑
+                      {t('common.edit')}
                     </button>
                     <button
                       onClick={() => handleDelete(domain.id)}
                       className="text-red-600 hover:text-red-900"
                       disabled={domain.isPrimary}
                     >
-                      {domain.isPrimary ? '不可删除' : '删除'}
+                      {domain.isPrimary ? t('domainsPage.cannotDelete') : t('common.delete')}
                     </button>
                   </td>
                 </tr>
@@ -502,8 +504,8 @@ export default function DomainsPage() {
       ) : (
         <div className="text-center py-12 bg-white rounded-lg border border-gray-200">
           <span className="text-6xl">🌐</span>
-          <h3 className="mt-2 text-sm font-semibold text-gray-900">暂无域名别名</h3>
-          <p className="mt-1 text-sm text-gray-500">开始添加域名来构建蜘蛛池SEO网络</p>
+          <h3 className="mt-2 text-sm font-semibold text-gray-900">{t('domainsPage.noDomains')}</h3>
+          <p className="mt-1 text-sm text-gray-500">{t('domainsPage.noDomainsDesc')}</p>
         </div>
       )}
     </div>

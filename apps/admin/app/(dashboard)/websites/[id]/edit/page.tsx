@@ -3,6 +3,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useParams, useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { useTranslations } from '@/components/I18nProvider'
 
 interface Website {
   id: string
@@ -39,6 +40,7 @@ export default function EditWebsitePage() {
   const router = useRouter()
   const queryClient = useQueryClient()
   const id = params.id as string
+  const t = useTranslations()
 
   const { data: website, isLoading } = useQuery({
     queryKey: ['website', id],
@@ -60,7 +62,7 @@ export default function EditWebsitePage() {
     return (
       <div className="text-center py-12">
         <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent"></div>
-        <p className="mt-2 text-gray-600">Loading...</p>
+        <p className="mt-2 text-gray-600">{t('common.loading')}</p>
       </div>
     )
   }
@@ -79,17 +81,17 @@ export default function EditWebsitePage() {
   return (
     <div className="max-w-4xl">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Edit Website</h1>
-        <p className="mt-2 text-gray-600">Update website configuration and SEO settings</p>
+        <h1 className="text-3xl font-bold text-gray-900">{t('websiteEdit.title')}</h1>
+        <p className="mt-2 text-gray-600">{t('websiteEdit.subtitle')}</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Basic Info */}
         <div className="bg-white shadow rounded-lg p-6">
-          <h2 className="text-lg font-medium text-gray-900 mb-4">Basic Information</h2>
+          <h2 className="text-lg font-medium text-gray-900 mb-4">{t('websiteNew.basicInfo')}</h2>
           <div className="grid grid-cols-1 gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700">Name</label>
+              <label className="block text-sm font-medium text-gray-700">{t('websiteEdit.nameLabel')}</label>
               <input
                 type="text"
                 defaultValue={website.name}
@@ -99,7 +101,7 @@ export default function EditWebsitePage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">Domain</label>
+              <label className="block text-sm font-medium text-gray-700">{t('websiteEdit.domainLabel')}</label>
               <input
                 type="text"
                 defaultValue={website.domain}
@@ -109,7 +111,7 @@ export default function EditWebsitePage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">Description</label>
+              <label className="block text-sm font-medium text-gray-700">{t('websiteEdit.descriptionLabel')}</label>
               <textarea
                 defaultValue={website.description || ''}
                 onChange={(e) => handleChange('description', e.target.value)}
@@ -119,15 +121,15 @@ export default function EditWebsitePage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">Status</label>
+              <label className="block text-sm font-medium text-gray-700">{t('common.status')}</label>
               <select
                 defaultValue={website.status}
                 onChange={(e) => handleChange('status', e.target.value)}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
               >
-                <option value="ACTIVE">Active</option>
-                <option value="INACTIVE">Inactive</option>
-                <option value="MAINTENANCE">Maintenance</option>
+                <option value="ACTIVE">{t('websiteEdit.statusActive')}</option>
+                <option value="INACTIVE">{t('websiteEdit.statusInactive')}</option>
+                <option value="MAINTENANCE">{t('websiteEdit.statusMaintenance')}</option>
               </select>
             </div>
           </div>
@@ -135,10 +137,10 @@ export default function EditWebsitePage() {
 
         {/* SEO Settings */}
         <div className="bg-white shadow rounded-lg p-6">
-          <h2 className="text-lg font-medium text-gray-900 mb-4">SEO Settings</h2>
+          <h2 className="text-lg font-medium text-gray-900 mb-4">{t('websiteNew.seoSettings')}</h2>
           <div className="grid grid-cols-1 gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700">SEO Title</label>
+              <label className="block text-sm font-medium text-gray-700">{t('websiteNew.seoTitleLabel')}</label>
               <input
                 type="text"
                 defaultValue={website.seoTitle || ''}
@@ -148,7 +150,7 @@ export default function EditWebsitePage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">SEO Description</label>
+              <label className="block text-sm font-medium text-gray-700">{t('websiteNew.seoDescriptionLabel')}</label>
               <textarea
                 defaultValue={website.seoDescription || ''}
                 onChange={(e) => handleChange('seoDescription', e.target.value)}
@@ -159,7 +161,7 @@ export default function EditWebsitePage() {
 
             <div>
               <label className="block text-sm font-medium text-gray-700">
-                SEO Keywords (comma-separated)
+                {t('websiteEdit.seoKeywordsLabel')}
               </label>
               <input
                 type="text"
@@ -173,10 +175,10 @@ export default function EditWebsitePage() {
 
         {/* Analytics */}
         <div className="bg-white shadow rounded-lg p-6">
-          <h2 className="text-lg font-medium text-gray-900 mb-4">Analytics</h2>
+          <h2 className="text-lg font-medium text-gray-900 mb-4">{t('websiteDetail.analytics')}</h2>
           <div className="grid grid-cols-1 gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700">Google Analytics ID</label>
+              <label className="block text-sm font-medium text-gray-700">{t('websiteDetail.gaId')}</label>
               <input
                 type="text"
                 defaultValue={website.gaId || ''}
@@ -187,7 +189,7 @@ export default function EditWebsitePage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">Google Search Console ID</label>
+              <label className="block text-sm font-medium text-gray-700">{t('websiteDetail.gscId')}</label>
               <input
                 type="text"
                 defaultValue={website.gscId || ''}
@@ -197,7 +199,7 @@ export default function EditWebsitePage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">Baidu Tongji ID</label>
+              <label className="block text-sm font-medium text-gray-700">{t('websiteDetail.baiduTongjiId')}</label>
               <input
                 type="text"
                 defaultValue={website.baiduTongjiId || ''}
@@ -215,20 +217,20 @@ export default function EditWebsitePage() {
             onClick={() => router.back()}
             className="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
           >
-            Cancel
+            {t('common.cancel')}
           </button>
           <button
             type="submit"
             disabled={mutation.isPending}
             className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-500 disabled:opacity-50"
           >
-            {mutation.isPending ? 'Saving...' : 'Save Changes'}
+            {mutation.isPending ? t('websiteEdit.saving') : t('websiteEdit.saveChanges')}
           </button>
         </div>
 
         {mutation.isError && (
           <div className="rounded-md bg-red-50 p-4">
-            <p className="text-sm text-red-800">Failed to update website. Please try again.</p>
+            <p className="text-sm text-red-800">{t('websiteEdit.saveError')}</p>
           </div>
         )}
       </form>
