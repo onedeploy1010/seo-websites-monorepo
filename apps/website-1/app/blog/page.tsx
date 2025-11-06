@@ -1,40 +1,89 @@
 import { prisma } from '@repo/database'
-
-// Force dynamic rendering to avoid build-time database queries
-export const dynamic = 'force-dynamic'
+import { headers } from 'next/headers'
 import Link from 'next/link'
-
-// Force dynamic rendering to avoid build-time database queries
-export const dynamic = 'force-dynamic'
 import { format } from 'date-fns'
+import {
+  getDomainConfigFromList,
+  calculateTagMatchScoreFromDB,
+} from '@repo/shared/domain-db-helper'
 
 // Force dynamic rendering to avoid build-time database queries
 export const dynamic = 'force-dynamic'
 
 async function getAllPosts() {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || ''
+  try {
+    // 获取当前访问的域名
+    const headersList = headers()
+    const hostname = headersList.get('host')?.split(':')[0] || ''
 
-  const website = await prisma.website.findFirst({
-    where: {
-      domain: {
-        contains: siteUrl.replace('http://', '').replace('https://', ''),
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || ''
+
+    // 查询网站及其所有活跃的域名别名
+    const website = await prisma.website.findFirst({
+      where: {
+        domain: {
+          contains: siteUrl.replace('http://', '').replace('https://', ''),
+        },
       },
-    },
-  })
+      include: {
+        domainAliases: {
+          where: {
+            status: 'ACTIVE',
+          },
+        },
+      },
+    })
 
-  if (!website) return []
+    if (!website) return []
 
-  const posts = await prisma.post.findMany({
-    where: {
-      websiteId: website.id,
-      status: 'PUBLISHED',
-    },
-    orderBy: {
-      createdAt: 'desc',
-    },
-  })
+    // 获取所有已发布的文章
+    const allPosts = await prisma.post.findMany({
+      where: {
+        websiteId: website.id,
+        status: 'PUBLISHED',
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    })
 
-  return posts
+    // 如果没有配置域名别名，直接返回所有文章
+    if (website.domainAliases.length === 0) {
+      return allPosts
+    }
+
+    // 获取当前域名的配置
+    const domainConfig = getDomainConfigFromList(hostname, website.domainAliases)
+
+    // 如果找不到域名配置（访问的是localhost或主域名），返回所有文章
+    if (!domainConfig) {
+      return allPosts
+    }
+
+    // 找到当前域名的详细配置
+    const currentDomain = website.domainAliases.find(
+      (d) => d.domain === domainConfig.domain
+    )
+
+    if (!currentDomain) {
+      return allPosts
+    }
+
+    // 为每篇文章计算与当前域名标签的匹配分数
+    const postsWithScores = allPosts.map((post) => ({
+      post,
+      score: calculateTagMatchScoreFromDB(post.metaKeywords, currentDomain),
+    }))
+
+    // 按匹配分数排序（分数高的在前）
+    postsWithScores.sort((a, b) => b.score - a.score)
+
+    // 返回排序后的文章列表
+    return postsWithScores.map((item) => item.post)
+  } catch (error) {
+    console.error('Error fetching posts:', error)
+    return []
+  }
 }
 
 export default async function BlogPage() {
