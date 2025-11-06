@@ -77,8 +77,9 @@ model DomainAlias {
   website   Website @relation(fields: [websiteId], references: [id], onDelete: Cascade)
 
   // 反向关联
-  sitemaps   Sitemap[]
-  spiderLogs SpiderLog[]
+  sitemaps        Sitemap[]
+  spiderLogs      SpiderLog[]
+  keywordRankings KeywordRanking[]
 
   @@index([websiteId, status])
   @@index([domain])
@@ -172,7 +173,12 @@ model KeywordRanking {
   keywordId String
   keyword   Keyword @relation(fields: [keywordId], references: [id], onDelete: Cascade)
 
+  // 多域名支持：追踪哪个域名的URL在排名
+  domainAliasId String?
+  domainAlias   DomainAlias? @relation(fields: [domainAliasId], references: [id], onDelete: SetNull)
+
   @@index([keywordId, createdAt])
+  @@index([keywordId, domainAliasId, createdAt])
   @@map("keyword_rankings")
 }
 
