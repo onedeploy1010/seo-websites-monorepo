@@ -5,7 +5,7 @@ import { format } from 'date-fns'
 import {
   getDomainConfigFromList,
   calculateTagMatchScoreFromDB,
-} from '@repo/shared/domain-db-helper'
+} from '@repo/shared'
 
 // Force dynamic rendering to avoid build-time database queries
 export const dynamic = 'force-dynamic'

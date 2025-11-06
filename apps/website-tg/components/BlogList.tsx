@@ -5,7 +5,7 @@ import { prisma } from '@repo/database'
 import {
   getDomainConfigFromList,
   calculateTagMatchScoreFromDB,
-} from '@repo/shared/domain-db-helper'
+} from '@repo/shared'
 
 interface BlogPost {
   id: string
