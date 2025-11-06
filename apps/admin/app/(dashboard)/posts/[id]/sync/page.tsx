@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { useTranslations } from 'next-intl'
 
 interface Website {
   id: string
@@ -39,6 +40,7 @@ async function syncPost(postId: string, websiteIds: string[]) {
 }
 
 export default function SyncPostPage() {
+  const t = useTranslations()
   const params = useParams()
   const router = useRouter()
   const queryClient = useQueryClient()
@@ -74,7 +76,7 @@ export default function SyncPostPage() {
 
   const handleSync = () => {
     if (selectedWebsites.length === 0) {
-      alert('Please select at least one website to sync')
+      alert(t('postsSync.pleaseSelectOne'))
       return
     }
     syncMutation.mutate()
@@ -91,15 +93,15 @@ export default function SyncPostPage() {
   return (
     <div className="max-w-3xl">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Sync Post</h1>
+        <h1 className="text-3xl font-bold text-gray-900">{t('postsSync.title')}</h1>
         <p className="mt-2 text-gray-600">
-          Synchronize &quot;{post.title}&quot; to other websites
+          {t('postsSync.subtitle')}: &quot;{post.title}&quot;
         </p>
       </div>
 
       <div className="bg-white shadow rounded-lg p-6">
         <h2 className="text-lg font-medium text-gray-900 mb-4">
-          Select websites to sync to
+          {t('postsSync.selectWebsites')}
         </h2>
 
         {syncMutation.error && (
@@ -138,7 +140,7 @@ export default function SyncPostPage() {
 
                 {isSynced && (
                   <span className="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800">
-                    Already Synced
+                    {t('postsSync.alreadySynced')}
                   </span>
                 )}
               </div>
@@ -152,14 +154,14 @@ export default function SyncPostPage() {
             onClick={() => router.back()}
             className="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
           >
-            Cancel
+            {t('postsSync.cancel')}
           </button>
           <button
             onClick={handleSync}
             disabled={syncMutation.isPending || selectedWebsites.length === 0}
             className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-500 disabled:bg-gray-400"
           >
-            {syncMutation.isPending ? 'Syncing...' : 'Sync to Selected Websites'}
+            {syncMutation.isPending ? t('postsSync.syncing') : t('postsSync.syncToSelected')}
           </button>
         </div>
       </div>

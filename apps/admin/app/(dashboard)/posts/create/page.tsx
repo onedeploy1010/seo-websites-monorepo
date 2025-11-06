@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useQuery } from '@tanstack/react-query'
+import { useTranslations } from 'next-intl'
 
 interface Website {
   id: string
@@ -17,6 +18,7 @@ async function fetchWebsites(): Promise<Website[]> {
 }
 
 export default function CreatePostPage() {
+  const t = useTranslations()
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
@@ -54,7 +56,7 @@ export default function CreatePostPage() {
 
       if (!response.ok) {
         const error = await response.json()
-        throw new Error(error.message || 'Failed to create post')
+        throw new Error(error.message || t('postsCreate.createFailed'))
       }
 
       const post = await response.json()
@@ -70,8 +72,8 @@ export default function CreatePostPage() {
   return (
     <div className="max-w-4xl">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Create New Post</h1>
-        <p className="mt-2 text-gray-600">Write and publish blog content</p>
+        <h1 className="text-3xl font-bold text-gray-900">{t('postsCreate.title')}</h1>
+        <p className="mt-2 text-gray-600">{t('postsCreate.subtitle')}</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6 bg-white p-6 rounded-lg shadow">
@@ -85,7 +87,7 @@ export default function CreatePostPage() {
         <div className="space-y-4">
           <div>
             <label htmlFor="websiteId" className="block text-sm font-medium text-gray-700">
-              Website *
+              {t('postsCreate.websiteRequired')}
             </label>
             <select
               name="websiteId"
@@ -93,7 +95,7 @@ export default function CreatePostPage() {
               required
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-3 py-2 border"
             >
-              <option value="">Select a website</option>
+              <option value="">{t('postsCreate.selectWebsite')}</option>
               {websites?.map((website) => (
                 <option key={website.id} value={website.id}>
                   {website.name} ({website.domain})
@@ -104,7 +106,7 @@ export default function CreatePostPage() {
 
           <div>
             <label htmlFor="title" className="block text-sm font-medium text-gray-700">
-              Title *
+              {t('postsCreate.titleRequired')}
             </label>
             <input
               type="text"
@@ -112,13 +114,13 @@ export default function CreatePostPage() {
               id="title"
               required
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-3 py-2 border"
-              placeholder="Your awesome blog post title"
+              placeholder={t('postsCreate.titlePlaceholder')}
             />
           </div>
 
           <div>
             <label htmlFor="slug" className="block text-sm font-medium text-gray-700">
-              Slug *
+              {t('postsCreate.slugRequired')}
             </label>
             <input
               type="text"
@@ -126,14 +128,14 @@ export default function CreatePostPage() {
               id="slug"
               required
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-3 py-2 border"
-              placeholder="your-awesome-blog-post"
+              placeholder={t('postsCreate.slugPlaceholder')}
             />
-            <p className="mt-1 text-sm text-gray-500">URL-friendly version of the title</p>
+            <p className="mt-1 text-sm text-gray-500">{t('postsCreate.slugHelper')}</p>
           </div>
 
           <div>
             <label htmlFor="content" className="block text-sm font-medium text-gray-700">
-              Content *
+              {t('postsCreate.contentRequired')}
             </label>
             <textarea
               name="content"
@@ -141,13 +143,13 @@ export default function CreatePostPage() {
               required
               rows={12}
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-3 py-2 border font-mono"
-              placeholder="Write your content here (supports Markdown)..."
+              placeholder={t('postsCreate.contentPlaceholder')}
             />
           </div>
 
           <div>
             <label htmlFor="status" className="block text-sm font-medium text-gray-700">
-              Status *
+              {t('postsCreate.statusRequired')}
             </label>
             <select
               name="status"
@@ -155,55 +157,55 @@ export default function CreatePostPage() {
               required
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-3 py-2 border"
             >
-              <option value="DRAFT">Draft</option>
-              <option value="PUBLISHED">Published</option>
-              <option value="SCHEDULED">Scheduled</option>
+              <option value="DRAFT">{t('postsCreate.statusDraft')}</option>
+              <option value="PUBLISHED">{t('postsCreate.statusPublished')}</option>
+              <option value="SCHEDULED">{t('postsCreate.statusScheduled')}</option>
             </select>
           </div>
         </div>
 
         {/* SEO Settings */}
         <div className="border-t pt-6">
-          <h2 className="text-lg font-medium text-gray-900 mb-4">SEO Meta Tags</h2>
+          <h2 className="text-lg font-medium text-gray-900 mb-4">{t('postsCreate.seoMetaTags')}</h2>
           <div className="space-y-4">
             <div>
               <label htmlFor="metaTitle" className="block text-sm font-medium text-gray-700">
-                Meta Title
+                {t('postsCreate.metaTitleLabel')}
               </label>
               <input
                 type="text"
                 name="metaTitle"
                 id="metaTitle"
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-3 py-2 border"
-                placeholder="SEO-optimized title (leave empty to use post title)"
+                placeholder={t('postsCreate.metaTitlePlaceholder')}
               />
             </div>
 
             <div>
               <label htmlFor="metaDescription" className="block text-sm font-medium text-gray-700">
-                Meta Description
+                {t('postsCreate.metaDescriptionLabel')}
               </label>
               <textarea
                 name="metaDescription"
                 id="metaDescription"
                 rows={2}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-3 py-2 border"
-                placeholder="Brief description for search engines (150-160 characters)"
+                placeholder={t('postsCreate.metaDescriptionPlaceholder')}
               />
             </div>
 
             <div>
               <label htmlFor="metaKeywords" className="block text-sm font-medium text-gray-700">
-                Meta Keywords
+                {t('postsCreate.metaKeywordsLabel')}
               </label>
               <input
                 type="text"
                 name="metaKeywords"
                 id="metaKeywords"
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-3 py-2 border"
-                placeholder="keyword1, keyword2, keyword3"
+                placeholder={t('postsCreate.metaKeywordsPlaceholder')}
               />
-              <p className="mt-1 text-sm text-gray-500">Separate keywords with commas</p>
+              <p className="mt-1 text-sm text-gray-500">{t('postsCreate.keywordsSeparator')}</p>
             </div>
           </div>
         </div>
@@ -214,14 +216,14 @@ export default function CreatePostPage() {
             onClick={() => router.back()}
             className="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
           >
-            Cancel
+            {t('postsCreate.cancel')}
           </button>
           <button
             type="submit"
             disabled={isLoading}
             className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-500 disabled:bg-gray-400"
           >
-            {isLoading ? 'Creating...' : 'Create Post'}
+            {isLoading ? t('postsCreate.creating') : t('postsCreate.createPost')}
           </button>
         </div>
       </form>
