@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { useTranslations } from '@/hooks/useTranslations'
+import { useTranslations } from '@/components/I18nProvider'
 import Link from 'next/link'
 
 interface KeywordDetailsPageProps {

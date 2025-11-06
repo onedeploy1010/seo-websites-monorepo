@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { useTranslations } from '@/hooks/useTranslations'
+import { useTranslations } from '@/components/I18nProvider'
 
 export default function CreateKeywordPage() {
   const router = useRouter()
