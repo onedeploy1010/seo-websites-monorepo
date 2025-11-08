@@ -69,7 +69,16 @@
     "viewAll": "View All",
     "websiteStats": "Website Statistics",
     "seoPerformance": "SEO Performance",
-    "trafficAnalytics": "Traffic Analytics"
+    "trafficAnalytics": "Traffic Analytics",
+    "keywordsTracked": "Keywords Tracked",
+    "spiderVisits": "Spider Visits",
+    "quickActions": "Quick Actions",
+    "addWebsite": "Add Website",
+    "addWebsiteDesc": "Create a new website to manage",
+    "createPost": "Create Post",
+    "createPostDesc": "Write and publish a new article",
+    "checkRankings": "Check Rankings",
+    "checkRankingsDesc": "View keyword ranking performance"
   },
   "posts": {
     "title": "Posts Management",
@@ -104,7 +113,15 @@
     "selectWebsite": "Select Website",
     "syncToWebsite": "Sync to Website",
     "synced": "Synced",
-    "notSynced": "Not Synced"
+    "notSynced": "Not Synced",
+    "table": {
+      "title": "Title",
+      "website": "Website",
+      "status": "Status",
+      "synced": "Synced",
+      "created": "Created",
+      "actions": "Actions"
+    }
   },
   "websites": {
     "title": "Websites Management",
@@ -337,7 +354,8 @@
     "topBot": "Top Bot",
     "topCrawlers": "Top Crawlers",
     "visitsCount": "{count} visits",
-    "noVisits": "No crawler visits recorded"
+    "noVisits": "No crawler visits recorded",
+    "noRecentVisits": "No recent visits"
   },
   "settings": {
     "title": "System Settings",

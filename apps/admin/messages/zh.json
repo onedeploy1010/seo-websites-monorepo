@@ -69,7 +69,16 @@
     "viewAll": "查看全部",
     "websiteStats": "网站统计",
     "seoPerformance": "SEO 表现",
-    "trafficAnalytics": "流量分析"
+    "trafficAnalytics": "流量分析",
+    "keywordsTracked": "追踪关键词",
+    "spiderVisits": "蜘蛛访问",
+    "quickActions": "快捷操作",
+    "addWebsite": "添加网站",
+    "addWebsiteDesc": "创建新网站进行管理",
+    "createPost": "创建文章",
+    "createPostDesc": "撰写并发布新文章",
+    "checkRankings": "查看排名",
+    "checkRankingsDesc": "查看关键词排名表现"
   },
   "posts": {
     "title": "文章管理",
@@ -104,7 +113,15 @@
     "selectWebsite": "选择网站",
     "syncToWebsite": "同步到网站",
     "synced": "已同步",
-    "notSynced": "未同步"
+    "notSynced": "未同步",
+    "table": {
+      "title": "标题",
+      "website": "网站",
+      "status": "状态",
+      "synced": "同步",
+      "created": "创建时间",
+      "actions": "操作"
+    }
   },
   "websites": {
     "title": "网站管理",
@@ -337,7 +354,8 @@
     "topBot": "最活跃爬虫",
     "topCrawlers": "热门爬虫",
     "visitsCount": "{count} 次访问",
-    "noVisits": "暂无爬虫访问记录"
+    "noVisits": "暂无爬虫访问记录",
+    "noRecentVisits": "暂无最近访问"
   },
   "settings": {
     "title": "系统设置",
