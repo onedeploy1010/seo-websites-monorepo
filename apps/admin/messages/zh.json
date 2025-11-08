@@ -82,6 +82,7 @@
   },
   "posts": {
     "title": "文章管理",
+    "subtitle": "管理和发布你的博客文章",
     "list": "文章列表",
     "create": "创建文章",
     "edit": "编辑文章",
@@ -316,6 +317,7 @@
   },
   "sitemaps": {
     "title": "网站地图",
+    "subtitle": "管理并提交网站地图到搜索引擎",
     "list": "网站地图列表",
     "generate": "生成网站地图",
     "regenerate": "重新生成",
@@ -327,7 +329,14 @@
     "status": "状态",
     "submitted": "已提交",
     "notSubmitted": "未提交",
-    "downloadXml": "下载 XML"
+    "downloadXml": "下载 XML",
+    "table": {
+      "website": "网站",
+      "url": "URL",
+      "lastGenerated": "最后生成",
+      "lastSubmitted": "最后提交",
+      "actions": "操作"
+    }
   },
   "spider": {
     "title": "蜘蛛池监控",

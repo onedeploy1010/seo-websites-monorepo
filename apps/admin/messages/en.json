@@ -82,6 +82,7 @@
   },
   "posts": {
     "title": "Posts Management",
+    "subtitle": "Manage and publish your blog posts",
     "list": "Posts List",
     "create": "Create Post",
     "edit": "Edit Post",
@@ -316,6 +317,7 @@
   },
   "sitemaps": {
     "title": "Sitemaps",
+    "subtitle": "Manage and submit sitemaps to search engines",
     "list": "Sitemaps List",
     "generate": "Generate Sitemap",
     "regenerate": "Regenerate",
@@ -327,7 +329,14 @@
     "status": "Status",
     "submitted": "Submitted",
     "notSubmitted": "Not Submitted",
-    "downloadXml": "Download XML"
+    "downloadXml": "Download XML",
+    "table": {
+      "website": "Website",
+      "url": "URL",
+      "lastGenerated": "Last Generated",
+      "lastSubmitted": "Last Submitted",
+      "actions": "Actions"
+    }
   },
   "spider": {
     "title": "Spider Monitoring",
