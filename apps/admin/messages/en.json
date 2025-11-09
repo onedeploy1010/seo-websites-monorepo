@@ -62,6 +62,7 @@
   },
   "dashboard": {
     "title": "Dashboard",
+    "welcome": "Welcome",
     "overview": "Overview",
     "totalWebsites": "Total Websites",
     "totalPosts": "Total Posts",

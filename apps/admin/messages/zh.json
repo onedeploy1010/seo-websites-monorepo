@@ -62,6 +62,7 @@
   },
   "dashboard": {
     "title": "仪表板",
+    "welcome": "欢迎",
     "overview": "数据概览",
     "totalWebsites": "网站总数",
     "totalPosts": "文章总数",
