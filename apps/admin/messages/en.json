@@ -192,7 +192,8 @@
     "gscId": "Google Search Console ID",
     "baiduTongjiId": "Baidu Tongji ID",
     "trackedKeywords": "Tracked Keywords",
-    "noKeywords": "No keywords tracked"
+    "noKeywords": "No keywords tracked",
+    "domainsManagement": "Domain Management"
   },
   "postCreate": {
     "title": "Create New Post",
@@ -488,9 +489,6 @@
     "visitsCount": "Visits",
     "noDomains": "No domain aliases",
     "noDomainsDesc": "Start adding domains to build your spider pool SEO network"
-  },
-  "websiteDetail": {
-    "domainsManagement": "Domain Management"
   },
   "websiteEdit": {
     "title": "Edit Website",

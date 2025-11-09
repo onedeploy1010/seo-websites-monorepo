@@ -33,7 +33,8 @@
     "settings": "设置",
     "language": "语言",
     "notAvailable": "暂无",
-    "unknown": "未知"
+    "unknown": "未知",
+    "never": "从未"
   },
   "nav": {
     "dashboard": "仪表板",
@@ -192,7 +193,8 @@
     "gscId": "Google Search Console ID",
     "baiduTongjiId": "百度统计 ID",
     "trackedKeywords": "追踪关键词",
-    "noKeywords": "暂无追踪关键词"
+    "noKeywords": "暂无追踪关键词",
+    "domainsManagement": "域名管理"
   },
   "postCreate": {
     "title": "创建新文章",
@@ -322,6 +324,7 @@
     "generate": "生成网站地图",
     "regenerate": "重新生成",
     "submit": "提交到搜索引擎",
+    "submitAll": "提交所有网站地图",
     "submitGoogle": "提交到 Google",
     "submitBing": "提交到 Bing",
     "lastGenerated": "最后生成时间",
@@ -488,9 +491,6 @@
     "visitsCount": "访问量",
     "noDomains": "暂无域名别名",
     "noDomainsDesc": "开始添加域名来构建蜘蛛池SEO网络"
-  },
-  "websiteDetail": {
-    "domainsManagement": "域名管理"
   },
   "websiteEdit": {
     "title": "编辑网站",
