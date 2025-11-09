@@ -1,13 +1,18 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import JsonLd from '@/components/JsonLd'
+import { getDomainSEOMetadata } from '@/lib/get-website-by-domain'
 
-export const metadata: Metadata = {
-  metadataBase: new URL('https://www.telegramtgm.com'),
-  title: 'Telegram TGM - 专业的 Telegram 营销服务平台',
-  description: '提供专业的 Telegram 频道推广、会员增长、内容营销等服务，帮助您快速扩大影响力',
-  keywords: 'telegram, 营销, 推广, 会员增长, 频道推广',
-  authors: [{ name: 'Telegram TGM' }],
+// 动态生成SEO元数据，根据访问的域名
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await getDomainSEOMetadata()
+
+  return {
+    metadataBase: new URL('https://www.telegramtgm.com'),
+    title: seo.title,
+    description: seo.description,
+    keywords: seo.keywords,
+    authors: [{ name: 'Telegram TGM' }],
   openGraph: {
     type: 'website',
     locale: 'zh_CN',

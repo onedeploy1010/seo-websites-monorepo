@@ -4,24 +4,27 @@ import Header from '@/components/Header'
 import Hero from '@/components/Hero'
 import Services from '@/components/Services'
 import Footer from '@/components/Footer'
+import { getWebsiteByDomain } from '@/lib/get-website-by-domain'
 
 // Force dynamic rendering to avoid build-time database queries
 export const dynamic = 'force-dynamic'
 
 async function getRecentPosts() {
   try {
-    const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'Demo Website 1'
+    // 根据访问的域名获取对应的Website
+    const result = await getWebsiteByDomain()
 
-    const website = await prisma.website.findFirst({
-      where: {
-        OR: [
-          { name: { contains: siteName } },
-          { domain: { contains: 'localhost:3001' } }
-        ]
-      },
-    })
+    if (!result) {
+      console.error('[page.tsx] 未找到网站配置')
+      return []
+    }
 
-    if (!website) return []
+    const { website, domainConfig } = result
+
+    console.log(`[page.tsx] 当前网站: ${website.name}`)
+    if (domainConfig) {
+      console.log(`[page.tsx] 域名配置: ${domainConfig.siteName}`)
+    }
 
     const posts = await prisma.post.findMany({
       where: {

@@ -3,12 +3,19 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import Header from '@repo/ui-components/components/Header'
 import Footer from '@repo/ui-components/components/Footer'
+import { getDomainSEOMetadata } from '@/lib/get-website-by-domain'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata: Metadata = {
-  title: process.env.NEXT_PUBLIC_SITE_NAME || 'Telegram中文官网',
-  description: '即时通讯，高效安全，强悍的聊天交友工具',
+// 动态生成SEO元数据，根据访问的域名
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await getDomainSEOMetadata()
+
+  return {
+    title: seo.title,
+    description: seo.description,
+    keywords: seo.keywords,
+  }
 }
 
 export default function RootLayout({

@@ -1,9 +1,16 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import { getDomainSEOMetadata } from '@/lib/get-website-by-domain'
 
-export const metadata: Metadata = {
-  title: '电报中文版 - Telegram官网',
-  description: 'Telegram官网页面为您提供最新版本的Telegram电脑版客户端，Telegram中文版支持Windows、Mac、Android和iOS设备。体验安全、快速的加密聊天功能，无广告干扰。',
+// 动态生成SEO元数据，根据访问的域名
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await getDomainSEOMetadata()
+
+  return {
+    title: seo.title,
+    description: seo.description,
+    keywords: seo.keywords,
+  }
 }
 
 export default function RootLayout({
