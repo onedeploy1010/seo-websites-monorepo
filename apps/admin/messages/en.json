@@ -33,7 +33,8 @@
     "settings": "Settings",
     "language": "Language",
     "notAvailable": "N/A",
-    "unknown": "Unknown"
+    "unknown": "Unknown",
+    "never": "Never"
   },
   "nav": {
     "dashboard": "Dashboard",
@@ -48,7 +49,9 @@
     "signIn": "Sign In",
     "signOut": "Sign Out",
     "email": "Email Address",
+    "emailPlaceholder": "Enter your email",
     "password": "Password",
+    "passwordPlaceholder": "Enter your password",
     "rememberMe": "Remember Me",
     "forgotPassword": "Forgot Password",
     "signInTitle": "SEO Management System",
@@ -323,6 +326,7 @@
     "generate": "Generate Sitemap",
     "regenerate": "Regenerate",
     "submit": "Submit to Search Engines",
+    "submitAll": "Submit All Sitemaps",
     "submitGoogle": "Submit to Google",
     "submitBing": "Submit to Bing",
     "lastGenerated": "Last Generated",
