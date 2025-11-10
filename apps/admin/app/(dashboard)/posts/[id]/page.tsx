@@ -1,6 +1,5 @@
 'use client'
 
-import { use } from 'react'
 import { useRouter } from 'next/navigation'
 import { useQuery } from '@tanstack/react-query'
 import Link from 'next/link'
@@ -35,14 +34,13 @@ async function fetchPost(id: string): Promise<Post> {
   return response.json()
 }
 
-export default function PostDetailPage({ params }: { params: Promise<{ id: string }> }) {
-  const resolvedParams = use(params)
+export default function PostDetailPage({ params }: { params: { id: string } }) {
   const router = useRouter()
   const t = useTranslations()
 
   const { data: post, isLoading, error } = useQuery({
-    queryKey: ['post', resolvedParams.id],
-    queryFn: () => fetchPost(resolvedParams.id),
+    queryKey: ['post', params.id],
+    queryFn: () => fetchPost(params.id),
   })
 
   if (isLoading) {

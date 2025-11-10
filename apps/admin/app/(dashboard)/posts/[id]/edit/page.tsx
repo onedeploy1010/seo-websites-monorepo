@@ -1,6 +1,6 @@
 'use client'
 
-import { use, useState } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useQuery } from '@tanstack/react-query'
 import { useTranslations } from '@/components/I18nProvider'
@@ -39,16 +39,15 @@ async function fetchWebsites(): Promise<Website[]> {
   return response.json()
 }
 
-export default function EditPostPage({ params }: { params: Promise<{ id: string }> }) {
-  const resolvedParams = use(params)
+export default function EditPostPage({ params }: { params: { id: string } }) {
   const t = useTranslations()
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
 
   const { data: post, isLoading: isPostLoading } = useQuery({
-    queryKey: ['post', resolvedParams.id],
-    queryFn: () => fetchPost(resolvedParams.id),
+    queryKey: ['post', params.id],
+    queryFn: () => fetchPost(params.id),
   })
 
   const { data: websites } = useQuery({
@@ -76,7 +75,7 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
     }
 
     try {
-      const response = await fetch(`/api/posts/${resolvedParams.id}`, {
+      const response = await fetch(`/api/posts/${params.id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
@@ -87,7 +86,7 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
         throw new Error(error.message || '更新失败')
       }
 
-      router.push(`/posts/${resolvedParams.id}`)
+      router.push(`/posts/${params.id}`)
       router.refresh()
     } catch (err: any) {
       setError(err.message)
