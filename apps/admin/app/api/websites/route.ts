@@ -17,7 +17,24 @@ export async function GET() {
           select: {
             posts: true,
             keywords: true,
+            domainAliases: true,
           },
+        },
+        domainAliases: {
+          where: {
+            status: 'ACTIVE'
+          },
+          orderBy: {
+            isPrimary: 'desc'
+          },
+          select: {
+            id: true,
+            domain: true,
+            siteName: true,
+            isPrimary: true,
+            status: true,
+            primaryTags: true,
+          }
         },
       },
       orderBy: {
@@ -25,7 +42,21 @@ export async function GET() {
       },
     })
 
-    return NextResponse.json(websites)
+    // 添加Vercel项目ID映射
+    const vercelProjectMapping: Record<string, string> = {
+      'TG中文纸飞机': 'prj_aN8JC3AfUyQsnTZVdpO84Pf5SPvH',
+      'Demo Website 1': 'prj_dGal6NS8cuRCsXBHRysQ4rMUARWH',
+      'Demo Website 2': 'prj_UCOP3BYbuHIu9QmVjSN70mzH1bFm',
+    }
+
+    const websitesWithVercel = websites.map(website => ({
+      ...website,
+      vercelProjectId: vercelProjectMapping[website.name] || null,
+      vercelProjectName: website.name.includes('TG') ? 'website-tg' :
+                        website.name.includes('1') ? 'website-1' : 'website-2',
+    }))
+
+    return NextResponse.json(websitesWithVercel)
   } catch (error) {
     console.error('Failed to fetch websites:', error)
     return NextResponse.json(

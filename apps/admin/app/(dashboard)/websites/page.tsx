@@ -5,6 +5,15 @@ import Link from 'next/link'
 import { format } from 'date-fns'
 import { useTranslations } from '@/components/I18nProvider'
 
+interface DomainAlias {
+  id: string
+  domain: string
+  siteName: string
+  isPrimary: boolean
+  status: string
+  primaryTags: string[]
+}
+
 interface Website {
   id: string
   name: string
@@ -12,10 +21,14 @@ interface Website {
   status: string
   description: string | null
   createdAt: string
+  vercelProjectId: string | null
+  vercelProjectName: string | null
   _count: {
     posts: number
     keywords: number
+    domainAliases: number
   }
+  domainAliases: DomainAlias[]
 }
 
 async function fetchWebsites(): Promise<Website[]> {
@@ -90,6 +103,8 @@ function WebsiteCard({ website }: { website: Website }) {
     MAINTENANCE: 'bg-yellow-100 text-yellow-800',
   }[website.status] || 'bg-gray-100 text-gray-800'
 
+  const primaryDomain = website.domainAliases.find(d => d.isPrimary)
+
   return (
     <Link
       href={`/websites/${website.id}`}
@@ -109,6 +124,49 @@ function WebsiteCard({ website }: { website: Website }) {
         </span>
       </div>
 
+      {/* Vercel Project Info */}
+      {website.vercelProjectId && (
+        <div className="mt-3 p-2 bg-purple-50 border border-purple-200 rounded-md">
+          <div className="flex items-center gap-2 text-xs">
+            <span className="font-medium text-purple-900">🚀 Vercel:</span>
+            <code className="text-purple-700 bg-purple-100 px-2 py-0.5 rounded">
+              {website.vercelProjectName}
+            </code>
+          </div>
+          <div className="mt-1 text-xs text-purple-600 truncate font-mono">
+            {website.vercelProjectId}
+          </div>
+        </div>
+      )}
+
+      {/* Domains List */}
+      {website.domainAliases.length > 0 && (
+        <div className="mt-3">
+          <div className="text-xs font-medium text-gray-700 mb-2">
+            🌐 绑定域名 ({website._count.domainAliases})
+          </div>
+          <div className="space-y-1">
+            {website.domainAliases.slice(0, 3).map((domain) => (
+              <div key={domain.id} className="flex items-center gap-2 text-xs">
+                <span className={`truncate ${domain.isPrimary ? 'font-medium text-blue-600' : 'text-gray-600'}`}>
+                  {domain.domain}
+                </span>
+                {domain.isPrimary && (
+                  <span className="flex-shrink-0 px-1.5 py-0.5 bg-blue-100 text-blue-700 rounded text-[10px] font-medium">
+                    主域名
+                  </span>
+                )}
+              </div>
+            ))}
+            {website._count.domainAliases > 3 && (
+              <div className="text-xs text-gray-500">
+                +{website._count.domainAliases - 3} 个域名...
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
       {website.description && (
         <p className="mt-3 text-xs md:text-sm text-gray-600 line-clamp-2">
           {website.description}
@@ -118,16 +176,16 @@ function WebsiteCard({ website }: { website: Website }) {
       <div className="mt-4 flex items-center flex-wrap gap-x-4 gap-y-2 text-xs md:text-sm text-gray-500">
         <div className="flex items-center">
           <span className="mr-1">📝</span>
-          <span className="truncate">{t('websites.postsCount', { count: website._count.posts })}</span>
+          <span className="truncate">{website._count.posts} 篇文章</span>
         </div>
         <div className="flex items-center">
           <span className="mr-1">🔑</span>
-          <span className="truncate">{t('websites.keywordsCount', { count: website._count.keywords })}</span>
+          <span className="truncate">{website._count.keywords} 个关键词</span>
         </div>
       </div>
 
       <div className="mt-3 text-xs text-gray-400 truncate">
-        {t('websites.created', { date: format(new Date(website.createdAt), 'MMM d, yyyy') })}
+        创建于 {format(new Date(website.createdAt), 'MMM d, yyyy')}
       </div>
     </Link>
   )
