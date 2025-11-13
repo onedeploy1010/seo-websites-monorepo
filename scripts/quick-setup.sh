@@ -133,6 +133,10 @@ fi
 
 # 加载环境变量到当前会话
 echo -e "${BLUE}加载环境变量...${NC}"
+
+# 清理 Windows 换行符（CRLF -> LF）
+sed -i 's/\r$//' "$PROJECT_DIR/.env.local"
+
 set -a  # 自动导出所有变量
 source "$PROJECT_DIR/.env.local"
 set +a
