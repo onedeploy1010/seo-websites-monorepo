@@ -431,7 +431,7 @@ pnpm dev
 
 #### 📖 完整部署文档
 
-详细的 12 步部署流程请查看：**[服务器部署指南.md](./服务器部署指南.md)**
+详细的 12 步部署流程请查看：**[服务器部署指南.md](./docs/服务器部署指南.md)**
 
 主要步骤包括：
 1. 安装宝塔面板
@@ -696,7 +696,7 @@ npm run start
 cat .env.local
 ```
 
-详见：[服务器部署指南 - 常见问题排查](./服务器部署指南.md#-常见问题排查)
+详见：[服务器部署指南 - 常见问题排查](./docs/服务器部署指南.md#-常见问题排查)
 
 </details>
 
@@ -861,7 +861,7 @@ pm2 restart all
 4. 配置 Nginx 反向代理
 5. 启动 PM2 进程
 
-示例配置详见：[服务器部署指南 - PM2 配置](./服务器部署指南.md#81-创建-pm2-配置文件)
+示例配置详见：[服务器部署指南 - PM2 配置](./docs/服务器部署指南.md#第五步配置-nginx-反向代理)
 
 </details>
 
@@ -955,7 +955,7 @@ MIT License © 2025
 
 - 🐛 **Issues**: [GitHub Issues](https://github.com/onedeploy1010/seo-websites-monorepo/issues)
 - 💬 **Discussions**: [GitHub Discussions](https://github.com/onedeploy1010/seo-websites-monorepo/discussions)
-- 📖 **文档**: [服务器部署指南](./服务器部署指南.md) | [使用说明书](./使用说明书.md)
+- 📖 **文档**: [服务器部署指南](./docs/服务器部署指南.md) | [使用说明书](./docs/使用说明书.md)
 
 ---
 
