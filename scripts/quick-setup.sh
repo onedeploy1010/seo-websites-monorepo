@@ -130,6 +130,14 @@ EOF
 else
     echo -e "${GREEN}✅ .env.local 已存在${NC}"
 fi
+
+# 加载环境变量到当前会话
+echo -e "${BLUE}加载环境变量...${NC}"
+set -a  # 自动导出所有变量
+source "$PROJECT_DIR/.env.local"
+set +a
+echo -e "${GREEN}✅ 环境变量已加载${NC}"
+
 echo ""
 
 # 步骤 5: 安装依赖
@@ -144,14 +152,14 @@ echo ""
 echo -e "${YELLOW}步骤 6/11: 初始化 Prisma${NC}"
 cd "$PROJECT_DIR/packages/database"
 echo -e "${BLUE}生成 Prisma 客户端...${NC}"
-npx dotenv -e ../../.env.local -- npx prisma generate
+npx prisma generate
 echo -e "${GREEN}✅ Prisma 客户端已生成${NC}"
 echo ""
 
 # 步骤 7: 运行数据库迁移
 echo -e "${YELLOW}步骤 7/11: 运行数据库迁移${NC}"
 echo -e "${BLUE}推送数据库 schema...${NC}"
-npx dotenv -e ../../.env.local -- npx prisma db push
+npx prisma db push
 echo -e "${GREEN}✅ 数据库表结构已创建${NC}"
 echo ""
 
@@ -160,7 +168,7 @@ echo -e "${YELLOW}步骤 8/11: 创建种子数据（管理员账号）${NC}"
 read -p "是否要创建默认管理员账号? (y/n): " create_seed
 if [ "$create_seed" = "y" ]; then
     echo -e "${BLUE}创建管理员账号和示例数据...${NC}"
-    npx dotenv -e ../../.env.local -- npx tsx prisma/seed.ts
+    npx tsx prisma/seed.ts
     echo ""
     echo -e "${GREEN}✅ 默认管理员账号已创建${NC}"
     echo "  邮箱: admin@example.com"
@@ -177,7 +185,7 @@ echo -e "${YELLOW}步骤 9/11: 部署域名配置（15个域名）${NC}"
 read -p "是否要部署域名配置? (y/n): " deploy_domains
 if [ "$deploy_domains" = "y" ]; then
     echo -e "${BLUE}部署 15 个域名到数据库...${NC}"
-    npx dotenv -e ../../.env.local -- npx tsx prisma/seed-domains.ts
+    npx tsx prisma/seed-domains.ts
     echo ""
     echo -e "${GREEN}✅ 已部署 15 个域名配置${NC}"
     echo ""
