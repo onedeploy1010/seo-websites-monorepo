@@ -67,14 +67,14 @@ export class SpiderRateLimiter {
   // 定期清理过期数据
   cleanup() {
     const oneMinuteAgo = Date.now() - 60000
-    for (const [ip, timestamps] of this.visits.entries()) {
+    Array.from(this.visits.entries()).forEach(([ip, timestamps]) => {
       const filtered = timestamps.filter(t => t > oneMinuteAgo)
       if (filtered.length === 0) {
         this.visits.delete(ip)
       } else {
         this.visits.set(ip, filtered)
       }
-    }
+    })
   }
 }
 

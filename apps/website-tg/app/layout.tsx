@@ -13,42 +13,43 @@ export async function generateMetadata(): Promise<Metadata> {
     description: seo.description,
     keywords: seo.keywords,
     authors: [{ name: 'Telegram TGM' }],
-  openGraph: {
-    type: 'website',
-    locale: 'zh_CN',
-    url: 'https://www.telegramtgm.com',
-    siteName: 'Telegram TGM',
-    title: 'Telegram TGM - 专业的 Telegram 营销服务平台',
-    description: '提供专业的 Telegram 频道推广、会员增长、内容营销等服务',
-    images: [
-      {
-        url: '/og-image.svg',
-        width: 1200,
-        height: 630,
-        alt: 'Telegram TGM',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Telegram TGM - 专业的 Telegram 营销服务平台',
-    description: '提供专业的 Telegram 频道推广、会员增长、内容营销等服务',
-    images: ['/og-image.svg'],
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
+    openGraph: {
+      type: 'website',
+      locale: 'zh_CN',
+      url: 'https://www.telegramtgm.com',
+      siteName: 'Telegram TGM',
+      title: 'Telegram TGM - 专业的 Telegram 营销服务平台',
+      description: '提供专业的 Telegram 频道推广、会员增长、内容营销等服务',
+      images: [
+        {
+          url: '/og-image.svg',
+          width: 1200,
+          height: 630,
+          alt: 'Telegram TGM',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: 'Telegram TGM - 专业的 Telegram 营销服务平台',
+      description: '提供专业的 Telegram 频道推广、会员增长、内容营销等服务',
+      images: ['/og-image.svg'],
+    },
+    robots: {
       index: true,
       follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
     },
-  },
-  verification: {
-    google: 'your-google-verification-code',
-  },
+    verification: {
+      google: 'your-google-verification-code',
+    },
+  }
 }
 
 export default function RootLayout({
