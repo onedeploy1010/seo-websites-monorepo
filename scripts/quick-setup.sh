@@ -67,15 +67,39 @@ if [ -z "$PNPM_CMD" ]; then
     echo -e "${YELLOW}⚠️  pnpm 未找到，正在安装...${NC}"
     npm install -g pnpm
 
-    # 重新检测
+    # 刷新环境变量
+    export PATH="$PATH:/usr/local/bin:/usr/bin"
+    hash -r  # 清除 bash 命令缓存
+
+    # 等待一秒让文件系统同步
+    sleep 1
+
+    # 重新检测（检查更多位置）
     if command -v pnpm &> /dev/null; then
         PNPM_CMD="pnpm"
     elif [ -f "/usr/local/bin/pnpm" ]; then
         PNPM_CMD="/usr/local/bin/pnpm"
+    elif [ -f "/usr/bin/pnpm" ]; then
+        PNPM_CMD="/usr/bin/pnpm"
+    elif [ -f "/usr/local/lib/node_modules/pnpm/bin/pnpm.cjs" ]; then
+        PNPM_CMD="node /usr/local/lib/node_modules/pnpm/bin/pnpm.cjs"
     else
-        echo -e "${RED}❌ pnpm 安装失败${NC}"
-        echo "请手动安装 pnpm: npm install -g pnpm"
-        exit 1
+        # 尝试通过 npm 查找 pnpm
+        NPM_PREFIX=$(npm config get prefix)
+        if [ -f "$NPM_PREFIX/bin/pnpm" ]; then
+            PNPM_CMD="$NPM_PREFIX/bin/pnpm"
+        elif [ -f "$NPM_PREFIX/lib/node_modules/pnpm/bin/pnpm.cjs" ]; then
+            PNPM_CMD="node $NPM_PREFIX/lib/node_modules/pnpm/bin/pnpm.cjs"
+        else
+            echo -e "${RED}❌ pnpm 安装失败${NC}"
+            echo -e "${YELLOW}尝试手动安装并指定路径：${NC}"
+            echo "  1. npm install -g pnpm"
+            echo "  2. which pnpm"
+            echo "  3. 或使用: npx pnpm 替代 pnpm"
+            echo ""
+            echo -e "${BLUE}提示：您可以使用 'npx pnpm install' 和 'npx pnpm build' 手动执行后续步骤${NC}"
+            exit 1
+        fi
     fi
 fi
 
