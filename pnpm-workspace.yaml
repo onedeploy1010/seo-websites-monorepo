@@ -1,0 +1,8 @@
+# pnpm Workspace 配置
+# 用于 Turborepo Monorepo 项目
+
+packages:
+  # 应用程序
+  - 'apps/*'
+  # 共享包
+  - 'packages/*'
