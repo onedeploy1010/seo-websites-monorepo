@@ -24,6 +24,13 @@ export async function GET(
             domain: true,
           },
         },
+        author: {
+          select: {
+            id: true,
+            email: true,
+            name: true,
+          },
+        },
       },
     })
 

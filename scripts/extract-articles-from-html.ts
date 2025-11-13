@@ -101,17 +101,15 @@ function analyzeKeywords(title: string, excerpt: string): string[] {
 async function saveArticlesToDatabase(articles: Article[]) {
   console.log('\n💾 开始保存文章到数据库...\n')
 
-  // 查找 website-2
+  // 查找 website-2 (Telegram中文官网, Domain: localhost:3002)
   const website = await prisma.website.findFirst({
     where: {
-      name: {
-        contains: 'website-2'
-      }
+      domain: 'localhost:3002'
     }
   })
 
   if (!website) {
-    console.error('❌ 未找到 website-2')
+    console.error('❌ 未找到 website-2 (Telegram中文官网)')
     return
   }
 
