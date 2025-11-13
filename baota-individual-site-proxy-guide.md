@@ -5,21 +5,21 @@
 | 域名 | 应用 | 端口 |
 |------|------|------|
 | admin.telegram1688.com | Admin后台 | 3100 |
-| www.telegramseo.com | Website-1 | 3001 |
-| www.tgseotools.com | Website-1 | 3001 |
-| www.telegram-analytics.com | Website-1 | 3001 |
-| www.tgmarketingpro.com | Website-1 | 3001 |
-| www.telegramsuite.com | Website-1 | 3001 |
-| www.telegramdata.com | Website-2 | 3002 |
-| www.tginsights.com | Website-2 | 3002 |
-| www.telegram-metrics.com | Website-2 | 3002 |
-| www.tggrowthtools.com | Website-2 | 3002 |
-| www.telegramboost.com | Website-2 | 3002 |
-| www.telegramtgm.com | Website-TG | 3003 |
-| www.tg-optimizer.com | Website-TG | 3003 |
-| www.telegram-seo.com | Website-TG | 3003 |
-| www.tgchanneltools.com | Website-TG | 3003 |
-| www.telegramgrowth.com | Website-TG | 3003 |
+| telegram1688.com | Website-1 | 3001 |
+| telegram2688.com | Website-1 | 3001 |
+| telegramcny28.com | Website-1 | 3001 |
+| telegramrmb28.com | Website-1 | 3001 |
+| telegramxzb.com | Website-1 | 3001 |
+| telegramcnfw.com | Website-2 | 3002 |
+| telegramfuwu.com | Website-2 | 3002 |
+| telegramfwfw.com | Website-2 | 3002 |
+| telegramxzfw.com | Website-2 | 3002 |
+| telegramzhfw.com | Website-2 | 3002 |
+| telegramgzzh.com | Website-TG | 3003 |
+| telegramhnzh.com | Website-TG | 3003 |
+| telegramjiaoyu.com | Website-TG | 3003 |
+| xztelegram.com | Website-TG | 3003 |
+| zhxztelegram.com | Website-TG | 3003 |
 
 ## 宝塔面板配置步骤
 
@@ -139,21 +139,21 @@ cat > baota-batch-proxy-config.sh << 'EOF'
 # 域名到端口的映射
 declare -A DOMAIN_PORT_MAP=(
     ["admin.telegram1688.com"]="3100"
-    ["www.telegramseo.com"]="3001"
-    ["www.tgseotools.com"]="3001"
-    ["www.telegram-analytics.com"]="3001"
-    ["www.tgmarketingpro.com"]="3001"
-    ["www.telegramsuite.com"]="3001"
-    ["www.telegramdata.com"]="3002"
-    ["www.tginsights.com"]="3002"
-    ["www.telegram-metrics.com"]="3002"
-    ["www.tggrowthtools.com"]="3002"
-    ["www.telegramboost.com"]="3002"
-    ["www.telegramtgm.com"]="3003"
-    ["www.tg-optimizer.com"]="3003"
-    ["www.telegram-seo.com"]="3003"
-    ["www.tgchanneltools.com"]="3003"
-    ["www.telegramgrowth.com"]="3003"
+    ["telegram1688.com"]="3001"
+    ["telegram2688.com"]="3001"
+    ["telegramcny28.com"]="3001"
+    ["telegramrmb28.com"]="3001"
+    ["telegramxzb.com"]="3001"
+    ["telegramcnfw.com"]="3002"
+    ["telegramfuwu.com"]="3002"
+    ["telegramfwfw.com"]="3002"
+    ["telegramxzfw.com"]="3002"
+    ["telegramzhfw.com"]="3002"
+    ["telegramgzzh.com"]="3003"
+    ["telegramhnzh.com"]="3003"
+    ["telegramjiaoyu.com"]="3003"
+    ["xztelegram.com"]="3003"
+    ["zhxztelegram.com"]="3003"
 )
 
 NGINX_VHOST_DIR="/www/server/panel/vhost/nginx"
@@ -272,15 +272,22 @@ pm2 restart all
    - 测试登录功能
    - 确保数据库连接正常
 
-2. **配置其中一个Website-1域名** (如 www.telegramseo.com)
+2. **配置其中一个Website-1域名** (如 telegram1688.com)
    - 测试页面加载
    - 验证内容正确
 
 3. **配置剩余的Website-1域名**
+   - telegram2688.com, telegramcny28.com, telegramrmb28.com, telegramxzb.com
    - 使用相同配置
    - 逐个测试
 
-4. **重复步骤2-3配置Website-2和Website-TG的域名**
+4. **配置Website-2的5个域名**
+   - telegramcnfw.com, telegramfuwu.com, telegramfwfw.com, telegramxzfw.com, telegramzhfw.com
+   - 代理到端口 3002
+
+5. **配置Website-TG的5个域名**
+   - telegramgzzh.com, telegramhnzh.com, telegramjiaoyu.com, xztelegram.com, zhxztelegram.com
+   - 代理到端口 3003
 
 ---
 
