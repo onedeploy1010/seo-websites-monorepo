@@ -1,0 +1,127 @@
+footer {
+    width: 100%;
+    height: auto;
+    margin: 30px auto 0;
+    background: #f9f9fa;
+    padding: 41px 5% 30px;
+    box-sizing: border-box;
+}
+footer .foo_box .foo_top {
+  display: flex;
+  justify-content: space-between;
+}
+@media screen and (max-width: 750px) {
+    footer{
+        padding: 20px 5%;
+    }
+  footer .foo_box .foo_top {
+    display: none;
+  }
+  footer .foo_box .foo_bom{
+      margin-top: 0px !important;
+  }
+}
+footer .foo_box .foo_top .fb_left {
+  width: 295px;
+  font-size: 16px;
+}
+footer .foo_box .foo_top .fb_left .fbl_one {
+  font-weight: 700;
+  margin-bottom: 30px;
+  
+  color: #333;
+font-size: 16px;
+font-style: normal;
+line-height: normal;
+  
+}
+footer .foo_box .foo_top .fb_left .fbl_two {
+  font-size: 15px;
+  
+  color: #777;
+font-size: 14px;
+font-style: normal;
+line-height: normal;
+  
+}
+footer .foo_box .foo_top .fb_left .fbl_two a{
+    color: #777;  
+}
+footer .foo_box .foo_top .fb_con {
+  display: flex;
+  width: 50%;
+  justify-content: space-between;
+}
+footer .foo_box .foo_top .fb_con a {
+  color: #000;
+}
+footer .foo_box .foo_top .fb_con .menu li {
+  margin-bottom: 15px;
+  
+  color: #777;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+  
+}
+footer .foo_box .foo_top .fb_con .menu li a{
+    color: #777;
+}
+
+footer .foo_box .foo_top .fb_con .menu li a:hover{
+    color: #26A4E4;
+}
+footer .foo_box .foo_top .fb_con .menu li:nth-child(1) a{
+    color: #000;
+}
+footer .foo_box .foo_top .fb_con .menu li:nth-child(1) a:hover{
+    color: #000;
+}
+footer .foo_box .foo_top .fb_con .menu li:nth-child(1) {
+  font-weight: 700;
+  
+  
+ color: #333;
+font-size: 16px;
+font-style: normal;
+line-height: normal;
+  
+}
+footer .foo_box .foo_top .fb_right{
+display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+footer .foo_box .foo_top .fb_right select {
+display: block;
+    width: 80px;
+    height: 70px;
+    position: absolute;
+    opacity: 0;
+    top: 24px;
+}
+footer .foo_box .foo_top .fb_right img {
+  width: 80px;
+  height: 80px;
+}
+footer .foo_box .foo_top .fb_right span{
+    color: #333;
+font-size: 16px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+margin-top: 12px;
+}
+footer .foo_box .foo_bom {
+  margin-top: 50px;
+  text-align: center;
+  
+  color: #777;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+}

@@ -1,0 +1,170 @@
+header {
+  width: 100%;
+  height: 65px;
+  margin-bottom: 30px;
+  position: fixed;
+  top: 0;
+  background-color: #fff;
+  z-index: 999;
+  
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+@media screen and (max-width: 750px) {
+  header {
+    height: auto;
+  }
+}
+header .hea_box {
+  width: 80%;
+  height: 65px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  
+
+  
+}
+@media screen and (max-width: 750px) {
+  header .hea_box {
+    display: none;
+  }
+}
+header .hea_box .heab_logo {
+  display: flex;
+  align-items: center;
+  height: 65px;
+}
+header .hea_box .heab_logo img {
+  width: 50px;
+  height: 50px;
+  margin-right: 15px;
+}
+header .hea_box .heab_logo span {
+  font-size: 15px;
+  color: #0088cc;
+  
+color: #26A4E4;
+font-family: Alibaba PuHuiTi 2.0;
+font-size: 13px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+  
+}
+header .hea_box .heab_logo .menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 65px;
+  width: 380px;
+  margin-left: 40px;
+}
+header .hea_box .heab_logo .menu a {
+  font-size: 15px;
+  color: #000;
+  box-sizing: border-box;
+}
+
+header .hea_box .heab_logo .menu a:hover{
+    border-bottom: 1px solid #26A4E4;
+     color: #26A4E4 !important;
+}
+header .hea_box .heab_btns .menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 65px;
+  width: 500px;
+  margin-right: 79px;
+}
+header .hea_box .heab_btns .menu a {
+  font-size: 15px;
+  color: #000;
+}
+.aact {
+    color: #26A4E4 !important;
+    border-bottom: 1px solid #26A4E4;
+}
+header .hea_box .heab_btns {
+  display: flex;
+  align-items: center;
+}
+header .hea_box .heab_btns img {
+  width: 21px;
+  height: 17px;
+}
+header .hea_box .heab_btns .appdown {
+  display: block;
+  width: 100px;
+  height: 30px;
+  background-color: #0088cc;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #fff;
+  text-align: center;
+  line-height: 30px;
+}
+header .hea_box .heab_btns .appdown:hover{
+    background-color: #0874ab;
+}
+header .hea_box .heab_btns .twitter_logo {
+  margin-left: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 45px;
+  height: 30px;
+  background-color: #fff;
+  border-radius: 10px;
+}
+header .heab_box {
+  display: none;
+  width: 80%;
+  margin: 10px auto;
+}
+@media screen and (max-width: 750px) {
+  header .heab_box {
+    display: block;
+  }
+}
+header .heab_box .hb_tit {
+  display: flex;
+  justify-content: space-between;
+}
+header .heab_box .hb_tit .hbt_left {
+  display: flex;
+  align-items: center;
+}
+header .heab_box .hb_tit .hbt_left .close {
+  display: none;
+}
+header .heab_box .hb_tit .hbt_left span {
+  margin-left: 10px;
+  color: #0088cc;
+  font-size: 20px;
+}
+header .heab_box .hb_tit .hbt_right {
+  width: 100px;
+  height: 30px;
+  background-color: #0088cc;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+header .heab_box .hb_tit .hbt_right a {
+  color: #fff;
+}
+header .heab_box .hb_nav {
+  background-color: #fff;
+  display: none;
+}
+header .heab_box .hb_nav ul {
+  margin-top: 10px;
+}
+header .heab_box .hb_nav ul li {
+  margin-bottom: 10px;
+}
+header .heab_box .hb_nav ul li a {
+  color: #000;
+}
