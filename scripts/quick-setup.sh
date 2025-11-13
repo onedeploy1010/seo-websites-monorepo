@@ -210,7 +210,8 @@ echo ""
 echo -e "${YELLOW}步骤 10/11: 构建应用${NC}"
 cd "$PROJECT_DIR"
 echo -e "${BLUE}构建所有应用（可能需要几分钟）...${NC}"
-npx pnpm build
+# 直接使用 npx turbo 运行构建，避免 pnpm 脚本调用问题
+npx turbo run build
 echo -e "${GREEN}✅ 应用构建完成${NC}"
 echo ""
 

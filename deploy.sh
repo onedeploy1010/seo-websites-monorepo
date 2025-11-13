@@ -52,7 +52,7 @@ echo ""
 
 # 步骤 2: 安装依赖
 echo -e "${YELLOW}📦 步骤 2/5: 安装依赖${NC}"
-pnpm install
+npx pnpm install --force
 if [ $? -eq 0 ]; then
     echo -e "${GREEN}✅ 依赖安装成功${NC}"
 else
@@ -63,18 +63,20 @@ echo ""
 
 # 步骤 3: 数据库迁移
 echo -e "${YELLOW}🗄️  步骤 3/5: 运行数据库迁移${NC}"
-pnpm db:migrate:deploy
+cd packages/database
+npx prisma db push
 if [ $? -eq 0 ]; then
     echo -e "${GREEN}✅ 数据库迁移成功${NC}"
 else
     echo -e "${RED}❌ 数据库迁移失败${NC}"
     exit 1
 fi
+cd ../..
 echo ""
 
 # 步骤 4: 构建应用
 echo -e "${YELLOW}🏗️  步骤 4/5: 构建应用${NC}"
-pnpm build
+npx turbo run build
 if [ $? -eq 0 ]; then
     echo -e "${GREEN}✅ 应用构建成功${NC}"
 else
