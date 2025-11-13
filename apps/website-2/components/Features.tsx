@@ -1,50 +1,72 @@
 export default function Features() {
   const features = [
     {
-      title: '快速增长',
-      description: '利用专业的推广渠道和策略，帮助您的频道快速获得订阅者',
-      stat: '500%',
-      label: '平均增长率',
+      title: '简单',
+      description: '电报如此简单，您已经知道如何使用它',
+      icon: '📱',
     },
     {
-      title: '真实用户',
-      description: '所有会员都是真实活跃用户，保证高质量的互动和转化',
-      stat: '100%',
-      label: '真实用户',
+      title: '私密',
+      description: '电报消息经过多重加密，保护隐私',
+      icon: '🔒',
     },
     {
-      title: '数据透明',
-      description: '提供详细的数据报告，让您随时掌握推广效果',
-      stat: '24/7',
-      label: '实时监控',
+      title: '同步',
+      description: '电报支持从所有平台设备对聊天记录访问',
+      icon: '🔄',
     },
     {
-      title: '安全保障',
-      description: '严格遵守 Telegram 规则，保证账号安全',
-      stat: '0',
-      label: '封号风险',
+      title: '快速',
+      description: '电报比其他社交软件有着更快捷的消息传达',
+      icon: '⚡',
+    },
+    {
+      title: '强大',
+      description: '电报对所有类型文件和消息大小无限制',
+      icon: '💪',
+    },
+    {
+      title: '开放',
+      description: '电报免费开放API和源代码',
+      icon: '🌐',
+    },
+    {
+      title: '安全',
+      description: '电报采用端到端加密技术保护信息安全',
+      icon: '🛡️',
+    },
+    {
+      title: '社交',
+      description: '电报可以避免黑客攻击，保护信息安全',
+      icon: '👥',
+    },
+    {
+      title: '趣味',
+      description: '电报可以发掘兴趣，加入开放、多元的平台',
+      icon: '🎨',
     },
   ]
 
   return (
-    <section id="features" className="py-20 bg-white">
+    <section className="py-16 bg-white">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4 text-gray-800">为什么选择我们</h2>
-          <p className="text-xl text-gray-600">专业、可靠、高效的营销服务</p>
+        <div className="text-center mb-12">
+          <h2 className="text-4xl font-bold text-gray-800 mb-4">
+            为什么选择Telegram中文版？
+          </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
           {features.map((feature, index) => (
-            <div key={index} className="text-center">
-              <div className="bg-telegram-blue/10 rounded-full w-32 h-32 mx-auto mb-6 flex items-center justify-center">
-                <div className="text-center">
-                  <div className="text-4xl font-bold text-telegram-blue">{feature.stat}</div>
-                  <div className="text-sm text-telegram-dark">{feature.label}</div>
-                </div>
-              </div>
-              <h3 className="text-2xl font-bold mb-3 text-gray-800">{feature.title}</h3>
-              <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+            <div
+              key={index}
+              className="bg-gradient-to-br from-blue-50 to-white p-6 rounded-xl border border-blue-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+            >
+              <div className="text-5xl mb-4">{feature.icon}</div>
+              <h3 className="text-xl font-bold text-gray-800 mb-2">
+                {feature.title}
+              </h3>
+              <p className="text-gray-600">{feature.description}</p>
             </div>
           ))}
         </div>

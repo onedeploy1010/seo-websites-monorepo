@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Header from '@/components/Header'
 import Hero from '@/components/Hero'
 import Services from '@/components/Services'
+import Features from '@/components/Features'
 import Footer from '@/components/Footer'
 import { headers } from 'next/headers'
 import { getDomainConfigFromList, calculateTagMatchScoreFromDB } from '@repo/shared'
@@ -81,6 +82,9 @@ export default async function Home() {
     <main className="min-h-screen">
       <Header />
       <Hero />
+
+      {/* Features Section - 为什么选择Telegram */}
+      <Features />
 
       {/* Latest News Section */}
       <section className="py-16 bg-gray-50">

@@ -121,7 +121,7 @@ async function saveArticlesToDatabase(articles: Article[]) {
   for (const article of articles) {
     try {
       // 检查文章是否已存在（通过标题）
-      const existing = await prisma.article.findFirst({
+      const existing = await prisma.post.findFirst({
         where: {
           title: article.title,
           websiteId: website.id
@@ -171,31 +171,39 @@ async function saveArticlesToDatabase(articles: Article[]) {
 </ul>
       `.trim()
 
+      // 获取第一个用户作为作者（简化处理）
+      const author = await prisma.user.findFirst()
+
+      if (!author) {
+        console.log(`⚠️  跳过 ${article.title}：系统中没有用户`)
+        skipCount++
+        continue
+      }
+
       // 创建文章
-      const newArticle = await prisma.article.create({
+      const newPost = await prisma.post.create({
         data: {
           title: article.title,
           slug,
           content: fullContent,
           excerpt: article.excerpt,
           websiteId: website.id,
-          categoryId: null, // 暂时不关联分类
-          authorId: null, // 暂时不关联作者
+          authorId: author.id,
           status: 'PUBLISHED',
-          featured: false,
-          viewCount: Math.floor(Math.random() * 500) + 100, // 随机浏览量
+          category: article.category,
+          tags: keywords, // 直接使用关键词数组作为标签
 
-          // SEO 字段
-          seoTitle: article.title,
-          seoDescription: article.excerpt,
-          seoKeywords: keywords.join(', '),
+          // SEO 字段（使用正确的字段名）
+          metaTitle: article.title,
+          metaDescription: article.excerpt,
+          metaKeywords: keywords, // 数组
 
           // 时间戳
           publishedAt: new Date(),
         }
       })
 
-      console.log(`✅ 已保存: ${article.title} (ID: ${newArticle.id})`)
+      console.log(`✅ 已保存: ${article.title} (ID: ${newPost.id})`)
       successCount++
 
     } catch (error) {
