@@ -3,6 +3,7 @@
 import { useSession } from 'next-auth/react'
 import { useQuery } from '@tanstack/react-query'
 import { useTranslations } from '@/components/I18nProvider'
+import Link from 'next/link'
 
 interface Stats {
   totalWebsites: number
@@ -56,7 +57,7 @@ export default function DashboardPage() {
     <div>
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900">
-          {t('dashboard.welcome', { name: session?.user?.name || '' })}
+          {t('dashboard.welcome')} {session?.user?.name || ''}
         </h1>
         <p className="mt-2 text-gray-600">
           {t('dashboard.overview')}
@@ -133,7 +134,7 @@ function QuickActionCard({
   href: string
 }) {
   return (
-    <a
+    <Link
       href={href}
       className="block rounded-lg border border-gray-200 bg-white p-6 hover:border-indigo-500 hover:shadow-md transition-all"
     >
@@ -144,6 +145,6 @@ function QuickActionCard({
           <p className="mt-1 text-sm text-gray-500">{description}</p>
         </div>
       </div>
-    </a>
+    </Link>
   )
 }

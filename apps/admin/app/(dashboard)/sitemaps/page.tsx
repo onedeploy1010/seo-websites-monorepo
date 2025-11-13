@@ -105,9 +105,9 @@ export default function SitemapsPage() {
   return (
     <div>
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">🗺️ Sitemap 管理</h1>
+        <h1 className="text-3xl font-bold text-gray-900">🗺️ {t('sitemaps.title')}</h1>
         <p className="mt-2 text-gray-600">
-          管理所有域名的 sitemap.xml，支持多域名动态生成和SEO优化
+          {t('sitemaps.subtitle')}
         </p>
       </div>
 
@@ -121,7 +121,7 @@ export default function SitemapsPage() {
               : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
           }`}
         >
-          多域名视图
+          {t('sitemaps.domainsView')}
         </button>
         <button
           onClick={() => setView('legacy')}
@@ -131,7 +131,7 @@ export default function SitemapsPage() {
               : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
           }`}
         >
-          传统视图
+          {t('sitemaps.legacyView')}
         </button>
       </div>
 
@@ -141,7 +141,7 @@ export default function SitemapsPage() {
           {domainsLoading ? (
             <div className="text-center py-12">
               <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent"></div>
-              <p className="mt-2 text-gray-600">加载中...</p>
+              <p className="mt-2 text-gray-600">{t('common.loading')}</p>
             </div>
           ) : domains && domains.length > 0 ? (
             <div className="grid gap-6">
@@ -158,7 +158,7 @@ export default function SitemapsPage() {
                         </h3>
                         {domain.isPrimary && (
                           <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs font-medium">
-                            主域名
+                            {t('sitemaps.primaryDomain')}
                           </span>
                         )}
                         <span
@@ -177,7 +177,7 @@ export default function SitemapsPage() {
                       <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                           <h4 className="text-xs font-medium text-gray-700 mb-2">
-                            关联网站
+                            {t('sitemaps.relatedWebsite')}
                           </h4>
                           <p className="text-sm text-gray-900">{domain.website.name}</p>
                           <p className="text-xs text-gray-500">{domain.website.domain}</p>
@@ -185,7 +185,7 @@ export default function SitemapsPage() {
 
                         <div>
                           <h4 className="text-xs font-medium text-gray-700 mb-2">
-                            Primary Tags (SEO 关键词)
+                            {t('sitemaps.primaryTags')}
                           </h4>
                           <div className="flex flex-wrap gap-1">
                             {domain.primaryTags.map((tag) => (
@@ -202,7 +202,7 @@ export default function SitemapsPage() {
 
                       <div className="mt-4 p-3 bg-gray-50 rounded border border-gray-200">
                         <h4 className="text-xs font-medium text-gray-700 mb-2">
-                          Sitemap URL
+                          {t('sitemaps.sitemapUrl')}
                         </h4>
                         <a
                           href={getSitemapUrl(domain.domain)}
@@ -223,7 +223,7 @@ export default function SitemapsPage() {
                       rel="noopener noreferrer"
                       className="px-4 py-2 bg-gray-100 text-gray-700 rounded-md text-sm font-medium hover:bg-gray-200"
                     >
-                      查看 Sitemap
+                      {t('sitemaps.viewSitemap')}
                     </a>
                     <button
                       onClick={() => {
@@ -236,7 +236,7 @@ export default function SitemapsPage() {
                       }}
                       className="px-4 py-2 bg-green-600 text-white rounded-md text-sm font-medium hover:bg-green-700"
                     >
-                      提交到 Google
+                      {t('sitemaps.submitToGoogle')}
                     </button>
                   </div>
                 </div>
@@ -246,10 +246,10 @@ export default function SitemapsPage() {
             <div className="text-center py-12 bg-white rounded-lg border border-gray-200">
               <span className="text-6xl">🌐</span>
               <h3 className="mt-2 text-sm font-semibold text-gray-900">
-                暂无域名配置
+                {t('sitemaps.noDomains')}
               </h3>
               <p className="mt-1 text-sm text-gray-500">
-                请先在网站管理中配置域名别名
+                {t('sitemaps.noDomainsDesc')}
               </p>
             </div>
           )}
