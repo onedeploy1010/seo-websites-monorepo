@@ -47,63 +47,12 @@ if [ "$NODE_VERSION" -lt 18 ]; then
 fi
 echo -e "${GREEN}✅ Node.js $(node -v)${NC}"
 
-# 检查 pnpm（支持多种安装位置）
-PNPM_CMD=""
-
-# 尝试查找 pnpm 的多个可能位置
-if command -v pnpm &> /dev/null; then
-    PNPM_CMD="pnpm"
-elif [ -f "/usr/local/bin/pnpm" ]; then
-    PNPM_CMD="/usr/local/bin/pnpm"
-elif [ -f "$HOME/.local/share/pnpm/pnpm" ]; then
-    PNPM_CMD="$HOME/.local/share/pnpm/pnpm"
-elif [ -n "$SUDO_USER" ] && [ -f "/home/$SUDO_USER/.local/share/pnpm/pnpm" ]; then
-    PNPM_CMD="/home/$SUDO_USER/.local/share/pnpm/pnpm"
-elif [ -f "/root/.local/share/pnpm/pnpm" ]; then
-    PNPM_CMD="/root/.local/share/pnpm/pnpm"
-fi
-
-if [ -z "$PNPM_CMD" ]; then
-    echo -e "${YELLOW}⚠️  pnpm 未找到，正在安装...${NC}"
+# 检查 pnpm（使用 npx 避免路径问题）
+if ! command -v pnpm &> /dev/null; then
+    echo -e "${YELLOW}⚠️  pnpm 未安装，正在安装...${NC}"
     npm install -g pnpm
-
-    # 刷新环境变量
-    export PATH="$PATH:/usr/local/bin:/usr/bin"
-    hash -r  # 清除 bash 命令缓存
-
-    # 等待一秒让文件系统同步
-    sleep 1
-
-    # 重新检测（检查更多位置）
-    if command -v pnpm &> /dev/null; then
-        PNPM_CMD="pnpm"
-    elif [ -f "/usr/local/bin/pnpm" ]; then
-        PNPM_CMD="/usr/local/bin/pnpm"
-    elif [ -f "/usr/bin/pnpm" ]; then
-        PNPM_CMD="/usr/bin/pnpm"
-    elif [ -f "/usr/local/lib/node_modules/pnpm/bin/pnpm.cjs" ]; then
-        PNPM_CMD="node /usr/local/lib/node_modules/pnpm/bin/pnpm.cjs"
-    else
-        # 尝试通过 npm 查找 pnpm
-        NPM_PREFIX=$(npm config get prefix)
-        if [ -f "$NPM_PREFIX/bin/pnpm" ]; then
-            PNPM_CMD="$NPM_PREFIX/bin/pnpm"
-        elif [ -f "$NPM_PREFIX/lib/node_modules/pnpm/bin/pnpm.cjs" ]; then
-            PNPM_CMD="node $NPM_PREFIX/lib/node_modules/pnpm/bin/pnpm.cjs"
-        else
-            echo -e "${RED}❌ pnpm 安装失败${NC}"
-            echo -e "${YELLOW}尝试手动安装并指定路径：${NC}"
-            echo "  1. npm install -g pnpm"
-            echo "  2. which pnpm"
-            echo "  3. 或使用: npx pnpm 替代 pnpm"
-            echo ""
-            echo -e "${BLUE}提示：您可以使用 'npx pnpm install' 和 'npx pnpm build' 手动执行后续步骤${NC}"
-            exit 1
-        fi
-    fi
 fi
-
-echo -e "${GREEN}✅ pnpm $($PNPM_CMD -v) (${PNPM_CMD})${NC}"
+echo -e "${GREEN}✅ pnpm (将通过 npx 运行)${NC}"
 
 # 检查 PostgreSQL
 if ! command -v psql &> /dev/null; then
@@ -184,21 +133,24 @@ fi
 echo ""
 
 # 步骤 5: 安装依赖
-echo -e "${YELLOW}步骤 5/10: 安装项目依赖${NC}"
+echo -e "${YELLOW}步骤 5/11: 安装项目依赖${NC}"
 cd "$PROJECT_DIR"
-$PNPM_CMD install
+echo -e "${BLUE}使用 npx pnpm 安装依赖（避免路径问题）...${NC}"
+npx pnpm install
 echo -e "${GREEN}✅ 依赖安装完成${NC}"
 echo ""
 
 # 步骤 6: 初始化 Prisma
-echo -e "${YELLOW}步骤 6/10: 初始化 Prisma${NC}"
+echo -e "${YELLOW}步骤 6/11: 初始化 Prisma${NC}"
 cd "$PROJECT_DIR/packages/database"
+echo -e "${BLUE}生成 Prisma 客户端...${NC}"
 npx dotenv -e ../../.env.local -- npx prisma generate
 echo -e "${GREEN}✅ Prisma 客户端已生成${NC}"
 echo ""
 
 # 步骤 7: 运行数据库迁移
-echo -e "${YELLOW}步骤 7/10: 运行数据库迁移${NC}"
+echo -e "${YELLOW}步骤 7/11: 运行数据库迁移${NC}"
+echo -e "${BLUE}推送数据库 schema...${NC}"
 npx dotenv -e ../../.env.local -- npx prisma db push
 echo -e "${GREEN}✅ 数据库表结构已创建${NC}"
 echo ""
@@ -207,7 +159,8 @@ echo ""
 echo -e "${YELLOW}步骤 8/11: 创建种子数据（管理员账号）${NC}"
 read -p "是否要创建默认管理员账号? (y/n): " create_seed
 if [ "$create_seed" = "y" ]; then
-    npx dotenv -e ../../.env.local -- npm run db:seed
+    echo -e "${BLUE}创建管理员账号和示例数据...${NC}"
+    npx dotenv -e ../../.env.local -- npx tsx prisma/seed.ts
     echo ""
     echo -e "${GREEN}✅ 默认管理员账号已创建${NC}"
     echo "  邮箱: admin@example.com"
@@ -223,7 +176,8 @@ echo ""
 echo -e "${YELLOW}步骤 9/11: 部署域名配置（15个域名）${NC}"
 read -p "是否要部署域名配置? (y/n): " deploy_domains
 if [ "$deploy_domains" = "y" ]; then
-    npx dotenv -e ../../.env.local -- npm run db:seed-domains
+    echo -e "${BLUE}部署 15 个域名到数据库...${NC}"
+    npx dotenv -e ../../.env.local -- npx tsx prisma/seed-domains.ts
     echo ""
     echo -e "${GREEN}✅ 已部署 15 个域名配置${NC}"
     echo ""
@@ -232,7 +186,7 @@ if [ "$deploy_domains" = "y" ]; then
     echo "  Website 2: telegramcnfw.com, telegramfuwu.com, telegramfwfw.com, telegramxzfw.com, telegramzhfw.com"
     echo "  Website TG: telegramgzzh.com, telegramhnzh.com, telegramjiaoyu.com, xztelegram.com, zhxztelegram.com"
     echo ""
-    echo -e "${BLUE}ℹ️  下一步：配置 Nginx 反向代理和 SSL 证书（参考《域名配置指南.md》）${NC}"
+    echo -e "${BLUE}ℹ️  下一步：配置 Nginx 反向代理和 SSL 证书（参考 docs/域名配置指南.md）${NC}"
 else
     echo -e "${BLUE}ℹ️  跳过域名配置${NC}"
     echo "手动部署命令: ./scripts/deploy-domains.sh"
@@ -242,7 +196,8 @@ echo ""
 # 步骤 10: 构建应用
 echo -e "${YELLOW}步骤 10/11: 构建应用${NC}"
 cd "$PROJECT_DIR"
-$PNPM_CMD build
+echo -e "${BLUE}构建所有应用（可能需要几分钟）...${NC}"
+npx pnpm build
 echo -e "${GREEN}✅ 应用构建完成${NC}"
 echo ""
 
