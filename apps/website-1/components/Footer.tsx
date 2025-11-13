@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer className="bg-gray-900 text-white py-12">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div>
             <div className="flex items-center space-x-2 mb-4">
@@ -18,41 +18,33 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* About */}
+          {/* Quick Links */}
           <div>
-            <h4 className="font-bold text-lg mb-4">关于</h4>
+            <h4 className="font-bold text-lg mb-4">快速链接</h4>
             <ul className="space-y-2">
-              <li><Link href="/faq" className="text-gray-400 hover:text-white transition text-sm">FQA</Link></li>
-              <li><Link href="/blog" className="text-gray-400 hover:text-white transition text-sm">Blog</Link></li>
+              <li><Link href="/download" className="text-gray-400 hover:text-white transition text-sm">应用下载</Link></li>
+              <li><Link href="/blog" className="text-gray-400 hover:text-white transition text-sm">博客文章</Link></li>
+              <li><Link href="/faq" className="text-gray-400 hover:text-white transition text-sm">常见问题</Link></li>
             </ul>
           </div>
 
-          {/* Mobile Apps */}
+          {/* Platform Support */}
           <div>
-            <h4 className="font-bold text-lg mb-4">移动应用</h4>
+            <h4 className="font-bold text-lg mb-4">平台支持</h4>
             <ul className="space-y-2">
-              <li><Link href="/download" className="text-gray-400 hover:text-white transition text-sm">Android</Link></li>
-              <li><Link href="/download" className="text-gray-400 hover:text-white transition text-sm">iPhone/iPad</Link></li>
-              <li><a href="https://web.telegram.org/k/" className="text-gray-400 hover:text-white transition text-sm">Mobile Web</a></li>
+              <li><Link href="/download" className="text-gray-400 hover:text-white transition text-sm">Android / iOS</Link></li>
+              <li><Link href="/download" className="text-gray-400 hover:text-white transition text-sm">Windows / Mac / Linux</Link></li>
+              <li><a href="https://web.telegram.org/" className="text-gray-400 hover:text-white transition text-sm" target="_blank" rel="noopener noreferrer">Web 版本</a></li>
             </ul>
           </div>
 
-          {/* Desktop Apps */}
+          {/* Resources */}
           <div>
-            <h4 className="font-bold text-lg mb-4">桌面应用</h4>
+            <h4 className="font-bold text-lg mb-4">资源</h4>
             <ul className="space-y-2">
-              <li><Link href="/download" className="text-gray-400 hover:text-white transition text-sm">PC/Mac/Linux</Link></li>
-              <li><a href="https://telegram.org/dl/macos" className="text-gray-400 hover:text-white transition text-sm">macOS</a></li>
-              <li><a href="https://web.telegram.org/a/" className="text-gray-400 hover:text-white transition text-sm">Web browser</a></li>
-            </ul>
-          </div>
-
-          {/* Open Platform */}
-          <div>
-            <h4 className="font-bold text-lg mb-4">开放平台</h4>
-            <ul className="space-y-2">
-              <li><a href="https://core.telegram.org/api" className="text-gray-400 hover:text-white transition text-sm">API</a></li>
-              <li><a href="https://translations.telegram.org/" className="text-gray-400 hover:text-white transition text-sm">翻译</a></li>
+              <li><a href="https://core.telegram.org/api" className="text-gray-400 hover:text-white transition text-sm" target="_blank" rel="noopener noreferrer">API 文档</a></li>
+              <li><a href="https://translations.telegram.org/" className="text-gray-400 hover:text-white transition text-sm" target="_blank" rel="noopener noreferrer">翻译平台</a></li>
+              <li><Link href="/sitemap.xml" className="text-gray-400 hover:text-white transition text-sm">网站地图</Link></li>
             </ul>
           </div>
         </div>
