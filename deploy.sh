@@ -39,6 +39,22 @@ if [ ! -f "package.json" ]; then
     exit 1
 fi
 
+# 加载环境变量
+if [ ! -f ".env.local" ]; then
+    echo -e "${RED}❌ 错误：未找到 .env.local 文件${NC}"
+    exit 1
+fi
+
+echo -e "${YELLOW}🔧 加载环境变量...${NC}"
+# 清理 Windows 换行符
+sed -i 's/\r$//' .env.local 2>/dev/null || true
+# 加载环境变量到当前会话
+set -a
+source .env.local
+set +a
+echo -e "${GREEN}✅ 环境变量已加载${NC}"
+echo ""
+
 # 步骤 1: 拉取最新代码
 echo -e "${YELLOW}📥 步骤 1/5: 拉取最新代码${NC}"
 git pull origin master
