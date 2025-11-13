@@ -47,12 +47,39 @@ if [ "$NODE_VERSION" -lt 18 ]; then
 fi
 echo -e "${GREEN}✅ Node.js $(node -v)${NC}"
 
-# 检查 pnpm
-if ! command -v pnpm &> /dev/null; then
-    echo -e "${YELLOW}⚠️  pnpm 未安装，正在安装...${NC}"
-    npm install -g pnpm
+# 检查 pnpm（支持多种安装位置）
+PNPM_CMD=""
+
+# 尝试查找 pnpm 的多个可能位置
+if command -v pnpm &> /dev/null; then
+    PNPM_CMD="pnpm"
+elif [ -f "/usr/local/bin/pnpm" ]; then
+    PNPM_CMD="/usr/local/bin/pnpm"
+elif [ -f "$HOME/.local/share/pnpm/pnpm" ]; then
+    PNPM_CMD="$HOME/.local/share/pnpm/pnpm"
+elif [ -n "$SUDO_USER" ] && [ -f "/home/$SUDO_USER/.local/share/pnpm/pnpm" ]; then
+    PNPM_CMD="/home/$SUDO_USER/.local/share/pnpm/pnpm"
+elif [ -f "/root/.local/share/pnpm/pnpm" ]; then
+    PNPM_CMD="/root/.local/share/pnpm/pnpm"
 fi
-echo -e "${GREEN}✅ pnpm $(pnpm -v)${NC}"
+
+if [ -z "$PNPM_CMD" ]; then
+    echo -e "${YELLOW}⚠️  pnpm 未找到，正在安装...${NC}"
+    npm install -g pnpm
+
+    # 重新检测
+    if command -v pnpm &> /dev/null; then
+        PNPM_CMD="pnpm"
+    elif [ -f "/usr/local/bin/pnpm" ]; then
+        PNPM_CMD="/usr/local/bin/pnpm"
+    else
+        echo -e "${RED}❌ pnpm 安装失败${NC}"
+        echo "请手动安装 pnpm: npm install -g pnpm"
+        exit 1
+    fi
+fi
+
+echo -e "${GREEN}✅ pnpm $($PNPM_CMD -v) (${PNPM_CMD})${NC}"
 
 # 检查 PostgreSQL
 if ! command -v psql &> /dev/null; then
@@ -135,7 +162,7 @@ echo ""
 # 步骤 5: 安装依赖
 echo -e "${YELLOW}步骤 5/10: 安装项目依赖${NC}"
 cd "$PROJECT_DIR"
-pnpm install
+$PNPM_CMD install
 echo -e "${GREEN}✅ 依赖安装完成${NC}"
 echo ""
 
@@ -191,7 +218,7 @@ echo ""
 # 步骤 10: 构建应用
 echo -e "${YELLOW}步骤 10/11: 构建应用${NC}"
 cd "$PROJECT_DIR"
-pnpm build
+$PNPM_CMD build
 echo -e "${GREEN}✅ 应用构建完成${NC}"
 echo ""
 
