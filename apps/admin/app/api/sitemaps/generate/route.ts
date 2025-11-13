@@ -63,7 +63,7 @@ export async function POST(request: NextRequest) {
       })),
     ]
 
-    const sitemapXml = await generateSitemap(baseUrl, urls)
+    const sitemapXml = await generateSitemap({ hostname: baseUrl }, urls)
     const sitemapUrl = `${baseUrl}/sitemap.xml`
 
     // Update or create sitemap record

@@ -66,7 +66,13 @@ export async function checkGoogleRank(
   try {
     if (options?.apiKey && options?.searchEngineId) {
       // 使用 Google Custom Search API（推荐）
-      return await checkGoogleRankWithAPI(keyword, domain, options)
+      return await checkGoogleRankWithAPI(keyword, domain, {
+        apiKey: options.apiKey,
+        searchEngineId: options.searchEngineId,
+        location: options.location,
+        language: options.language,
+        maxResults: options.maxResults,
+      })
     } else {
       // 使用爬虫方式（仅用于测试，生产环境不推荐）
       return await checkGoogleRankWithScraper(keyword, domain, options)

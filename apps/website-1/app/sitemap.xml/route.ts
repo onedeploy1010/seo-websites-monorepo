@@ -111,7 +111,7 @@ export async function GET(request: NextRequest) {
     })),
   ]
 
-  const sitemap = await generateSitemap(siteUrl, urls)
+  const sitemap = await generateSitemap({ hostname: siteUrl }, urls)
 
   console.log(`[Sitemap] ✅ 成功生成 sitemap，包含 ${urls.length} 个 URL`)
 

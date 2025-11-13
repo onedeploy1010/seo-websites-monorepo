@@ -71,7 +71,7 @@ export async function GET() {
         // 3. Keyword rankings (count how many keywords have rankings)
         const keywordsWithRankings = await prisma.keywordRanking.findMany({
           where: {
-            domain: domain.domain,
+            domainAliasId: domain.id,
             createdAt: {
               gte: new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000), // Last 30 days
             },

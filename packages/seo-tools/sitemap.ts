@@ -1,4 +1,4 @@
-import { SitemapStream, streamToPromise, SitemapItemLoose } from 'sitemap'
+import { SitemapStream, streamToPromise, SitemapItemLoose, EnumYesNo } from 'sitemap'
 import { Readable } from 'stream'
 import { createGzip } from 'zlib'
 
@@ -26,7 +26,7 @@ export interface SitemapUrl {
     player_loc?: string
     duration?: number
     publication_date?: string
-    family_friendly?: 'yes' | 'no'
+    family_friendly?: boolean
     rating?: number
   }>
   news?: {
@@ -92,10 +92,10 @@ export async function generateSitemap(
   const stream = new SitemapStream(streamOptions)
 
   // 转换为 SitemapItemLoose 格式
-  const items: SitemapItemLoose[] = urls.map(url => ({
+  const items = urls.map(url => ({
     ...url,
     lastmod: url.lastmod instanceof Date ? url.lastmod.toISOString() : url.lastmod
-  }))
+  })) as SitemapItemLoose[]
 
   const xmlString = await streamToPromise(
     Readable.from(items).pipe(stream)
@@ -121,10 +121,10 @@ export async function generateCompressedSitemap(
   const stream = new SitemapStream(streamOptions)
   const gzip = createGzip()
 
-  const items: SitemapItemLoose[] = urls.map(url => ({
+  const items = urls.map(url => ({
     ...url,
     lastmod: url.lastmod instanceof Date ? url.lastmod.toISOString() : url.lastmod
-  }))
+  })) as SitemapItemLoose[]
 
   const compressedData = await streamToPromise(
     Readable.from(items).pipe(stream).pipe(gzip)
