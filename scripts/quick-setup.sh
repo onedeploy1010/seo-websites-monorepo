@@ -153,7 +153,7 @@ echo -e "${GREEN}✅ 数据库表结构已创建${NC}"
 echo ""
 
 # 步骤 8: 创建种子数据
-echo -e "${YELLOW}步骤 8/10: 创建种子数据（管理员账号）${NC}"
+echo -e "${YELLOW}步骤 8/11: 创建种子数据（管理员账号）${NC}"
 read -p "是否要创建默认管理员账号? (y/n): " create_seed
 if [ "$create_seed" = "y" ]; then
     npx dotenv -e ../../.env.local -- npm run db:seed
@@ -168,15 +168,35 @@ else
 fi
 echo ""
 
-# 步骤 9: 构建应用
-echo -e "${YELLOW}步骤 9/10: 构建应用${NC}"
+# 步骤 9: 部署域名配置
+echo -e "${YELLOW}步骤 9/11: 部署域名配置（15个域名）${NC}"
+read -p "是否要部署域名配置? (y/n): " deploy_domains
+if [ "$deploy_domains" = "y" ]; then
+    npx dotenv -e ../../.env.local -- npm run db:seed-domains
+    echo ""
+    echo -e "${GREEN}✅ 已部署 15 个域名配置${NC}"
+    echo ""
+    echo -e "${CYAN}域名列表：${NC}"
+    echo "  Website 1: telegram1688.com, telegram2688.com, telegramcny28.com, telegramrmb28.com, telegramxzb.com"
+    echo "  Website 2: telegramcnfw.com, telegramfuwu.com, telegramfwfw.com, telegramxzfw.com, telegramzhfw.com"
+    echo "  Website TG: telegramgzzh.com, telegramhnzh.com, telegramjiaoyu.com, xztelegram.com, zhxztelegram.com"
+    echo ""
+    echo -e "${BLUE}ℹ️  下一步：配置 Nginx 反向代理和 SSL 证书（参考《域名配置指南.md》）${NC}"
+else
+    echo -e "${BLUE}ℹ️  跳过域名配置${NC}"
+    echo "手动部署命令: ./scripts/deploy-domains.sh"
+fi
+echo ""
+
+# 步骤 10: 构建应用
+echo -e "${YELLOW}步骤 10/11: 构建应用${NC}"
 cd "$PROJECT_DIR"
 pnpm build
 echo -e "${GREEN}✅ 应用构建完成${NC}"
 echo ""
 
-# 步骤 10: 启动服务
-echo -e "${YELLOW}步骤 10/10: 启动 PM2 服务${NC}"
+# 步骤 11: 启动服务
+echo -e "${YELLOW}步骤 11/11: 启动 PM2 服务${NC}"
 read -p "是否要启动 PM2 服务? (y/n): " start_pm2
 if [ "$start_pm2" = "y" ]; then
     pm2 start ecosystem.config.js
