@@ -25,7 +25,7 @@ export async function GET(request: NextRequest) {
   })
 
   // 如果没找到域名配置，尝试兜底查询
-  let website = domainConfig?.website
+  let website = domainConfig?.website ?? null
 
   if (!website) {
     console.log(`[Sitemap] ⚠️  未找到域名配置，使用环境变量兜底`)
