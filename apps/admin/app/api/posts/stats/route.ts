@@ -196,16 +196,19 @@ export async function GET(request: NextRequest) {
       group.seoScores.push(calculateSeoScore(post))
     })
 
-    const byWebsite = Array.from(websiteGroups.values()).map((group) => ({
-      websiteId: group.websiteId,
-      websiteName: group.websiteName,
-      count: group.count,
-      published: group.published,
-      draft: group.draft,
-      averageSeoScore: group.seoScores.length > 0
-        ? Math.round(group.seoScores.reduce((sum: number, score: number) => sum + score, 0) / group.seoScores.length)
-        : 0,
-    }))
+    const byWebsite: any[] = []
+    websiteGroups.forEach((group) => {
+      byWebsite.push({
+        websiteId: group.websiteId,
+        websiteName: group.websiteName,
+        count: group.count,
+        published: group.published,
+        draft: group.draft,
+        averageSeoScore: group.seoScores.length > 0
+          ? Math.round(group.seoScores.reduce((sum: number, score: number) => sum + score, 0) / group.seoScores.length)
+          : 0,
+      })
+    })
 
     // Sort by count descending
     byWebsite.sort((a, b) => b.count - a.count)
