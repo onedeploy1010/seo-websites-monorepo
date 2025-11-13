@@ -1,4 +1,4 @@
-# 🚀 SEO Websites Monorepo
+# 🚀 SEO 网站管理系统 - Monorepo
 
 <div align="center">
 
@@ -10,9 +10,9 @@
 ![OpenAI](https://img.shields.io/badge/OpenAI-GPT--4-412991?style=for-the-badge&logo=openai)
 ![Turborepo](https://img.shields.io/badge/Turborepo-2.3-EF4444?style=for-the-badge&logo=turborepo)
 
-**现代化多网站 SEO 管理平台 · AI 驱动 · 一键部署**
+**现代化多网站 SEO 管理平台 · AI 驱动 · 服务器部署**
 
-[功能特性](#-功能特性) • [快速开始](#-快速开始) • [部署指南](#-部署指南) • [文档中心](#-文档中心)
+[功能特性](#-功能特性) • [快速开始](#-快速开始) • [部署指南](#-部署指南) • [使用文档](#-使用文档)
 
 </div>
 
@@ -20,16 +20,17 @@
 
 ## 🎯 项目简介
 
-**SEO Websites Monorepo** 是一个基于 **Turborepo** 构建的现代化 SEO 管理平台，专为管理多个网站的 SEO 优化而设计。
+**SEO 网站管理系统** 是一个基于 **Turborepo** 构建的现代化 SEO 管理平台，专为管理多个网站的 SEO 优化而设计。支持服务器部署，使用宝塔面板轻松管理。
 
 ### ✨ 核心亮点
 
 - 🎨 **统一管理多网站** - 一个后台控制所有网站内容和 SEO
 - 🤖 **AI 智能优化** - GPT-4 驱动的 SEO 自动优化
 - ⚙️ **可视化配置** - 后台设置页面管理 API Keys，无需重新部署
-- 🚀 **快速部署** - 完整 Vercel 部署方案，开箱即用
-- 📊 **实时监控** - 蜘蛛池、排名跟踪、数据分析
+- 🚀 **灵活部署** - 支持服务器 + 宝塔面板部署，完全掌控
+- 📊 **实时监控** - 蜘蛛池、排名跟踪、SEO 健康度分析
 - 🔐 **安全可靠** - 敏感信息加密存储，JWT 认证
+- 🌐 **多域名管理** - 支持为每个网站配置多个域名
 
 ### 💡 为什么选择这个项目？
 
@@ -38,8 +39,9 @@
 | ❌ 每个网站独立管理 | ✅ 统一后台管理多个网站 |
 | ❌ 手动编写 SEO 标签 | ✅ AI 自动生成优化标签 |
 | ❌ 修改配置需重新部署 | ✅ 后台可视化配置，实时生效 |
-| ❌ 复杂的部署流程 | ✅ 一键部署到 Vercel |
-| ❌ 数据分散难以分析 | ✅ 集中数据分析和监控 |
+| ❌ 复杂的部署流程 | ✅ 宝塔面板一键部署 |
+| ❌ 数据分散难以分析 | ✅ 集中数据分析和 SEO 监控 |
+| ❌ 依赖云服务平台 | ✅ 完全部署在自己的服务器上 |
 
 ### 🎯 适用场景
 
@@ -47,25 +49,54 @@
 - 📱 **内容营销团队** - 跨平台内容分发和 SEO
 - 🌐 **多域名运营** - 运营多个相似但不同定位的网站
 - 🔍 **SEO 优化团队** - 需要统一工具和数据仪表盘
+- 🎯 **独立站运营** - 需要完全掌控服务器和数据
 
 ---
 
 ## ✨ 功能特性
 
-### 🎨 1. 多网站管理系统
+### 📊 1. SEO 健康度监控 🆕
 
 <details>
 <summary>点击展开详情</summary>
 
-- 📊 统一后台管理 3+ 个 Telegram 主题网站
-- 🌍 每个网站独立域名和 SEO 配置
-- 🔄 内容一键分发到多个网站
-- 🎯 支持不同的关键词策略和内容定位
-- 📈 独立的 Analytics 集成（Google Analytics、Search Console、百度统计）
+- 📈 **综合 SEO 评分** - 0-100 分制，实时监控网站 SEO 健康度
+- 🔍 **关键指标追踪** - 已索引页面、平均排名、爬虫活跃度
+- 📊 **趋势分析** - 30 天 SEO 分数变化趋势图
+- ⚠️ **问题诊断** - 自动识别 SEO 问题并提供优化建议
+- 🎯 **多维度评估** - 内容质量、技术 SEO、爬虫友好度等
+
+**评分算法**：
+- 内容质量 (30%): Meta 标题、描述、关键词覆盖率
+- 技术 SEO (25%): 页面速度、移动适配、Sitemap
+- 爬虫活跃度 (20%): 搜索引擎爬虫访问频率
+- 关键词排名 (15%): 目标关键词排名表现
+- 索引状态 (10%): 已索引页面占比
 
 </details>
 
-### 🤖 2. AI SEO 智能优化 🆕
+### 🎨 2. 多网站管理系统
+
+<details>
+<summary>点击展开详情</summary>
+
+- 📊 统一后台管理 3+ 个网站
+- 🌍 每个网站支持多个域名（主域名 + 备用域名）
+- 🔄 内容一键分发到多个网站
+- 🎯 每个域名独立的 SEO 配置
+- 📈 支持不同的关键词策略和内容定位
+- 🗺️ 每个域名自动生成独立 Sitemap
+
+**多域名功能**：
+- 主域名 + 多个备用域名
+- 每个域名独立的站点名称和描述
+- 独立的 Primary/Secondary SEO 关键词
+- 自动域名状态检测（ACTIVE/INACTIVE）
+- 域名级别的 Sitemap 管理
+
+</details>
+
+### 🤖 3. AI SEO 智能优化
 
 <details>
 <summary>点击展开详情</summary>
@@ -76,7 +107,7 @@
 - 🔑 智能推荐 5-7 个关键词
 - 💡 提供内容优化建议
 
-**批量优化** (`/api/ai/batch-optimize`) 🆕
+**批量优化** (`/api/ai/batch-optimize`)
 - ⚡ 一次优化最多 20 篇文章
 - 📊 实时进度显示
 - ✅ 自动保存到数据库
@@ -96,13 +127,13 @@
 
 </details>
 
-### 📋 3. 内容模板库 🆕
+### 📋 4. 内容模板库
 
 <details>
 <summary>点击展开详情</summary>
 
 **6 大类专业模板**
-- 📥 **下载指南** - Telegram 各平台下载教程
+- 📥 **下载指南** - 各平台下载教程
 - 📚 **使用教程** - 功能使用详细说明
 - ⚡ **功能介绍** - 核心功能深度解析
 - ❓ **常见问题** - FAQ 问答格式
@@ -117,7 +148,7 @@
 
 </details>
 
-### ⚙️ 4. 系统设置管理 🆕
+### ⚙️ 5. 系统设置管理
 
 <details>
 <summary>点击展开详情</summary>
@@ -139,7 +170,7 @@
 
 </details>
 
-### 🕷️ 5. 蜘蛛池监控
+### 🕷️ 6. 蜘蛛池监控
 
 <details>
 <summary>点击展开详情</summary>
@@ -150,10 +181,11 @@
   - Yandexbot、360Spider、Sogou Spider
 - 📈 访问统计和趋势分析
 - 🔔 爬虫访问通知
+- 📊 爬虫健康度评分
 
 </details>
 
-### 📊 6. 关键词排名跟踪
+### 📊 7. 关键词排名跟踪
 
 <details>
 <summary>点击展开详情</summary>
@@ -166,16 +198,17 @@
 
 </details>
 
-### 🗺️ 7. Sitemap 自动管理
+### 🗺️ 8. Sitemap 自动管理
 
 <details>
 <summary>点击展开详情</summary>
 
-- 📄 自动生成 XML Sitemap
-- 📤 一键提交到搜索引擎
+- 📄 每个域名自动生成独立 Sitemap
+- 📤 一键提交到 Google 搜索引擎
 - 🔄 支持多种类型（Posts、Pages、Categories）
-- ⏰ 定时更新和提交
+- ⏰ 实时更新
 - ✅ 提交状态追踪
+- 🌐 多域名视图 + 传统视图切换
 
 </details>
 
@@ -214,8 +247,16 @@
 | 技术 | 版本 | 用途 |
 |------|------|------|
 | [Turborepo](https://turbo.build/repo) | 2.3+ | Monorepo 构建 |
-| [npm Workspaces](https://docs.npmjs.com/cli/using-npm/workspaces) | - | 包管理 |
+| [pnpm](https://pnpm.io/) | 8.0+ | 包管理器 |
 | [ESLint](https://eslint.org/) | 8.57+ | 代码检查 |
+
+### 服务器部署
+
+| 工具 | 用途 |
+|------|------|
+| [宝塔面板](https://www.bt.cn/) | 服务器管理面板 |
+| [PM2](https://pm2.keymetrics.io/) | Node.js 进程管理 |
+| [Nginx](https://nginx.org/) | 反向代理服务器 |
 
 ---
 
@@ -226,8 +267,8 @@
 │                   Frontend Websites Layer                    │
 │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐      │
 │  │  Website-1   │  │  Website-2   │  │  Website-TG  │      │
-│  │ (Vercel)     │  │ (Vercel)     │  │ (Vercel)     │      │
-│  │ telegram下载  │  │ telegram中文  │  │ telegram安装  │      │
+│  │ (Port 3001)  │  │ (Port 3002)  │  │ (Port 3003)  │      │
+│  │ 多域名支持    │  │ 多域名支持    │  │ 多域名支持    │      │
 │  └──────────────┘  └──────────────┘  └──────────────┘      │
 └────────────┬────────────┬──────────────┬───────────────────┘
              │            │              │
@@ -235,15 +276,18 @@
                           │
                           ↓
 ┌─────────────────────────────────────────────────────────────┐
-│                  Admin Panel Layer (Vercel)                  │
+│             Admin Panel Layer (Port 3100)                    │
 │  ┌─────────────────────────────────────────────────────┐    │
 │  │  Admin Panel                                        │    │
 │  │  • Website Management                               │    │
+│  │  • Multi-Domain Management 🆕                      │    │
 │  │  • Content Distribution                             │    │
-│  │  • AI SEO Optimization 🆕                          │    │
-│  │  • System Settings 🆕                              │    │
+│  │  • AI SEO Optimization                              │    │
+│  │  • SEO Health Dashboard 🆕                         │    │
+│  │  • System Settings                                  │    │
 │  │  • Spider Pool Monitoring                           │    │
 │  │  • Keyword Tracking                                 │    │
+│  │  • Sitemap Management                               │    │
 │  └─────────────────────────────────────────────────────┘    │
 └────────────┬───────────────────────────────────────────────┘
              │
@@ -251,14 +295,27 @@
 ┌─────────────────────────────────────────────────────────────┐
 │                   Data & Services Layer                      │
 │  ┌──────────────────┐  ┌──────────────────────────────┐    │
-│  │  Vercel Postgres │  │  External Services           │    │
-│  │  • Websites      │  │  • OpenAI GPT-4 🆕         │    │
-│  │  • Posts         │  │  • Google Analytics         │    │
-│  │  │  Keywords      │  │  • Google Search Console    │    │
-│  │  • SpiderLogs    │  │  • Baidu Tongji             │    │
-│  │  • Sitemaps      │  └──────────────────────────────┘    │
-│  │  • Settings 🆕  │                                       │
+│  │  PostgreSQL DB   │  │  External Services           │    │
+│  │  • Websites      │  │  • OpenAI GPT-4              │    │
+│  │  • DomainAliases │  │  • Google Analytics          │    │
+│  │  • Posts         │  │  • Google Search Console     │    │
+│  │  • Keywords      │  │  • Baidu Tongji              │    │
+│  │  • SpiderLogs    │  └──────────────────────────────┘    │
+│  │  • Sitemaps      │                                       │
+│  │  • Settings      │                                       │
 │  └──────────────────┘                                       │
+└─────────────────────────────────────────────────────────────┘
+                          │
+                          ↓
+┌─────────────────────────────────────────────────────────────┐
+│                   Infrastructure Layer                       │
+│  ┌──────────────────┐  ┌──────────────────────────────┐    │
+│  │  Nginx           │  │  PM2 Process Manager         │    │
+│  │  • Reverse Proxy │  │  • seo-admin (3100)          │    │
+│  │  • SSL Certs     │  │  • seo-website-1 (3001)      │    │
+│  │  • Load Balance  │  │  • seo-website-2 (3002)      │    │
+│  └──────────────────┘  │  • seo-website-tg (3003)     │    │
+│                        └──────────────────────────────┘    │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -269,8 +326,8 @@
 ### 前置要求
 
 - **Node.js** >= 18.0.0
-- **npm** >= 9.0.0
-- **PostgreSQL** >= 14.0（本地开发）或 **Vercel Postgres**（生产环境）
+- **pnpm** >= 8.0.0（推荐）或 **npm** >= 9.0.0
+- **PostgreSQL** >= 14.0
 
 ### 本地开发
 
@@ -284,7 +341,7 @@ cd seo-websites-monorepo
 #### 2. 安装依赖
 
 ```bash
-npm install
+pnpm install
 ```
 
 #### 3. 配置数据库
@@ -314,25 +371,33 @@ npm run db:seed
 
 #### 5. 配置 Admin 环境变量
 
+创建 `.env.local` 文件在项目根目录：
+
 ```bash
-cd ../../apps/admin
 cp .env.example .env.local
 ```
 
 编辑 `.env.local`：
 
 ```env
+# 数据库配置
 DATABASE_URL="postgresql://postgres:postgres@localhost:5432/seo_monorepo"
+
+# 认证配置
 NEXTAUTH_URL="http://localhost:3100"
 NEXTAUTH_SECRET="生成密钥: openssl rand -base64 32"
+
+# 设置加密密钥
 SETTINGS_ENCRYPTION_KEY="生成密钥: openssl rand -base64 32"
+
+# OpenAI API（可选，可在后台配置）
+OPENAI_API_KEY="sk-..."
 ```
 
 #### 6. 启动开发服务器
 
 ```bash
-cd ../..
-npm run dev
+pnpm dev
 ```
 
 访问：
@@ -352,94 +417,74 @@ npm run dev
 
 ## 🚢 部署指南
 
-### Vercel 部署（推荐）⭐
+### 服务器部署（推荐）⭐
 
-完整的 Vercel 部署流程，30 分钟即可上线！
+支持使用宝塔面板快速部署到自己的服务器上，完全掌控数据和服务。
 
-#### 📋 准备工作（5 分钟）
+#### 📋 系统要求
 
-1. **生成密钥**
-   ```bash
-   openssl rand -base64 32  # NEXTAUTH_SECRET
-   openssl rand -base64 32  # SETTINGS_ENCRYPTION_KEY
-   ```
+- **服务器**: Ubuntu 20.04+ / CentOS 7+ / Debian 10+
+- **CPU**: 2核以上
+- **内存**: 4GB 以上推荐
+- **硬盘**: 20GB 以上
+- **软件**: Node.js 18.x+, PostgreSQL 14+, PM2, Nginx
 
-2. **准备 OpenAI API Key**（可选）
-   - 访问 https://platform.openai.com/api-keys
-   - 创建新的 API Key
+#### 📖 完整部署文档
 
-#### 🗄️ 步骤 1：创建 Vercel Postgres（5 分钟）
+详细的 12 步部署流程请查看：**[服务器部署指南.md](./服务器部署指南.md)**
 
-1. 登录 [Vercel Dashboard](https://vercel.com/dashboard)
-2. Storage → Create Database → Postgres
-3. 数据库名称：`seo-monorepo-db`
-4. 区域：`hnd1`（东京，延迟低）
-5. 点击 Create
+主要步骤包括：
+1. 安装宝塔面板
+2. 配置软件栈（Node.js, PostgreSQL, PM2, Nginx）
+3. 创建数据库
+4. 上传项目代码
+5. 配置环境变量
+6. 初始化数据库
+7. 构建应用
+8. 使用 PM2 启动服务
+9. 配置 Nginx 反向代理
+10. 配置 SSL 证书
+11. 安全加固
+12. 自动化部署
 
-#### 📦 步骤 2：部署 Admin（10 分钟）
-
-1. **导入项目**
-   - https://vercel.com/new
-   - 选择 GitHub 仓库：`seo-websites-monorepo`
-
-2. **配置项目**（⚠️ 重要）
-   ```
-   Project Name: seo-admin
-   Framework: Next.js
-   Root Directory: apps/admin  ⬅️ 必须设置
-
-   Build Command (Override):
-   cd ../.. && turbo run build --filter=admin
-
-   Install Command (Override):
-   npm install  ⬅️ 只需这个，不要添加其他参数
-   ```
-
-3. **配置环境变量**
-   ```env
-   NEXTAUTH_SECRET=生成的密钥
-   NEXTAUTH_URL=https://temp.vercel.app（临时值）
-   NEXT_PUBLIC_SITE_NAME=SEO 管理后台
-   ```
-
-4. **点击 Deploy**
-
-#### 🔗 步骤 3：连接数据库（5 分钟）
-
-1. Storage → Postgres → 选择数据库
-2. Connect to Project → 选择 `seo-admin`
-3. 勾选 Production, Preview, Development
-4. 点击 Connect
-
-#### ⚙️ 步骤 4：更新环境变量（5 分钟）
-
-1. Settings → Environment Variables
-2. 添加：
-   ```
-   DATABASE_URL=$POSTGRES_PRISMA_URL  ⬅️ 映射
-   ```
-3. 更新 `NEXTAUTH_URL` 为实际部署 URL
-4. Deployments → Redeploy
-
-#### 🗄️ 步骤 5：初始化数据库（5 分钟）
+#### ⚡ 快速部署命令
 
 ```bash
-# 拉取环境变量
-vercel login
-vercel link
-vercel env pull .env.local
+# 1. 拉取代码
+cd /www/wwwroot/
+git clone <your-repo-url> seo-websites
+cd seo-websites
 
-# 运行迁移
-cd packages/database
-npx dotenv -e ../../.env.local -- npx prisma db push
+# 2. 安装依赖
+pnpm install
 
-# 创建管理员
-npx dotenv -e ../../.env.local -- npm run db:seed
+# 3. 配置环境变量
+nano .env.local
+
+# 4. 初始化数据库
+pnpm db:migrate:deploy
+pnpm db:seed
+
+# 5. 构建应用
+pnpm build
+
+# 6. 启动服务
+pm2 start ecosystem.config.js
+pm2 save
 ```
 
-#### ✅ 完成！测试登录
+#### 📊 部署后检查
 
-访问：`https://你的域名.vercel.app/login`
+```bash
+# 查看进程状态
+pm2 list
+
+# 查看日志
+pm2 logs seo-admin
+
+# 实时监控
+pm2 monit
+```
 
 ---
 
@@ -449,34 +494,40 @@ npx dotenv -e ../../.env.local -- npm run db:seed
 seo-websites-monorepo/
 │
 ├── apps/                           # 应用程序
-│   ├── admin/                      # 后台管理 (localhost:3100)
+│   ├── admin/                      # 后台管理 (Port 3100)
 │   │   ├── app/
 │   │   │   ├── (auth)/login/       # 登录页面
 │   │   │   ├── (dashboard)/        # Dashboard 路由组
-│   │   │   │   ├── dashboard/      # 主仪表盘
+│   │   │   │   ├── dashboard/      # 主仪表盘 + SEO 健康度
 │   │   │   │   ├── websites/       # 网站管理
-│   │   │   │   ├── posts/          # 文章管理
+│   │   │   │   ├── domains/        # 多域名管理 🆕
+│   │   │   │   ├── posts/          # 文章管理 + SEO 评分
 │   │   │   │   ├── keywords/       # 关键词管理
 │   │   │   │   ├── spider/         # 蜘蛛池监控
 │   │   │   │   ├── sitemaps/       # Sitemap 管理
-│   │   │   │   └── settings/ 🆕   # 系统设置
+│   │   │   │   └── settings/       # 系统设置
 │   │   │   └── api/                # API 路由
-│   │   │       ├── ai/ 🆕         # AI SEO API
-│   │   │       ├── settings/ 🆕   # 设置 API
-│   │   │       ├── websites/       # 网站 API
-│   │   │       └── posts/          # 文章 API
+│   │   │       ├── ai/              # AI SEO API
+│   │   │       ├── settings/        # 设置 API
+│   │   │       ├── websites/        # 网站 API
+│   │   │       ├── domains/         # 域名 API 🆕
+│   │   │       ├── posts/           # 文章 API
+│   │   │       └── seo-health/      # SEO 健康度 API 🆕
 │   │   ├── components/
-│   │   │   ├── AISEOOptimizer.tsx 🆕
-│   │   │   ├── BatchOptimizer.tsx 🆕
+│   │   │   ├── AISEOOptimizer.tsx
+│   │   │   ├── BatchOptimizer.tsx
+│   │   │   ├── SEOHealthDashboard.tsx 🆕
 │   │   │   └── Sidebar.tsx
 │   │   ├── lib/
 │   │   │   ├── auth.ts             # NextAuth 配置
-│   │   │   └── openai-config.ts 🆕 # AI 配置
-│   │   └── vercel.json
+│   │   │   └── openai-config.ts    # AI 配置
+│   │   └── messages/               # i18n 翻译文件
+│   │       ├── en.json
+│   │       └── zh.json
 │   │
-│   ├── website-1/                  # 网站 1 (localhost:3001)
-│   ├── website-2/                  # 网站 2 (localhost:3002)
-│   └── website-tg/                 # 网站 TG (localhost:3003)
+│   ├── website-1/                  # 网站 1 (Port 3001)
+│   ├── website-2/                  # 网站 2 (Port 3002)
+│   └── website-tg/                 # 网站 TG (Port 3003)
 │
 ├── packages/                       # 共享包
 │   ├── database/                   # 数据库包
@@ -484,52 +535,43 @@ seo-websites-monorepo/
 │   │   │   ├── schema.prisma       # Prisma Schema
 │   │   │   └── seed.ts             # 种子数据
 │   │   ├── lib/
-│   │   │   └── settings.ts 🆕     # 设置服务
+│   │   │   └── settings.ts         # 设置服务
 │   │   └── .env                    # 数据库配置
 │   ├── seo-tools/                  # SEO 工具库
 │   ├── ui-components/              # 共享 UI 组件
-│   └── templates/                  # 内容模板库 🆕
+│   └── templates/                  # 内容模板库
 │
-├── docs/                           # 文档（详见下方）
+├── docs/                           # 文档（如有）
+├── 服务器部署指南.md                 # 服务器部署完整指南
+├── 使用说明书.md                     # 用户使用手册
 ├── .env.example                    # 环境变量示例
+├── ecosystem.config.js             # PM2 配置
 ├── turbo.json                      # Turborepo 配置
 └── package.json                    # 根 package.json
 ```
 
 ---
 
-## 📚 文档中心
+## 📚 使用文档
 
 ### 📖 核心文档
 
 | 文档 | 描述 | 链接 |
 |------|------|------|
-| **部署指南** | 完整的 Vercel 部署流程 | [DEPLOYMENT.md](./DEPLOYMENT.md) |
-| **部署清单** | 快速部署检查清单（70 分钟） | [DEPLOYMENT-CHECKLIST.md](./DEPLOYMENT-CHECKLIST.md) |
-| **Vercel 配置** | Vercel 项目配置详解 | [VERCEL-CONFIG.md](./VERCEL-CONFIG.md) |
+| **服务器部署指南** | 完整的 12 步服务器部署流程（宝塔面板） | [服务器部署指南.md](./服务器部署指南.md) |
+| **使用说明书** | 系统功能详细使用说明 | [使用说明书.md](./使用说明书.md) |
 
-### 🔧 配置文档
+### 🎯 快速链接
 
-| 文档 | 描述 | 链接 |
-|------|------|------|
-| **Vercel Postgres** | 数据库创建和配置 | [VERCEL-POSTGRES-SETUP.md](./VERCEL-POSTGRES-SETUP.md) |
-| **NextAuth 配置** | 身份验证配置详解 | [NEXTAUTH-SETUP.md](./NEXTAUTH-SETUP.md) |
-| **环境变量** | Turborepo 环境变量配置 | [TURBOREPO-ENV-VARS.md](./TURBOREPO-ENV-VARS.md) |
+**部署相关**：
+- 🚀 [服务器部署指南](./服务器部署指南.md) - 从零开始部署到生产环境
+- 🔧 [环境变量配置](./服务器部署指南.md#-第五步配置环境变量) - 必需的环境变量说明
+- 🗄️ [数据库初始化](./服务器部署指南.md#-第六步初始化数据库) - 数据库迁移和种子数据
 
-### ⚙️ 功能文档
-
-| 文档 | 描述 | 链接 |
-|------|------|------|
-| **系统设置** | 后台设置功能详解 | [SYSTEM-SETTINGS.md](./SYSTEM-SETTINGS.md) |
-| **系统设置快速开始** | 设置功能快速上手 | [SYSTEM-SETTINGS-SETUP.md](./SYSTEM-SETTINGS-SETUP.md) |
-
-### 📝 配置示例
-
-| 文件 | 描述 |
-|------|------|
-| `.env.example` | 根目录环境变量示例 |
-| `apps/admin/.env.example` | Admin 环境变量示例 |
-| `apps/website-*/.env.example` | 网站环境变量示例 |
+**使用相关**：
+- 📖 [使用说明书](./使用说明书.md) - 完整功能使用指南
+- 🎯 [快速开始](./使用说明书.md#-快速开始) - 5 分钟上手指南
+- ❓ [常见问题](./使用说明书.md#-常见问题-faq) - 10 个常见问题解答
 
 ---
 
@@ -541,7 +583,7 @@ seo-websites-monorepo/
 
 ```env
 # 数据库（必需）
-DATABASE_URL="postgresql://..."
+DATABASE_URL="postgresql://seo_user:password@localhost:5432/seo_websites"
 
 # 认证（必需）
 NEXTAUTH_SECRET="openssl rand -base64 32"
@@ -557,7 +599,7 @@ OPENAI_API_KEY="sk-..."
 #### 前台网站
 
 ```env
-DATABASE_URL="postgresql://..."
+DATABASE_URL="postgresql://seo_user:password@localhost:5432/seo_websites"
 NEXT_PUBLIC_SITE_URL="https://www.yourdomain.com"
 NEXT_PUBLIC_SITE_NAME="网站名称"
 ```
@@ -568,17 +610,27 @@ NEXT_PUBLIC_SITE_NAME="网站名称"
 数据库设置（/settings 页面） > 环境变量 > 默认值
 ```
 
+### 生成密钥
+
+```bash
+# 生成 NEXTAUTH_SECRET
+openssl rand -base64 32
+
+# 生成 SETTINGS_ENCRYPTION_KEY
+openssl rand -base64 32
+```
+
 ---
 
 ## 📊 使用统计
 
 ### 项目规模
 
-- 📁 **总文件数**: 150+
-- 📝 **代码行数**: 10,000+
+- 📁 **总文件数**: 200+
+- 📝 **代码行数**: 15,000+
 - 📦 **依赖包**: 500+
-- 🎨 **页面数**: 15+
-- 🔌 **API 端点**: 30+
+- 🎨 **页面数**: 20+
+- 🔌 **API 端点**: 40+
 
 ### 性能指标
 
@@ -597,33 +649,43 @@ NEXT_PUBLIC_SITE_NAME="网站名称"
 - ✅ **CSRF 保护** - NextAuth 内置保护
 - ✅ **SQL 注入防护** - Prisma ORM 参数化查询
 - ✅ **XSS 防护** - React 自动转义
+- ✅ **环境隔离** - 生产/开发/预览环境分离
 
 ---
 
 ## ❓ 常见问题
 
 <details>
-<summary><b>Q1: Vercel 构建失败怎么办？</b></summary>
+<summary><b>Q1: 如何修改管理员密码？</b></summary>
 
-**A:** 检查以下配置：
-1. Root Directory 设置为 `apps/admin`
-2. Build Command: `cd ../.. && turbo run build --filter=admin`
-3. Install Command: `npm install`（只需这个）
-4. 所有环境变量在 `turbo.json` 的 `globalEnv` 中声明
-
-详见：[VERCEL-CONFIG.md](./VERCEL-CONFIG.md)
+**A:** 首次登录后：
+1. 使用默认账号登录：`admin@example.com` / `admin123`
+2. 访问个人设置页面
+3. 修改密码为强密码
+4. 重新登录验证
 
 </details>
 
 <details>
-<summary><b>Q2: NextAuth 登录后立即退出？</b></summary>
+<summary><b>Q2: PM2 进程启动失败怎么办？</b></summary>
 
-**A:** `NEXTAUTH_URL` 与实际访问 URL 不匹配
-1. 确保使用 HTTPS（生产环境）
-2. URL 末尾不要有斜杠
-3. 完全匹配实际域名
+**A:** 排查步骤：
+```bash
+# 1. 查看详细错误日志
+pm2 logs seo-admin --lines 50
 
-详见：[NEXTAUTH-SETUP.md](./NEXTAUTH-SETUP.md)
+# 2. 检查端口占用
+netstat -tlnp | grep 3100
+
+# 3. 手动测试启动
+cd apps/admin
+npm run start
+
+# 4. 检查环境变量
+cat .env.local
+```
+
+详见：[服务器部署指南 - 常见问题排查](./服务器部署指南.md#-常见问题排查)
 
 </details>
 
@@ -631,36 +693,164 @@ NEXT_PUBLIC_SITE_NAME="网站名称"
 <summary><b>Q3: AI 功能无法使用？</b></summary>
 
 **A:** 两种配置方式：
-1. 环境变量：设置 `OPENAI_API_KEY`
-2. 后台配置：访问 `/settings` 页面配置
+1. **后台配置**（推荐）：访问 `/settings` 页面配置 OpenAI API Key
+2. **环境变量**：在 `.env.local` 中设置 `OPENAI_API_KEY`
 
 优先级：数据库配置 > 环境变量
 
-详见：[SYSTEM-SETTINGS.md](./SYSTEM-SETTINGS.md)
+测试 API Key 是否有效：
+- 访问后台 → 系统设置 → API 配置
+- 点击"测试连接"按钮
 
 </details>
 
 <details>
-<summary><b>Q4: 数据库连接失败？</b></summary>
+<summary><b>Q4: 如何添加新的域名？</b></summary>
+
+**A:** 添加域名步骤：
+1. 登录后台
+2. 访问"域名管理"页面
+3. 点击"添加域名"按钮
+4. 填写域名信息：
+   - 域名地址（如：example.com）
+   - 站点名称
+   - 站点描述
+   - Primary SEO 关键词
+   - Secondary SEO 关键词
+5. 配置 Nginx 反向代理指向该域名
+6. 配置 DNS 解析到服务器 IP
+
+详见：[使用说明书 - 域名管理](./使用说明书.md#3-域名管理)
+
+</details>
+
+<details>
+<summary><b>Q5: 如何查看 SEO 健康度评分？</b></summary>
 
 **A:**
-1. 确认使用 `POSTGRES_PRISMA_URL`（带连接池）
-2. 检查连接字符串包含 `?sslmode=require`
-3. 验证数据库已连接到 Vercel 项目
+1. 登录后台
+2. 访问"Dashboard"页面
+3. 查看"SEO 健康度监控"卡片
+4. 点击"查看详情"可以看到：
+   - 综合 SEO 评分（0-100）
+   - 各项指标详情
+   - 30 天趋势图
+   - 优化建议
 
-详见：[VERCEL-POSTGRES-SETUP.md](./VERCEL-POSTGRES-SETUP.md)
+评分维度：
+- 内容质量 (30%)
+- 技术 SEO (25%)
+- 爬虫活跃度 (20%)
+- 关键词排名 (15%)
+- 索引状态 (10%)
 
 </details>
 
 <details>
-<summary><b>Q5: 如何添加新的环境变量？</b></summary>
+<summary><b>Q6: Nginx 502 Bad Gateway 错误？</b></summary>
 
-**A:** 三步流程：
-1. 在 Vercel 添加环境变量
-2. 在 `turbo.json` 的 `globalEnv` 数组中添加
-3. 提交并推送代码
+**A:** 解决方法：
+```bash
+# 1. 检查 PM2 进程状态
+pm2 list
 
-详见：[TURBOREPO-ENV-VARS.md](./TURBOREPO-ENV-VARS.md)
+# 2. 重启应用
+pm2 restart seo-admin
+
+# 3. 检查端口是否监听
+netstat -tlnp | grep 3100
+
+# 4. 检查 Nginx 配置
+nginx -t
+
+# 5. 重启 Nginx
+systemctl restart nginx
+```
+
+</details>
+
+<details>
+<summary><b>Q7: 数据库连接失败？</b></summary>
+
+**A:** 检查步骤：
+```bash
+# 1. 测试数据库连接
+psql -U seo_user -d seo_websites -h localhost
+
+# 2. 检查 PostgreSQL 状态
+systemctl status postgresql
+
+# 3. 检查 DATABASE_URL 格式
+# 正确格式：postgresql://用户名:密码@主机:端口/数据库名
+echo $DATABASE_URL
+
+# 4. 检查防火墙
+ufw status
+```
+
+</details>
+
+<details>
+<summary><b>Q8: 如何备份数据？</b></summary>
+
+**A:** 使用宝塔面板：
+1. 登录宝塔面板
+2. 数据库 → 选择数据库 → 备份
+3. 设置自动备份计划（推荐每天凌晨）
+4. 保留 7 天备份
+
+手动备份：
+```bash
+pg_dump -U seo_user seo_websites > backup_$(date +%Y%m%d).sql
+```
+
+恢复备份：
+```bash
+psql -U seo_user seo_websites < backup_20250113.sql
+```
+
+</details>
+
+<details>
+<summary><b>Q9: 如何更新应用到最新版本？</b></summary>
+
+**A:** 使用部署脚本：
+```bash
+cd /www/wwwroot/seo-websites
+./deploy.sh
+```
+
+或手动执行：
+```bash
+# 1. 拉取最新代码
+git pull origin master
+
+# 2. 安装依赖
+pnpm install
+
+# 3. 运行数据库迁移
+pnpm db:migrate:deploy
+
+# 4. 重新构建
+pnpm build
+
+# 5. 重启服务
+pm2 restart all
+```
+
+</details>
+
+<details>
+<summary><b>Q10: 如何配置多个前台网站？</b></summary>
+
+**A:** 配置步骤：
+1. 在后台创建多个网站记录
+2. 为每个网站配置域名
+3. 修改 `ecosystem.config.js` 添加应用配置
+4. 配置 Nginx 反向代理
+5. 启动 PM2 进程
+
+示例配置详见：[服务器部署指南 - PM2 配置](./服务器部署指南.md#81-创建-pm2-配置文件)
 
 </details>
 
@@ -671,21 +861,25 @@ NEXT_PUBLIC_SITE_NAME="网站名称"
 ### ✅ v1.0 - 当前版本（已完成）
 
 - [x] 多网站管理系统
+- [x] 多域名管理功能
 - [x] 内容分发功能
 - [x] AI SEO 优化（单篇 + 批量）
+- [x] SEO 健康度监控
 - [x] 系统设置管理
 - [x] 蜘蛛池监控
 - [x] 关键词跟踪
 - [x] Sitemap 管理
-- [x] 完整部署文档
+- [x] 完整部署文档（服务器 + 宝塔面板）
+- [x] 双语支持（中文 + English）
 
 ### 🚧 v1.1 - 计划中
 
 - [ ] 批量文章导入/导出（CSV/JSON）
 - [ ] 高级 Markdown 编辑器
-- [ ] 图片 CDN 集成（Cloudinary/AWS S3）
+- [ ] 图片 CDN 集成（本地存储/OSS）
 - [ ] 邮件通知系统
-- [ ] 数据备份和恢复
+- [ ] 数据备份和恢复工具
+- [ ] API 文档（Swagger）
 
 ### 💡 v2.0 - 未来规划
 
@@ -695,6 +889,7 @@ NEXT_PUBLIC_SITE_NAME="网站名称"
 - [ ] 移动端 App
 - [ ] 插件系统
 - [ ] 自定义主题
+- [ ] Docker 容器化部署
 
 ---
 
@@ -741,6 +936,7 @@ MIT License © 2025
 - [Vercel AI SDK](https://sdk.vercel.ai/) - AI 集成
 - [OpenAI](https://openai.com/) - GPT-4 模型
 - [NextAuth.js](https://next-auth.js.org/) - 身份验证
+- [宝塔面板](https://www.bt.cn/) - 服务器管理
 
 ---
 
@@ -748,17 +944,22 @@ MIT License © 2025
 
 - 🐛 **Issues**: [GitHub Issues](https://github.com/onedeploy1010/seo-websites-monorepo/issues)
 - 💬 **Discussions**: [GitHub Discussions](https://github.com/onedeploy1010/seo-websites-monorepo/discussions)
+- 📖 **文档**: [服务器部署指南](./服务器部署指南.md) | [使用说明书](./使用说明书.md)
 
 ---
 
 <div align="center">
 
-### 🌟
+### 🌟 Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=onedeploy1010/seo-websites-monorepo&type=Date)](https://star-history.com/#onedeploy1010/seo-websites-monorepo&Date)
+
+### ✨
 
 Made with ❤️ by Onelong
 
-**状态**: ✅ 生产就绪 | **文档**: ✅ 完整 | **AI**: 🆕 已集成 | **部署**: ⚡ 一键部署
+**状态**: ✅ 生产就绪 | **文档**: ✅ 完整 | **AI**: ✅ 已集成 | **部署**: ⚡ 服务器 + 宝塔面板
 
-[开始使用](#-快速开始) • [查看文档](#-文档中心) • [立即部署](#-部署指南)
+[开始使用](#-快速开始) • [查看文档](#-使用文档) • [立即部署](#-部署指南)
 
 </div>
