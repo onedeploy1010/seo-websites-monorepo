@@ -148,7 +148,8 @@ echo ""
 echo -e "${YELLOW}步骤 5/11: 安装项目依赖${NC}"
 cd "$PROJECT_DIR"
 echo -e "${BLUE}使用 npx pnpm 安装依赖（避免路径问题）...${NC}"
-npx pnpm install
+# 使用 --force 跳过交互式确认，在自动化部署中避免 readline 冲突
+npx pnpm install --force
 echo -e "${GREEN}✅ 依赖安装完成${NC}"
 echo ""
 
