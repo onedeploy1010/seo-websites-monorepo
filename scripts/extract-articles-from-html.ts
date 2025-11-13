@@ -18,7 +18,7 @@ interface Article {
   sourceUrl?: string
 }
 
-async function extractArticles(htmlPath: string): Promise<Article[]> {
+function extractArticles(htmlPath: string): Article[] {
   console.log('📖 读取HTML文件...')
   const htmlContent = fs.readFileSync(htmlPath, 'utf-8')
 
