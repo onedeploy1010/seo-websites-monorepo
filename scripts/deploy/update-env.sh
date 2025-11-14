@@ -5,9 +5,11 @@ echo "========================================="
 echo "更新 .env.local 文件"
 echo "========================================="
 
-# 获取脚本所在目录（项目根目录）
-PROJECT_ROOT="$(cd "$(dirname "$0")" && pwd)"
+# 获取项目根目录（scripts/deploy 的上两级）
+PROJECT_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 cd "$PROJECT_ROOT"
+
+echo "项目根目录: $PROJECT_ROOT"
 
 # 备份旧的 .env.local
 if [ -f .env.local ]; then
