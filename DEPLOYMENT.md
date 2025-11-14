@@ -1,6 +1,47 @@
 # 🚀 服务器部署快速指南
 
-## ✨ 一键部署（推荐）
+## 🎯 超级简单 - 一键部署（推荐）
+
+在服务器上只需执行 3 个命令：
+
+```bash
+cd /www/wwwroot/seo-websites-monorepo
+git pull origin master
+bash deploy-complete.sh
+```
+
+**就这么简单！** 🎉
+
+这个脚本会自动完成：
+- ✅ 更新 .env.local（包含 TAVILY_API_KEY）
+- ✅ 拉取最新代码
+- ✅ 安装依赖
+- ✅ 生成 Prisma Client
+- ✅ 构建所有应用
+- ✅ 重启 PM2 服务
+
+---
+
+## 🛠️ 其他可用脚本
+
+### 只修复 502 错误
+```bash
+bash fix-502.sh
+```
+
+### 诊断 502 错误
+```bash
+bash diagnose-502.sh
+```
+
+### 只更新环境变量
+```bash
+bash update-env.sh
+```
+
+---
+
+## 📖 原有部署方式
 
 ### 在服务器上执行：
 
