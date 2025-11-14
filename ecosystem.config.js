@@ -11,8 +11,9 @@
  *
  * 注意：
  * - 请确保已经运行 `pnpm build` 构建所有应用
- * - 请确保 .env.local 文件配置正确
+ * - 请确保 .env.production 文件配置正确（包含 DATABASE_URL, NEXTAUTH_SECRET 等）
  * - 日志文件会保存在 /www/wwwlogs/ 目录
+ * - 环境变量从 .env.production 文件加载
  */
 
 module.exports = {
@@ -22,8 +23,10 @@ module.exports = {
     // ==========================================
     {
       name: 'seo-admin',
-      cwd: '/www/wwwroot/seo-websites-monorepo',
-      script: './start-admin.sh',
+      cwd: '/www/wwwroot/seo-websites-monorepo/apps/admin',
+      script: 'node_modules/next/dist/bin/next',
+      args: 'start -p 3100',
+      env_file: '/www/wwwroot/seo-websites-monorepo/.env.production',
       env: {
         NODE_ENV: 'production',
         PORT: 3100
@@ -46,8 +49,10 @@ module.exports = {
     // ==========================================
     {
       name: 'seo-website-1',
-      cwd: '/www/wwwroot/seo-websites-monorepo',
-      script: './start-website-1.sh',
+      cwd: '/www/wwwroot/seo-websites-monorepo/apps/website-1',
+      script: 'node_modules/next/dist/bin/next',
+      args: 'start -p 3001',
+      env_file: '/www/wwwroot/seo-websites-monorepo/.env.production',
       env: {
         NODE_ENV: 'production',
         PORT: 3001
@@ -70,8 +75,10 @@ module.exports = {
     // ==========================================
     {
       name: 'seo-website-2',
-      cwd: '/www/wwwroot/seo-websites-monorepo',
-      script: './start-website-2.sh',
+      cwd: '/www/wwwroot/seo-websites-monorepo/apps/website-2',
+      script: 'node_modules/next/dist/bin/next',
+      args: 'start -p 3002',
+      env_file: '/www/wwwroot/seo-websites-monorepo/.env.production',
       env: {
         NODE_ENV: 'production',
         PORT: 3002
@@ -94,8 +101,10 @@ module.exports = {
     // ==========================================
     {
       name: 'seo-website-tg',
-      cwd: '/www/wwwroot/seo-websites-monorepo',
-      script: './start-website-tg.sh',
+      cwd: '/www/wwwroot/seo-websites-monorepo/apps/website-tg',
+      script: 'node_modules/next/dist/bin/next',
+      args: 'start -p 3003',
+      env_file: '/www/wwwroot/seo-websites-monorepo/.env.production',
       env: {
         NODE_ENV: 'production',
         PORT: 3003
