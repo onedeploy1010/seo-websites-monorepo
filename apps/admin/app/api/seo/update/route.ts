@@ -113,6 +113,7 @@ export async function GET(request: NextRequest) {
       serpApi: {
         configured: !!process.env.SERPAPI_KEY,
         hasKey: !!process.env.SERPAPI_KEY,
+        quota: undefined as { total: number; used: number; remaining: number } | undefined,
       },
       googleSearchConsole: {
         configured: !!(
@@ -131,15 +132,12 @@ export async function GET(request: NextRequest) {
         )
         const quotaData = await quotaResponse.json()
 
-        status.serpApi = {
-          ...status.serpApi,
-          quota: {
-            total: quotaData.total_searches_limit || 0,
-            used: quotaData.total_searches || 0,
-            remaining:
-              (quotaData.total_searches_limit || 0) -
-              (quotaData.total_searches || 0),
-          },
+        status.serpApi.quota = {
+          total: quotaData.total_searches_limit || 0,
+          used: quotaData.total_searches || 0,
+          remaining:
+            (quotaData.total_searches_limit || 0) -
+            (quotaData.total_searches || 0),
         }
       } catch (error) {
         console.error('Failed to fetch SerpApi quota:', error)
