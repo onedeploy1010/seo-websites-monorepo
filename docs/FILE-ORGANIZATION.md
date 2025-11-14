@@ -19,14 +19,16 @@
 
 ```
 scripts/
-├── deploy.sh                      # 一键部署脚本（推荐）
-├── update-production-domains.ts   # 更新生产域名
-├── update-keyword-data.ts         # SEO 数据更新
-├── nginx-config-generator.sh      # Nginx 配置生成器
-├── pm2-manage.sh                  # PM2 管理工具
-├── init-database.sh               # 数据库初始化
-├── quick-setup.sh                 # 快速设置
-└── legacy/                        # 旧脚本存档
+├── create-admin-user.js             # 创建管理员用户
+├── deploy.sh                        # 一键部署脚本（推荐）
+├── update-production-domains.ts     # 更新生产域名
+├── update-keyword-data.ts           # SEO 数据更新
+├── server-update.sh                 # 服务器更新脚本
+├── nginx-config-generator.sh        # Nginx 配置生成器
+├── pm2-manage.sh                    # PM2 管理工具
+├── init-database.sh                 # 数据库初始化
+├── quick-setup.sh                   # 快速设置
+└── legacy/                          # 旧脚本存档
     ├── check-env-status.sh
     ├── debug-build.sh
     ├── diagnose-website-2.sh
@@ -38,21 +40,43 @@ scripts/
     └── setup-database-env.sh
 ```
 
-### docs/ - 完整文档
+### docs/ - 完整文档（已分类整理）
 
 ```
 docs/
-├── DEPLOYMENT-GUIDE.md                # 完整部署指南
-├── PRODUCTION-DOMAINS-SETUP.md        # 生产域名配置
-├── TAVILY-QUICK-START.md              # Tavily API 使用
-├── ACCESSIBLE-SEO-APIS.md             # SEO API 对比
-├── QUICK-START-REAL-DATA.md           # 快速获取真实数据
-├── SEO-DATA-INTEGRATION.md            # SEO 数据集成
-├── BAOTA-COMPLETE-GUIDE.md            # Baota 完整指南
-├── baota-individual-site-proxy-guide.md  # Baota 反向代理
-├── baota-reverse-proxy-guide.md       # Baota 配置
-├── MULTI_DOMAIN_SEO_STRATEGY.md       # 多域名 SEO 策略
-└── KEYWORDS_MANAGEMENT.md             # 关键词管理
+├── README.md                         # 📖 文档导航中心
+├── FILE-ORGANIZATION.md              # 📁 本文件 - 项目文件组织说明
+│
+├── deployment/                       # 📦 部署相关文档
+│   ├── DEPLOYMENT-GUIDE.md                # 完整部署指南
+│   ├── PRODUCTION-DOMAINS-SETUP.md        # 生产域名配置
+│   ├── BAOTA-COMPLETE-GUIDE.md            # 宝塔面板完整指南
+│   ├── baota-individual-site-proxy-guide.md  # 单站反向代理
+│   ├── baota-reverse-proxy-guide.md       # 反向代理通用指南
+│   ├── deploy-to-server.md                # 服务器部署步骤
+│   ├── 服务器部署指南.md                  # 中文部署指南
+│   ├── 域名配置指南.md                    # 中文域名配置
+│   └── baota-15-domains-final.txt         # 域名列表
+│
+├── seo/                              # 🔍 SEO 相关文档
+│   ├── TAVILY-QUICK-START.md              # Tavily API 快速开始
+│   ├── ACCESSIBLE-SEO-APIS.md             # SEO API 对比与选择
+│   ├── SEO-DATA-INTEGRATION.md            # SEO 数据集成指南
+│   ├── QUICK-START-REAL-DATA.md           # 快速获取真实数据
+│   ├── KEYWORDS_MANAGEMENT.md             # 关键词管理
+│   ├── MULTI_DOMAIN_SEO_STRATEGY.md       # 多域名 SEO 策略
+│   ├── SEO-KEYWORD-OPTIMIZATION-GUIDE.md  # 关键词优化指南
+│   ├── SEO-TOOLS-USAGE.md                 # SEO 工具使用
+│   └── SUMMARY-REAL-DATA-INTEGRATION.md   # 真实数据集成总结
+│
+├── system/                           # ⚙️ 系统管理文档
+│   ├── SYSTEM-SETTINGS.md                 # 系统设置说明
+│   ├── SYSTEM-SETTINGS-SETUP.md           # 系统设置配置
+│   └── WORK-SUMMARY.md                    # 工作总结
+│
+└── usage/                            # 📖 使用说明
+    ├── 使用说明书.md                      # 完整使用手册（中文）
+    └── website-2-html-migration-summary.md # Website-2 迁移总结
 ```
 
 ### backups/ - 备份文件夹（新增）
@@ -110,8 +134,10 @@ npx tsx scripts/update-keyword-data.ts
 - 📦 `check-env-status.sh` - 环境检查（可用 menu.sh 选项 18）
 - 📦 `debug-build.sh` - 调试构建
 - 📦 `diagnose-website-2.sh` - 诊断脚本
+- 📦 `diagnose-502.sh` - 502 错误诊断
 - 📦 `fix-nextauth-secret.sh` - 修复密钥
 - 📦 `fix-server-build.sh` - 修复构建
+- 📦 `fix-502.sh` - 修复 502 错误
 - 📦 `quick-fix-baota.sh` - Baota 快速修复
 - 📦 `quick-setup-env.sh` - 快速环境设置
 - 📦 `restart-services.sh` - 重启服务（可用 menu.sh 选项 7）
@@ -124,12 +150,16 @@ npx tsx scripts/update-keyword-data.ts
 
 ## 📊 整理统计
 
-- ✅ 删除临时文件：5 个
-- ✅ 移动到 legacy：9 个
-- ✅ 移动到 scripts：2 个
-- ✅ 移动到 docs：2 个
-- ✅ 新增文件：2 个（menu.sh, FILE-ORGANIZATION.md）
-- ✅ 保留根目录：3 个核心文件
+- ✅ 删除临时文件：5 个（start-*.sh, reset-admin-password.js）
+- ✅ 移动到 scripts/legacy：12 个（修复和诊断脚本）
+- ✅ 移动到 scripts：3 个（管理工具脚本）
+- ✅ 文档分类整理：23 个文档 → 4 个分类文件夹
+  - deployment/ - 9 个部署相关文档
+  - seo/ - 9 个 SEO 相关文档
+  - system/ - 3 个系统管理文档
+  - usage/ - 2 个使用说明文档
+- ✅ 新增文件：3 个（menu.sh, FILE-ORGANIZATION.md, docs/README.md）
+- ✅ 保留根目录：4 个核心文件（README.md, DEPLOYMENT.md, menu.sh, ecosystem.config.js）
 
 ---
 
@@ -254,11 +284,13 @@ pm2 monit  # 实时监控
 
 | 文档 | 位置 | 用途 |
 |------|------|------|
+| 文档导航 | `docs/README.md` | 📖 所有文档的导航中心 |
 | 快速部署 | `DEPLOYMENT.md` | 5分钟部署指南 |
-| 完整部署 | `docs/DEPLOYMENT-GUIDE.md` | 详细部署步骤 |
-| 域名配置 | `docs/PRODUCTION-DOMAINS-SETUP.md` | 15个域名配置 |
-| SEO 集成 | `docs/ACCESSIBLE-SEO-APIS.md` | API 对比选择 |
-| Tavily 使用 | `docs/TAVILY-QUICK-START.md` | Tavily API 指南 |
+| 完整部署 | `docs/deployment/DEPLOYMENT-GUIDE.md` | 详细部署步骤 |
+| 域名配置 | `docs/deployment/PRODUCTION-DOMAINS-SETUP.md` | 15个域名配置 |
+| SEO 集成 | `docs/seo/ACCESSIBLE-SEO-APIS.md` | API 对比选择 |
+| Tavily 使用 | `docs/seo/TAVILY-QUICK-START.md` | Tavily API 指南 |
+| 使用手册 | `docs/usage/使用说明书.md` | 完整使用说明（中文） |
 
 ---
 
