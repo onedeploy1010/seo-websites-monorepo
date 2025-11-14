@@ -7,9 +7,9 @@ echo "========================================="
 echo "SEO 网站管理系统 - 强制部署"
 echo "========================================="
 
-# 获取脚本所在目录（项目根目录）
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-cd "$SCRIPT_DIR"
+# 获取项目根目录（scripts/deploy 的上两级）
+PROJECT_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+cd "$PROJECT_ROOT"
 
 # 步骤 1: 备份本地修改
 echo ""
@@ -25,7 +25,7 @@ git reset --hard origin/master
 # 步骤 3: 更新环境变量
 echo ""
 echo "步骤 3/8: 更新 .env.local 文件..."
-bash update-env.sh
+bash scripts/deploy/update-env.sh
 
 # 步骤 4: 安装 dotenv-cli
 echo ""
@@ -40,7 +40,7 @@ pnpm install
 # 步骤 6: 生成 Prisma Client
 echo ""
 echo "步骤 6/8: 生成 Prisma Client..."
-npx prisma generate
+npx prisma generate --schema=packages/database/prisma/schema.prisma
 
 # 步骤 7: 构建所有应用
 echo ""

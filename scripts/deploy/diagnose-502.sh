@@ -6,8 +6,8 @@ echo "诊断 502 Bad Gateway 错误"
 echo "========================================="
 
 # 获取脚本所在目录（项目根目录）
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-cd "$SCRIPT_DIR"
+PROJECT_ROOT="$(cd "$(dirname "$0")" && pwd)"
+cd "$PROJECT_ROOT"
 
 echo ""
 echo "1. 检查 PM2 进程状态:"

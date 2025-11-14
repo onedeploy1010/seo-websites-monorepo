@@ -6,8 +6,8 @@ echo "开始修复 502 Bad Gateway 错误"
 echo "========================================="
 
 # 获取脚本所在目录（项目根目录）
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-cd "$SCRIPT_DIR"
+PROJECT_ROOT="$(cd "$(dirname "$0")" && pwd)"
+cd "$PROJECT_ROOT"
 
 echo ""
 echo "1. 确保 dotenv-cli 已安装..."

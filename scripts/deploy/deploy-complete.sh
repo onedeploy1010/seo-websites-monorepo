@@ -7,14 +7,14 @@ echo "========================================="
 echo "SEO 网站管理系统 - 一键部署"
 echo "========================================="
 
-# 获取脚本所在目录（项目根目录）
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-cd "$SCRIPT_DIR"
+# 获取项目根目录（scripts/deploy 的上两级）
+PROJECT_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+cd "$PROJECT_ROOT"
 
 # 步骤 1: 更新环境变量
 echo ""
 echo "步骤 1/7: 更新 .env.local 文件..."
-bash update-env.sh
+bash scripts/deploy/update-env.sh
 
 # 步骤 2: 拉取最新代码
 echo ""
@@ -34,7 +34,7 @@ pnpm install
 # 步骤 5: 生成 Prisma Client
 echo ""
 echo "步骤 5/7: 生成 Prisma Client..."
-npx prisma generate
+npx prisma generate --schema=packages/database/prisma/schema.prisma
 
 # 步骤 6: 构建所有应用
 echo ""
@@ -44,7 +44,7 @@ pnpm run build
 # 步骤 7: 重启服务
 echo ""
 echo "步骤 7/7: 重启 PM2 服务..."
-chmod +x start-*.sh
+chmod +x scripts/deploy/start-*.sh
 pm2 delete all 2>/dev/null || true
 pm2 start ecosystem.config.js
 pm2 save

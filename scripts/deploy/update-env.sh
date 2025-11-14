@@ -6,8 +6,8 @@ echo "更新 .env.local 文件"
 echo "========================================="
 
 # 获取脚本所在目录（项目根目录）
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-cd "$SCRIPT_DIR"
+PROJECT_ROOT="$(cd "$(dirname "$0")" && pwd)"
+cd "$PROJECT_ROOT"
 
 # 备份旧的 .env.local
 if [ -f .env.local ]; then
