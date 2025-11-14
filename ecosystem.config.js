@@ -13,8 +13,55 @@
  * - 请确保已经运行 `pnpm build` 构建所有应用
  * - 请确保 .env.production 文件配置正确（包含 DATABASE_URL, NEXTAUTH_SECRET 等）
  * - 日志文件会保存在 /www/wwwlogs/ 目录
- * - 环境变量从 .env.production 文件加载
+ * - 环境变量从 .env.production 文件自动加载
  */
+
+const fs = require('fs');
+const path = require('path');
+
+// 读取并解析 .env.production 文件
+function loadEnvFile(filePath) {
+  const envVars = {};
+
+  if (fs.existsSync(filePath)) {
+    const content = fs.readFileSync(filePath, 'utf8');
+    const lines = content.split('\n');
+
+    lines.forEach(line => {
+      line = line.trim();
+
+      // 跳过注释和空行
+      if (!line || line.startsWith('#')) {
+        return;
+      }
+
+      // 解析 KEY=VALUE 或 KEY="VALUE"
+      const match = line.match(/^([^=]+)=(.*)$/);
+      if (match) {
+        const key = match[1].trim();
+        let value = match[2].trim();
+
+        // 移除引号
+        if ((value.startsWith('"') && value.endsWith('"')) ||
+            (value.startsWith("'") && value.endsWith("'"))) {
+          value = value.slice(1, -1);
+        }
+
+        envVars[key] = value;
+      }
+    });
+  }
+
+  return envVars;
+}
+
+// 加载环境变量
+const envFilePath = path.join(__dirname, '.env.production');
+const envVars = loadEnvFile(envFilePath);
+
+console.log('✅ Loaded environment variables from .env.production');
+console.log(`   DATABASE_URL: ${envVars.DATABASE_URL ? envVars.DATABASE_URL.replace(/:[^:@]+@/, ':****@') : 'NOT FOUND'}`);
+console.log(`   NEXTAUTH_SECRET: ${envVars.NEXTAUTH_SECRET ? '****' : 'NOT FOUND'}`);
 
 module.exports = {
   apps: [
@@ -26,10 +73,10 @@ module.exports = {
       cwd: '/www/wwwroot/seo-websites-monorepo/apps/admin',
       script: 'node_modules/next/dist/bin/next',
       args: 'start -p 3100',
-      env_file: '/www/wwwroot/seo-websites-monorepo/.env.production',
       env: {
         NODE_ENV: 'production',
-        PORT: 3100
+        PORT: 3100,
+        ...envVars  // 传入所有环境变量
       },
       instances: 1,
       exec_mode: 'cluster',
@@ -52,10 +99,10 @@ module.exports = {
       cwd: '/www/wwwroot/seo-websites-monorepo/apps/website-1',
       script: 'node_modules/next/dist/bin/next',
       args: 'start -p 3001',
-      env_file: '/www/wwwroot/seo-websites-monorepo/.env.production',
       env: {
         NODE_ENV: 'production',
-        PORT: 3001
+        PORT: 3001,
+        ...envVars
       },
       instances: 1,
       exec_mode: 'cluster',
@@ -78,10 +125,10 @@ module.exports = {
       cwd: '/www/wwwroot/seo-websites-monorepo/apps/website-2',
       script: 'node_modules/next/dist/bin/next',
       args: 'start -p 3002',
-      env_file: '/www/wwwroot/seo-websites-monorepo/.env.production',
       env: {
         NODE_ENV: 'production',
-        PORT: 3002
+        PORT: 3002,
+        ...envVars
       },
       instances: 1,
       exec_mode: 'cluster',
@@ -104,10 +151,10 @@ module.exports = {
       cwd: '/www/wwwroot/seo-websites-monorepo/apps/website-tg',
       script: 'node_modules/next/dist/bin/next',
       args: 'start -p 3003',
-      env_file: '/www/wwwroot/seo-websites-monorepo/.env.production',
       env: {
         NODE_ENV: 'production',
-        PORT: 3003
+        PORT: 3003,
+        ...envVars
       },
       instances: 1,
       exec_mode: 'cluster',
