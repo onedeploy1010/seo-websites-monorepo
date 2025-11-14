@@ -22,10 +22,8 @@ module.exports = {
     // ==========================================
     {
       name: 'seo-admin',
-      cwd: '/www/wwwroot/seo-websites-monorepo/apps/admin',
-      script: 'node_modules/next/dist/bin/next',
-      args: 'start -p 3100',
-      env_file: '/www/wwwroot/seo-websites-monorepo/.env.local',
+      cwd: '/www/wwwroot/seo-websites-monorepo',
+      script: './start-admin.sh',
       env: {
         NODE_ENV: 'production',
         PORT: 3100
@@ -48,10 +46,8 @@ module.exports = {
     // ==========================================
     {
       name: 'seo-website-1',
-      cwd: '/www/wwwroot/seo-websites-monorepo/apps/website-1',
-      script: 'node_modules/next/dist/bin/next',
-      args: 'start -p 3001',
-      env_file: '/www/wwwroot/seo-websites-monorepo/.env.local',
+      cwd: '/www/wwwroot/seo-websites-monorepo',
+      script: './start-website-1.sh',
       env: {
         NODE_ENV: 'production',
         PORT: 3001
@@ -74,10 +70,8 @@ module.exports = {
     // ==========================================
     {
       name: 'seo-website-2',
-      cwd: '/www/wwwroot/seo-websites-monorepo/apps/website-2',
-      script: 'node_modules/next/dist/bin/next',
-      args: 'start -p 3002',
-      env_file: '/www/wwwroot/seo-websites-monorepo/.env.local',
+      cwd: '/www/wwwroot/seo-websites-monorepo',
+      script: './start-website-2.sh',
       env: {
         NODE_ENV: 'production',
         PORT: 3002
@@ -100,10 +94,8 @@ module.exports = {
     // ==========================================
     {
       name: 'seo-website-tg',
-      cwd: '/www/wwwroot/seo-websites-monorepo/apps/website-tg',
-      script: 'node_modules/next/dist/bin/next',
-      args: 'start -p 3003',
-      env_file: '/www/wwwroot/seo-websites-monorepo/.env.local',
+      cwd: '/www/wwwroot/seo-websites-monorepo',
+      script: './start-website-tg.sh',
       env: {
         NODE_ENV: 'production',
         PORT: 3003
