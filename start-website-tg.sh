@@ -1,3 +1,0 @@
-#!/bin/bash
-cd /www/wwwroot/seo-websites-monorepo
-exec dotenv -e /www/wwwroot/seo-websites-monorepo/.env.local -- node /www/wwwroot/seo-websites-monorepo/apps/website-tg/node_modules/next/dist/bin/next start -p 3003
