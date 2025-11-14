@@ -25,6 +25,7 @@ module.exports = {
       cwd: '/www/wwwroot/seo-websites-monorepo/apps/admin',
       script: 'node_modules/next/dist/bin/next',
       args: 'start -p 3100',
+      env_file: '/www/wwwroot/seo-websites-monorepo/.env.local',
       env: {
         NODE_ENV: 'production',
         PORT: 3100
@@ -50,6 +51,7 @@ module.exports = {
       cwd: '/www/wwwroot/seo-websites-monorepo/apps/website-1',
       script: 'node_modules/next/dist/bin/next',
       args: 'start -p 3001',
+      env_file: '/www/wwwroot/seo-websites-monorepo/.env.local',
       env: {
         NODE_ENV: 'production',
         PORT: 3001
@@ -75,6 +77,7 @@ module.exports = {
       cwd: '/www/wwwroot/seo-websites-monorepo/apps/website-2',
       script: 'node_modules/next/dist/bin/next',
       args: 'start -p 3002',
+      env_file: '/www/wwwroot/seo-websites-monorepo/.env.local',
       env: {
         NODE_ENV: 'production',
         PORT: 3002
@@ -100,6 +103,7 @@ module.exports = {
       cwd: '/www/wwwroot/seo-websites-monorepo/apps/website-tg',
       script: 'node_modules/next/dist/bin/next',
       args: 'start -p 3003',
+      env_file: '/www/wwwroot/seo-websites-monorepo/.env.local',
       env: {
         NODE_ENV: 'production',
         PORT: 3003
